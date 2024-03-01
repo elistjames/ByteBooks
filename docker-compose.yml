@@ -5,9 +5,9 @@ services:
       dockerfile: Dockerfile-web
     container_name: web
     ports:
-      - "8080:80"
+      - "8888:3000"
     volumes:
-      - ./src:/var/www/html
+      - ./my-react-app:/app/my-react-app
     depends_on:
       - db
   db:
@@ -21,7 +21,7 @@ services:
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
 

@@ -5,7 +5,7 @@ RUN chmod 644 /etc/mysql/mariadb.conf.d/custom-config.cnf
 
 COPY ./database-scripts/ /docker-entrypoint-initdb.d/
 
-RUN apt-get update && apt-get install -y vim
+# RUN apt-get update && apt-get install -y vim
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
   CMD mysqladmin ping -h localhost || exit 1
