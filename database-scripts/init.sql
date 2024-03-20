@@ -12,12 +12,6 @@ CREATE TABLE admins (
     password VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE guest_activities (
-    activity_id INT AUTO_INCREMENT PRIMARY KEY,
-    activity_type ENUM('view', 'like', 'comment') NOT NULL,
-    post_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 
 
 CREATE TABLE posts (
