@@ -4,10 +4,11 @@ services:
       context: .
       dockerfile: Dockerfile-web
     container_name: web
+    stdin_open: true
     ports:
-      - "8888:3000"
+      - "3000:3000"
     volumes:
-      - ./my-react-app:/app/my-react-app
+      - ./my-react-app:/app
     depends_on:
       - db
   db:

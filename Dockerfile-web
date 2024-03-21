@@ -1,10 +1,12 @@
 FROM node:alpine
 
-COPY . .
+WORKDIR /app
 
-WORKDIR /my-react-app
+
+COPY my-react-app/ /app
 
 RUN npm install
 
-CMD ["npm", "start"]
+
+CMD ["npm", "run", "start-watch"]
 
