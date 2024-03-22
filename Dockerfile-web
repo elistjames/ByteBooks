@@ -1,13 +1,15 @@
 FROM node:alpine
 
-COPY . .
+WORKDIR /app
 
-WORKDIR /my-react-app
+COPY my-react-app/ /app
 
 RUN npm install \
     && npm install react-bootstrap bootstrap \
     && npm install react-router-dom \
-    && npm install @trendmicro/react-sidenav
+    && npm install @trendmicro/react-sidenav \
+    && npm install sass
+
 
 CMD ["npm", "start"]
 

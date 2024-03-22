@@ -8,7 +8,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./my-react-app:/app/my-react-app
+      - /app/node_modules
+      - ./my-react-app:/app
     depends_on:
       - db
   db:
