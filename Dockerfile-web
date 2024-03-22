@@ -1,12 +1,22 @@
 FROM node:alpine
 
-WORKDIR /app
+#WORKDIR /app
+#
+#COPY ./my-react-app/package.json .
+#COPY ./my-react-app/package-lock.json .
 
+#RUN npm install
+#
+#COPY . .
+#
+#CMD ["npm", "start"]
 
-COPY my-react-app/ /app
+COPY . .
+
+WORKDIR /my-react-app
 
 RUN npm install
 
+CMD ["npm", "run", "dev"]
 
-CMD ["npm", "run", "start-watch"]
 
