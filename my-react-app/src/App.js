@@ -1,28 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-import MainPage from "./Components/MainPage";
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SideNavBar from "./Components/SideNavbar";
+import HeaderBar from "./Components/HeaderBar";
+import Profile from "./Components/Profile";
+// import Home from "./Components/Home";
 
-function App() {
-  return (
-    <div className="App">
-      {/*<header className="App-header">*/}
-      {/*  <img src={logo} className="App-logo" alt="logo" />*/}
-      {/*  <p>*/}
-      {/*    Edit <code>src/App.js</code> and save to reload.*/}
-      {/*  </p>*/}
-      {/*  <a*/}
-      {/*    className="App-link"*/}
-      {/*    href="https://reactjs.org"*/}
-      {/*    target="_blank"*/}
-      {/*    rel="noopener noreferrer"*/}
-      {/*  >*/}
-      {/*    Learn React*/}
-      {/*  </a>*/}
-      {/*</header>*/}
-      <MainPage />
+const App = () => (
+  <Router>
+    <div className="app">
+      <HeaderBar/>
+      <SideNavBar />
     </div>
+      <Routes>
+        <Route path="/profile" element={<Profile />} />
+        {/* <Route path="/home" element={<Home />} */}
+      </Routes>
+  </Router>
+);
 
-  );
-}
-
+ReactDOM.render(<App />, document.getElementById("root"));
 export default App;

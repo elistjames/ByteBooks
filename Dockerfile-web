@@ -1,22 +1,12 @@
 FROM node:alpine
 
-#WORKDIR /app
-#
-#COPY ./my-react-app/package.json .
-#COPY ./my-react-app/package-lock.json .
-
-#RUN npm install
-#
-#COPY . .
-#
-#CMD ["npm", "start"]
-
 COPY . .
 
 WORKDIR /my-react-app
 
-RUN npm install
+RUN npm install \
+    && npm install react-bootstrap bootstrap \
+    && npm install react-router-dom \
+    && npm install @trendmicro/react-sidenav
 
-CMD ["npm", "run", "dev"]
-
-
+CMD ["npm", "start"]
