@@ -3,7 +3,7 @@ import SearchBar from "./SearchBar";
 
 function MainPage(){
     return(
-        <div>
+        <div className="content-container">
             <SearchBar />
         </div>
     );
