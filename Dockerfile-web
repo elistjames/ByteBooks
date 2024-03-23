@@ -9,6 +9,6 @@ RUN npm install \
     && npm install react-router-dom \
     && npm install @trendmicro/react-sidenav \
     && npm install sass \
-    && npm install react-icons --save
+    && npm install react-icons
 
 CMD ["npm", "start"]
