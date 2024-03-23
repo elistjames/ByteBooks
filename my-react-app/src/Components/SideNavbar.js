@@ -22,23 +22,13 @@ class SideNavBar extends React.Component {
 
     return (
       <SideNav ref={forwardedRef} expanded={this.state.isVisible} style={{
-<<<<<<< 3f5449efebad08b06e488e7393f02223ae1c7e00
-        background: '#533128',
-        color: 'white',
-      }}>
-=======
         background: 'rgb(83, 49, 40)',
         color: 'white',
         }}>
->>>>>>> 2102544adc0378b34a7bc640a14267d440821840
         <SideNav.Toggle
           onClick={() => {
             this.setState({ isVisible: !this.state.isVisible });
             onClick(!this.state.isVisible);
-<<<<<<< 3f5449efebad08b06e488e7393f02223ae1c7e00
-=======
-
->>>>>>> 2102544adc0378b34a7bc640a14267d440821840
           }}
         />
         <SideNav.Nav defaultSelected="home">
@@ -74,8 +64,4 @@ class SideNavBar extends React.Component {
 
 export default React.forwardRef((props, ref) => {
     return <SideNavBar forwardedRef={ref} {...props} />
-<<<<<<< 3f5449efebad08b06e488e7393f02223ae1c7e00
-});
-=======
 })
->>>>>>> 2102544adc0378b34a7bc640a14267d440821840
