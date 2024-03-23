@@ -7,6 +7,8 @@ import SideNav, {
   NavIcon,
   NavText
 } from "@trendmicro/react-sidenav";
+import SideNavbar from "./SideNavbar";
+import {isVisible} from "@testing-library/user-event/dist/utils";
 
 class SideNavBar extends React.Component {
   constructor(props) {
@@ -17,11 +19,18 @@ class SideNavBar extends React.Component {
   }
 
   render() {
+    const { forwardedRef, onClick } = this.props
+
     return (
-      <SideNav expanded={this.state.isVisible} style={{ background: 'rgb(83, 49, 40)', color: 'white' }}>
+      <SideNav ref={forwardedRef} expanded={this.state.isVisible} style={{
+        background: 'rgb(83, 49, 40)',
+        color: 'white',
+        }}>
         <SideNav.Toggle
           onClick={() => {
             this.setState({ isVisible: !this.state.isVisible });
+            onClick(!this.state.isVisible);
+
           }}
         />
         <SideNav.Nav defaultSelected="home">
@@ -37,4 +46,6 @@ class SideNavBar extends React.Component {
   }
 }
 
-export default SideNavBar;
+export default React.forwardRef((props, ref) => {
+    return <SideNavBar forwardedRef={ref} {...props} />
+})
