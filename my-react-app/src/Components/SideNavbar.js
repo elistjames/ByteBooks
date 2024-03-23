@@ -7,8 +7,6 @@ import SideNav, {
   NavIcon,
   NavText
 } from "@trendmicro/react-sidenav";
-import SideNavbar from "./SideNavbar";
-import {isVisible} from "@testing-library/user-event/dist/utils";
 
 class SideNavBar extends React.Component {
   constructor(props) {
