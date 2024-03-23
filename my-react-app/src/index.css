@@ -3,10 +3,8 @@
   --beige: #F3E8D7;
   --white: #ffffff;
   --grey: #c7c7c7;
-  --brown: 674818;
+  --brown: #533128;
 }
-
-
 
 body {
   margin: 0;
@@ -34,11 +32,9 @@ code {
   transform: translate(-50%, -50%);
   background: #fff;
   transition: all 0.3s ease;
-
-
 }
 
-.search-form:focus{
+.search-form:focus {
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
 }
 
@@ -66,7 +62,7 @@ code {
   margin: 0;
   border: none;
   background: none;
-  outline: none!important;
+  outline: none !important;
   cursor: pointer;
 }
 
@@ -78,7 +74,7 @@ code {
 
 }
 
-.search-option.div{
+.search-option.div {
 
   position: relative;
   display: inline-block;
@@ -94,14 +90,46 @@ search-option.input {
   cursor: pointer;
 }
 
-.content-container{
+.content-container {
   background: var(--white);
   height: auto;
   margin: 0rem 3rem 0rem 3rem;
 }
 
-.viewport{
+.viewport {
   transition: margin-left .5s;
   padding: 20px;
 
+}
+
+.topnav {
+  background-color: var(--brown);
+  height: 100;
+  padding: 9px;
+  margin-top: -10px;
+  padding-right: 0;
+  margin-left: -10px;
+  text-align: center;
+}
+
+.side-nav-bar {
+  background: var(--brown);
+  color: white;
+}
+
+.logo-image {
+  max-width: 150px;
+  max-height: 50px;
+  padding-top: 10px
+}
+
+@media (max-width: 768px) {
+  .logo-image {
+    max-width: 100px;
+    max-height: 50px;
+  }
+
+  .sign-in-icon {
+    margin-top: 6px;
+  }
 }

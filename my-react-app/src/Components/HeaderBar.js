@@ -1,7 +1,9 @@
 import React from "react";
-import { Navbar} from "react-bootstrap";
-import "./navStyles.css";
+import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { PiSignIn } from "react-icons/pi";
+import "./../App.css";
+import bytebooksLogo from "./../media/navbarLogo.png";
 
 class HeaderBar extends React.Component {
   render() {
@@ -14,7 +16,25 @@ class HeaderBar extends React.Component {
           variant="dark"
           className="topnav"
         >
-          <Navbar.Brand><Link to="/home">ByteBooks</Link></Navbar.Brand>
+          <div style={{ textAlign: "center" }}>
+            <Navbar.Brand>
+              <Link to="/"><img 
+                  src={bytebooksLogo}
+                  alt="ByteBooks"
+                  className="logo-image"
+              />
+              </Link>
+            </Navbar.Brand>
+          </div>
+          <div style={{ textAlign: "right", paddingRight: "30px", marginTop: "-35px" }}>
+            <Nav>
+              <Nav.Item className="sign-in-icon">
+                <Link to="/signin">
+                  <PiSignIn style={{ color: "white", transform: "scale(1.7)"}}/>
+                </Link>
+              </Nav.Item>
+            </Nav>
+          </div>
         </Navbar>
       </div>
     );
