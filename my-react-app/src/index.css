@@ -99,3 +99,9 @@ search-option.input {
   height: auto;
   margin: 0rem 3rem 0rem 3rem;
 }
+
+.viewport{
+  transition: margin-left .5s;
+  padding: 20px;
+
+}
