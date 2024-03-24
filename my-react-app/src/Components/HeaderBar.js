@@ -29,7 +29,7 @@ const HeaderBar = () => {
               </Link>
             </Navbar.Brand>
           </div>
-          <div style={{ marginRight: 10}}>
+          <div style={{ marginRight: 22}}>
             <Nav>
               <Nav.Item className="sign-in-icon">
                 <Link to="/signin">
