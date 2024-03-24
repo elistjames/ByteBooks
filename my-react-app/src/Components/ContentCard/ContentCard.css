@@ -1,0 +1,97 @@
+.content-card{
+    max-width: 325px;
+    height: 500px;
+    background: var(--white);
+    box-shadow: 2px 2px 0.5rem darkgrey;
+    border-radius: 3rem;
+}
+
+.body-section{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+.body{
+    position: absolute;
+    bottom:0;
+    padding: 1rem 2rem 2rem 2rem;
+    height: 100%;
+    width: 90%;
+    border-radius: 3rem;
+}
+
+.content-text{
+    height: 85%;
+    text-align: left;
+    overflow: hidden;
+}
+
+.header{
+    display: block;
+    justify-content: center;
+    text-align: center;
+}
+
+.title{
+    margin: 0rem 3rem 0.5rem 3rem;
+}
+
+.user-name{
+    margin: 0 auto;
+    font-size: 0.8rem;
+}
+
+.options{
+    padding: 0;
+    height: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.icon-dropdown-toggle::after {
+    display: none;
+}
+
+.icon-dropdown-toggle::before {
+    display: none;
+}
+
+.dropdown-menu{
+    min-width: 115px;
+    padding: 0;
+}
+
+.option{
+    text-align: center;
+}
+
+.read-more{
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    height: 1.2rem;
+    border-radius: 0.6rem;
+}
+
+.footer{
+    margin: auto;
+    position: relative;
+    width: 80%;
+    border: 0px;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.options_btn{
+    color: black;
+}
+
+.media-btn{
+    color: black;
+    padding: 0.5rem 0rem 0.5rem 0.5rem;
+    margin: 0;
+    text-decoration: none;
+}

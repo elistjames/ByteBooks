@@ -28,10 +28,11 @@ const SideNavBar = () => {
 
   return (
     <SideNav style={{
+      position: 'fixed',
       background: '#533128',
       color: 'white',
     }}>
-      <SideNav.Toggle />
+      <SideNav.Toggle id="side-nav-toggle"/>
       <SideNav.Nav defaultSelected={getDefaultSelected()}>
         <NavItem eventKey="home" selected={pathname === "/"}>
           <NavIcon>
