@@ -12,6 +12,7 @@ const ContentCard = ({post}) => {
         if (containerRef.current) {
             setReadMore(containerRef.current.scrollHeight > containerRef.current.clientHeight);
         }
+
     }, [post.content]);
 
     const viewPost = () => {

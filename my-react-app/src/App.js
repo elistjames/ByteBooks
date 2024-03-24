@@ -2,8 +2,9 @@ import React, {useRef, useState} from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HeaderBar from "./Components/HeaderBar";
 import Profile from "./Components/Profile";
-import MainPage from "./Components/MainPage";
+import MainPage from "./Components/MainPage/MainPage";
 import SideNavBar from "./Components/SideNavbar";
+import postData from './demoData/posts.json';
 // import SignIn from "./Components/SignIn";
 // import SignOut from "./Components/SigOut";
 // import Register from "./Components/Register";
@@ -12,6 +13,7 @@ import SideNavBar from "./Components/SideNavbar";
 const App = () => {
     const sideNavRef = useRef();
     const [expanded, setExpanded] = useState(false)
+    const [posts, setPosts] = useState(postData);
     const expand = (state) => {
         setExpanded(state);
     }
@@ -26,7 +28,7 @@ const App = () => {
                         padding: '15px 20px 0 20px'
                     }}>
                         <Routes>
-                            <Route path='/' element={<MainPage/>}/>
+                            <Route path='/' element={<MainPage posts={posts}/>}/>
                             <Route path="profile" element={<Profile/>}/>
                             {/* <Route path="signin" element={<SignIn/>}/>
                             <Route path="signout" element={<SignOut/>}/>
