@@ -1,10 +1,13 @@
 import React from 'react';
 import SearchBar from "./SearchBar";
 
-function MainPage(){
+const MainPage = ({posts}) =>
+{
     return(
-
+        <div className="bg-secondary content-page">
             <SearchBar />
+        </div>
+
 
 
     );

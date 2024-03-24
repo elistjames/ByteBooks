@@ -16,7 +16,7 @@ const App = () => {
         setExpanded(state);
     }
     return (
-        <div className="app" >
+        <div className="app">
             <Router>
                 <HeaderBar />
                 <div>
@@ -38,6 +38,6 @@ const App = () => {
             </Router>
         </div>
     )
-
 }
+
 export default App;
