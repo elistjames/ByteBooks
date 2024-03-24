@@ -124,6 +124,75 @@ search-option.input {
   padding-top: 10px
 }
 
+.form-card {
+  background: var(--white);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px; 
+  margin: 2rem auto;
+}
+
+.form-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--brown);
+}
+
+.form-label {
+  font-weight: bold;
+  color: var(--grey);
+}
+
+.form-control {
+  border-radius: 20px;
+  border: 1px solid var(--grey);
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  border-color: var(--brown);
+  box-shadow: none;
+}
+
+.form-submit-btn {
+  background: var(--brown);
+  color: var(--white);
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken(var(--brown), 5%);
+  }
+}
+
+.form-toggle-btn {
+  background: var(--beige);
+  color: var(--brown);
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken(var(--beige), 5%);
+  }
+}
+
+
 @media (max-width: 768px) {
   .logo-image {
     max-width: 100px;
@@ -136,5 +205,15 @@ search-option.input {
 
   #side-nav-toggle{
     height: 50px;
+  }
+  .form-card {
+    padding: 1rem;
+    margin: 1rem;
+    width: auto;
+  }
+
+  .d-flex.align-items-center.justify-content-center {
+    height: auto;
+    padding: 20px 0; 
   }
 }

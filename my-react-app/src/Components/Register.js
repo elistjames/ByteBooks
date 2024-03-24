@@ -3,53 +3,51 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import "./../index.css";
+import { Button } from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
 
 
 const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('patient');
-    const navigate = useNavigate(); // useNavigate instead of useHistory
+    const navigate = useNavigate();
 
 
-    const navigateToSignIn = () => {
-        navigate('/signin');
-    };
+
     const handleSubmit = async (e) => {
         // for later to add db stuff and move to next page
 
     };
 
     return (
-        <div>
-            <h2>Register</h2>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email</label>
+        <Card className="form-card">
+            <Card.Body>
+                <Card.Title className="form-header">SIGN UP</Card.Title>
+                <Form>
+                    <Form.Group>
+                        <Form.Label className="form-label">Email</Form.Label>
+                        <Form.Control type="email" className="form-control" placeholder="Enter email" />
+                    </Form.Group>
 
-                <input
-                    type="text"
-                    name="email"
-                    placeholder="Email"
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <label htmlFor="password">Password</label>
+                    <Form.Group>
+                        <Form.Label className="form-label">Password</Form.Label>
+                        <Form.Control type="password" className="form-control" placeholder="Password" />
+                    </Form.Group>
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <button type="submit">Register</button>
-            </form>
-            <div className="register-login-link">
-                Already have an account?  <button onClick={navigateToSignIn}>Sign In</button>
-            </div>
-        </div>
+                    <Button className="form-submit-btn" type="submit">
+                        CREATE ACCOUNT
+                    </Button>
+                    <div className="text-center mt-3">
+                        Already have an account?
+                        <Button className="form-toggle-btn" onClick={() => navigate('/signin')}>
+                            LOG IN
+                        </Button>
+                    </div>
+                </Form>
+            </Card.Body>
+        </Card>
     );
 
 };
