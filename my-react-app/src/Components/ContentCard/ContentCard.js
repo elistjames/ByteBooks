@@ -52,7 +52,7 @@ const ContentCard = ({post}) => {
     }
 
     return(
-        <Card className="bg-light content-card">
+        <Card className="content-card">
             <div className="header">
                 <span className="user-name">{post.user_id}</span>
                 <div className="options">

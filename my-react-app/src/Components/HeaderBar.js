@@ -5,18 +5,21 @@ import { PiSignIn } from "react-icons/pi";
 import "./../App.css";
 import bytebooksLogo from "./../media/navbarLogo.png";
 
-class HeaderBar extends React.Component {
-  render() {
+const HeaderBar = () => {
+
     return (
-      <div className="topnav">
+      <div className="top-nav">
         <Navbar
           fixed="top"
           expand="lg"
-          bg="dark"
+
           variant="dark"
-          className="topnav"
+          className="top-nav justify-content-between"
         >
-          <div style={{ textAlign: "center" }}>
+            <div>#</div>
+          <div style={{
+              textAlign: "right"
+               }}>
             <Navbar.Brand>
               <Link to="/"><img 
                   src={bytebooksLogo}
@@ -26,7 +29,7 @@ class HeaderBar extends React.Component {
               </Link>
             </Navbar.Brand>
           </div>
-          <div style={{ textAlign: "right", paddingRight: "30px", marginTop: "-35px" }}>
+          <div style={{ marginRight: 10}}>
             <Nav>
               <Nav.Item className="sign-in-icon">
                 <Link to="/signin">
@@ -38,7 +41,7 @@ class HeaderBar extends React.Component {
         </Navbar>
       </div>
     );
-  }
+
 }
 
 export default HeaderBar;

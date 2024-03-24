@@ -1,7 +1,7 @@
 .content-card{
     max-width: 325px;
     height: 500px;
-    background: var(--brown);
+    background: var(--white);
     box-shadow: 2px 2px 0.5rem darkgrey;
     border-radius: 3rem;
 }
