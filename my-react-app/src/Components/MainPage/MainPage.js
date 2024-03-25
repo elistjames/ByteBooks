@@ -14,10 +14,6 @@ const MainPage = ({posts}) =>
                 <PiPlusBold size={30} className="post-mobile"/>
                 <span className="post-desktop">Post</span>
             </Button>
-            {/*<div className="main-page-header">*/}
-
-            {/*    */}
-            {/*</div>*/}
             <div className="main-page-body">
                 {posts.map((post) => (
                     <ContentCard key={post.post_id} post={post}/>
