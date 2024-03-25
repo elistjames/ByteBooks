@@ -38,23 +38,29 @@ const App = () => {
                             marginLeft: expanded ? 240 : 64,
                             padding: '15px 20px 0 20px'
                         }}>
-                        <Routes>
-                            <Route path='/' element={<MainPage />} />
-                            <Route path="profile" element={<Profile />} />
-                            <Route path="signin" element={<SignIn />} />
-                            <Route path="register" element={<Register />} />
-                            {/*<Route path="signout" element={<SignOut />} />
+                            <Routes>
+                                <Route path='/' element={<MainPage posts={posts} />} />
+
+                                <Route path="profile" element={<Profile />} />
+                                <Route path="signin" element={<SignIn />} />
+                                <Route path="register" element={<Register />} />
+                                {/*<Route path="signout" element={<SignOut />} />
                             <Route path="admin" element={<Admin/>}/> */}
-                        </Routes>
+                            </Routes>
                         </div>
                     </div>
                 )}
                 {isMobile && (
-                    <div> {}
+                    <div> { }
                         <div className="viewport" style={{ padding: '15px 20px 0 20px' }}>
                             <Routes>
-                                <Route path='/' element={<MainPage posts={posts}/>} />
-                                <Route path="/profile" element={<Profile />} />
+                                <Route path='/' element={<MainPage posts={posts} />} />
+
+                                <Route path="profile" element={<Profile />} />
+                                <Route path="signin" element={<SignIn />} />
+                                <Route path="register" element={<Register />} />
+                                {/*<Route path="signout" element={<SignOut />} />
+                            <Route path="admin" element={<Admin/>}/> */}
                             </Routes>
                         </div>
                         <BottomBar />
