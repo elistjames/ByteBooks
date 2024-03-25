@@ -7,13 +7,13 @@
     "created_at": "Mar 5 2024",
     "likes": 10000,
     "dislikes": 4000,
-    "number_of_comments": 10000300
+    "number_of_comments": 10000000
   },
   {
     "post_id": 2,
-    "user_id": "@username2",
-    "title": "Second Post",
-    "content": "This is the content of the second post.",
+    "user_id": "@chatGPT",
+    "title": "AI Poem",
+    "content": "In the heart of night, where shadows creep, And stars above their silent vigil keep, There lies a world of dreams untold, Where mysteries and wonders unfold. Moonlight weaves its silver thread,\nThrough whispered secrets, softly spread, A symphony of darkness and light, Guiding souls through the velvet night.\n\nIn dreams, we wander, free to roam, Through fields of gold and forests of foam, Where fantasies dance in endless array, And reality's grip begins to sway. \n\nA kaleidoscope of colors unfurl, As imagination spins and whirls, Painting pictures upon the mind, Of treasures rare and undefined. In this realm, time takes flight, And worries fade into the night, For dreams are the bridge that spans, Between the earth and far-off lands.\n\nSo close your eyes and dare to dream, Let your spirit soar on silent stream, For in the realm of dreams, you'll find, The endless treasures of the mind.",
     "created_at": "Mar 6 2024",
     "likes": 200,
     "dislikes": 20,

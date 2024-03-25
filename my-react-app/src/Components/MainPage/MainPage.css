@@ -23,24 +23,26 @@
     height: 100%;
     width: 100%;
     margin-top: 9rem;
+    transition: all 0.3s ease;
 }
 
 .post-btn{
     position: fixed;
     z-index: 100;
-    top: 6rem;
-    left: 15%;
-    margin-top: 2rem;
-    margin-left: 2rem;
-    height: 35px;
-    padding: 0rem 2rem 0rem 2rem;
-    border-radius:2rem;
+    bottom:1rem;
+    right:1rem;
+    left:auto;
+    top:auto;
+    margin:0;
+    padding:0;
+    height: 60px;
+    width: 60px;
+    border-radius:30px;
     display: flex;
+    justify-content: center;
     align-items: center;
-}
-
-.post-mobile{
-    display: none;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 0.5rem black;
 }
 
 
@@ -51,23 +53,8 @@
     }
 
     .post-btn{
-        position: fixed;
-        bottom:4rem;
-        right:1rem;
-        left:auto;
-        top:auto;
-        margin:0;
-        padding:0;
-        height: 60px;
-        width: 60px;
-        border-radius:30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+        bottom: 4rem;
 
-    .post-mobile{
-        display:block;
     }
 
     .post-desktop{

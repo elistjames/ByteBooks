@@ -11,8 +11,7 @@ const MainPage = ({posts}) =>
         <div className=" main-page-container">
             <SearchBar />
             <Button variant="primary" className="post-btn">
-                <PiPlusBold size={30} className="post-mobile"/>
-                <span className="post-desktop">Post</span>
+                <PiPlusBold size={40} className="post-mobile"/>
             </Button>
             <div className="main-page-body">
                 {posts.map((post) => (
