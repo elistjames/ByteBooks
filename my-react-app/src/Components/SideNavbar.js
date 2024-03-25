@@ -28,6 +28,7 @@ const SideNavBar = () => {
 
   return (
     <SideNav style={{
+      position: 'fixed',
       background: '#533128',
       color: 'white',
     }}>
