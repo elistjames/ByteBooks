@@ -24,7 +24,7 @@ const Register = () => {
     return (
         <Card className="form-card">
             <Card.Body>
-                <Card.Title className="form-header">SIGN UP</Card.Title>
+                <Card.Title className="form-header">Sign Up</Card.Title>
                 <Form>
                     <Form.Group>
                         <Form.Label className="form-label">Email</Form.Label>
@@ -37,12 +37,12 @@ const Register = () => {
                     </Form.Group>
 
                     <Button className="form-submit-btn" type="submit">
-                        CREATE ACCOUNT
+                        Sign up
                     </Button>
                     <div className="text-center mt-3">
                         Already have an account?
                         <Button className="form-toggle-btn" onClick={() => navigate('/signin')}>
-                            LOG IN
+                            Sign In
                         </Button>
                     </div>
                 </Form>

@@ -35,7 +35,7 @@ const SignIn = () => {
                         <Form.Control type="password" className="form-control" placeholder="Password" />
                     </Form.Group>
 
-                    <Button className="form-submit-btn" type="submit">Login</Button>
+                    <Button className="form-submit-btn" type="submit">Sign In</Button>
                     <div className="text-center mt-3">
                         Don't have an account?
                         <Button className="form-toggle-btn" onClick={() => navigate('/register')}>
