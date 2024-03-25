@@ -28,16 +28,16 @@ const SideNavBar = () => {
 
   return (
     <SideNav style={{
-      position: 'fixed',
       background: '#533128',
       color: 'white',
+      position: 'fixed',
     }}>
-      <SideNav.Toggle id="side-nav-toggle"/>
+      <SideNav.Toggle />
       <SideNav.Nav defaultSelected={getDefaultSelected()}>
         <NavItem eventKey="home" selected={pathname === "/"}>
           <NavIcon>
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <IoHomeOutline />
+              <IoHomeOutline style={{marginBottom: "5px"}} />
             </Link>
           </NavIcon>
           <NavText>
@@ -47,7 +47,7 @@ const SideNavBar = () => {
         <NavItem eventKey="profile" selected={pathname === "/profile"}>
           <NavIcon>
             <Link to="/profile" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <IoPersonOutline />
+              <IoPersonOutline style={{marginBottom: "5px"}} />
             </Link>
           </NavIcon>
           <NavText>
@@ -57,7 +57,7 @@ const SideNavBar = () => {
         <NavItem eventKey="admin" selected={pathname === "/admin"}>
           <NavIcon>
             <Link to="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <IoBarChartOutline />
+              <IoBarChartOutline  style={{marginBottom: "5px"}}/>
             </Link>
           </NavIcon>
           <NavText>

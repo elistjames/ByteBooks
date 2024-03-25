@@ -1,9 +1,17 @@
 .content-card{
-    max-width: 325px;
+    margin: 0 25px 50px 25px;
+    width: 20rem;
+
     height: 500px;
     background: var(--white);
     box-shadow: 2px 2px 0.5rem darkgrey;
     border-radius: 3rem;
+}
+
+@media (max-width: 680px) {
+    .content-card{
+        margin: 0 0 25px 0;
+    }
 }
 
 .body-section{
@@ -62,6 +70,7 @@
 .dropdown-menu{
     min-width: 115px;
     padding: 0;
+    z-index: 5;
 }
 
 .option{
@@ -74,6 +83,7 @@
     align-items: center;
     height: 1.2rem;
     border-radius: 0.6rem;
+    box-shadow: 2px 2px 0.5rem black;
 }
 
 .footer{
@@ -90,8 +100,15 @@
 }
 
 .media-btn{
+    display: inline-flex;
     color: black;
     padding: 0.5rem 0rem 0.5rem 0.5rem;
     margin: 0;
     text-decoration: none;
+    justify-content: space-evenly;
+}
+
+.media-btn span{
+    font-size: 0.8rem;
+    margin-left:2px;
 }
