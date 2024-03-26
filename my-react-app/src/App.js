@@ -8,7 +8,7 @@ import postData from './demoData/posts.json';
 // import SignIn from "./Components/SignIn";
 // import SignOut from "./Components/SigOut";
 // import Register from "./Components/Register";
-import Admin from "./Components/ReportCard/Admin";
+import Admin from "./Components/AdminCard/Admin";
 import BottomBar from "./Components/BottomBar";
 import { useMediaQuery } from 'react-responsive';
 
