@@ -1,13 +1,8 @@
 -- Seed
-
-INSERT INTO members (username, email, password, created_at)
-VALUES 
-    ('Emily', 'emily@example.com', 'password1', NOW()),
-    ('John', 'john@example.com', 'password2', NOW()),
-    ('adam', 'adam@example.com', 'password3', NOW());
-
-INSERT INTO admins (username, email, password, created_at)
-VALUES 
-    ('Alex', 'alex@example.com', 'adminpassword', NOW()),
-    ('Sara', 'sara@example.com', 'adminpassword2', NOW());
-
+INSERT INTO users (username, password, created_at, permission)
+VALUES
+    ('alex_admin', 'adminpassword1', NOW(), 'ADMIN'),
+    ('sara_admin', 'adminpassword2', NOW(), 'ADMIN'),
+    ('emily_writer', 'password1', NOW(), 'USER'),
+    ('jon_jones', 'password2', NOW(), 'USER'),
+    ('adam.help', 'password3', NOW(), 'USER');
