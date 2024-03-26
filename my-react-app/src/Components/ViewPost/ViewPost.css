@@ -1,8 +1,37 @@
-.media-btn{
+.view-post-card {
+    box-shadow: 5px 5px 0.5rem darkgrey;
+    border-radius: 2rem;
+}
+
+#view-post-title {
+    text-align: center;
+}
+
+#view-post-author {
+    text-align: center;
+}
+
+#view-post-date {
+    text-align: center;
+}
+
+.view-post-media-btn {
     display: inline-flex;
     color: black;
-    padding: 0.5rem 0rem 0.5rem 0.5rem;
+    padding: 1rem 1rem 1rem 1rem;
     margin: 0;
     text-decoration: none;
     justify-content: space-evenly;
+}
+
+.view-post-options {
+    padding: 0.5rem 0.5rem 0 0;
+    height: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.view-post-content {
+    padding: 0.5rem
 }

@@ -3,6 +3,9 @@ import Card from 'react-bootstrap/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from 'react-bootstrap/Button';
 import { Dropdown } from "react-bootstrap";
+import { useMediaQuery } from 'react-responsive';
+
+import ExpandableText from "./ExpandableText";
 
 import "./ViewPost.css"
 
@@ -38,14 +41,34 @@ const compressNum = (num) => {
     return num;
 }
 
+const diplayTest = (limit) => {
+    let text = "";
+    let i = 0;
+    for (; i < limit; i++ ) {
+        text += "a";
+    }
+    return text;
+}
+
 const ViewPost = ({ post }) => {
+    const SECONDARY_CHARACTER_LIMIT = 450;
+
+    let isMobile = useMediaQuery({
+        query: '(max-width: 767px)'
+    });
+
+    let notOverLimit = true;
+    if (post.content.length > SECONDARY_CHARACTER_LIMIT && isMobile) {
+        notOverLimit = false;
+    }
+
     return (
         <div>
-            <h1>{post.title}</h1>
-            <h3>{post.user_id}</h3>
-            <h6>{post.created_at}</h6>
-            <Card classname="content-card">
-                <div className="options">
+            <h1 id="view-post-title">{post.title}</h1>
+            <h3 id="view-post-author">{post.user_id}</h3>
+            <h6 id="view-post-date">{post.created_at}</h6>
+            <Card className="view-post-card">
+                <div className="view-post-options">
                     <Dropdown autoClose="outside" drop="down-centered">
                         <Dropdown.Toggle className="icon-dropdown-toggle options_btn" variant="link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -61,10 +84,10 @@ const ViewPost = ({ post }) => {
                     </Dropdown>
                 </div>
                 <CardContent>
-                    <p>{post.content}</p>
+                    <p className="view-post-content">{ <ExpandableText children={post.content} descriptionLength={SECONDARY_CHARACTER_LIMIT} disabled={notOverLimit} /> }</p>
                 </CardContent>
                 <div classname="media-btn">
-                    <Button className="media-btn" variant="link">
+                    <Button className="view-post-media-btn" variant="link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor"
                             className="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
                             <path
@@ -73,7 +96,7 @@ const ViewPost = ({ post }) => {
                         <span>{compressNum(post.likes)}</span>
 
                     </Button>
-                    <Button className="media-btn" variant="link">
+                    <Button className="view-post-media-btn" variant="link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             className="bi bi-hand-thumbs-down" viewBox="0 0 16 16">
                             <path

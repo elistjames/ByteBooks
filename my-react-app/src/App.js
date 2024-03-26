@@ -42,7 +42,7 @@ const App = () => {
                             <Routes>
                                 <Route path='/' element={<MainPage posts={posts}/>} />
                                 <Route path="/profile" element={<Profile />} />
-                                <Route path="/viewPost" element={<ViewPost post={posts[0]} />} />
+                                <Route path="/viewPost" element={<ViewPost post={posts[8]} />} />
                             </Routes>
                         </div>
                     </div>
@@ -53,7 +53,7 @@ const App = () => {
                             <Routes>
                                 <Route path='/' element={<MainPage posts={posts}/>} />
                                 <Route path="/profile" element={<Profile />} />
-                                <Route path="/viewPost" element={<ViewPost post={posts[0]} />} />
+                                <Route path="/viewPost" element={<ViewPost post={posts[8]} />} />
                             </Routes>
                         </div>
                         <BottomBar />
