@@ -3,15 +3,8 @@ CREATE TABLE users (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Admins are special accounts that have special privileges for moderate the website.
-CREATE TABLE admins (
-    admin_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    permission VARCHAR(10) NOT NULL DEFAULT 'USER'   -- role is either USER or ADMIN
 );
 
 -- Posts refer to the basic content that members can upload for others to read.
@@ -60,11 +53,12 @@ CREATE TABLE comments (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Reports are instances where a member brings attention to a post for some reason.
+-- Reports are instances where a member brings attention to a post or user for some reason.
 CREATE TABLE reports (
     report_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    post_id INT NOT NULL, -- the post that was reported
     reporter_id INT NOT NULL, -- the user that made the report
+    reported_user_id INT,
+    post_id INT, -- the post that was reported
     reporter_username VARCHAR(50),
     reason VARCHAR(500),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
