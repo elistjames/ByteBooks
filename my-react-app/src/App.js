@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HeaderBar from "./Components/HeaderBar";
 import Profile from "./Components/Profile";
 import MainPage from "./Components/MainPage/MainPage";
+import ViewPost from "./Components/ViewPost/ViewPost"
 import SideNavBar from "./Components/SideNavbar";
 import postData from './demoData/posts.json';
 // import SignIn from "./Components/SignIn";
@@ -41,6 +42,7 @@ const App = () => {
                             <Routes>
                                 <Route path='/' element={<MainPage posts={posts}/>} />
                                 <Route path="/profile" element={<Profile />} />
+                                <Route path="/viewPost" element={<ViewPost post={posts[0]} />} />
                             </Routes>
                         </div>
                     </div>
@@ -51,6 +53,7 @@ const App = () => {
                             <Routes>
                                 <Route path='/' element={<MainPage posts={posts}/>} />
                                 <Route path="/profile" element={<Profile />} />
+                                <Route path="/viewPost" element={<ViewPost post={posts[0]} />} />
                             </Routes>
                         </div>
                         <BottomBar />
