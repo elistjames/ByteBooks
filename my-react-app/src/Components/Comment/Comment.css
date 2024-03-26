@@ -1,0 +1,100 @@
+
+
+.comment-container{
+    border-radius: 2rem;
+    margin:0;
+    padding:0.5rem 1rem 0.5rem 1rem;
+    display: flex;
+    width: auto;
+    height: auto;
+}
+
+.comment-input-container{
+    background-color: rgba(255,255,255, 0.45);
+}
+
+.user-icon-container{
+    width: auto;
+    margin-right:1rem;
+    padding-top: 0.3rem;
+}
+
+.comment-details{
+    width: auto;
+    height: auto;
+}
+
+.username-container{
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.content-container{
+    width: auto;
+    margin: 0;
+}
+
+.comment-text{
+    height: auto;
+}
+
+.comment-form{
+    display: inline-flex;
+    justify-content: space-between;
+    height: auto;
+    min-width: 250px;
+    max-height: 100%;
+    border-radius: 20px;
+    padding: 0.5rem;
+}
+
+.comment-input{
+    min-height: 25px;
+    width: 95%;
+    background: none;
+    border: none;
+    appearance: none;
+    outline: none;
+    word-break: break-all;
+    flex: 1;
+}
+
+.comment-input[contenteditable]:empty::before {
+    content: "Add your comment here...";
+    color: gray;
+}
+
+.comment-form:focus-within{
+    background: #fff;
+}
+
+.comment-form:not(:focus-within):has(.comment-input:not(:empty)){
+    background: rgba(255, 255, 255, 0.8) ;
+
+}
+
+.submit-comment{
+    display:none;
+    justify-content: center;
+    align-items: end;
+    padding: 0;
+    margin: 0 0 0 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.comment-input:focus + .submit-comment{
+    display: flex;
+}
+
+.comment-input:not(:empty) + .submit-comment{
+    display: flex;
+}
+
+
+
+.profile-page{
+    display: flex;
+    justify-content: left;
+}
