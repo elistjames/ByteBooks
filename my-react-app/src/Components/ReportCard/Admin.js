@@ -54,9 +54,8 @@ const Admin = () => {
                                         <ListGroup.Item key ={user.user_id} className="d-flex justify-content-between my-2 rounded-pill">
                                             <span className="reports">{user.reports}</span>
                                             <span className="userId">{user.userId}</span>
-                                            <Button variant="link" className="remove-user-btn" onClick={() => removeUser(user.user_id)}>
-                                            <IoPersonRemove size="1.5em" className="remove-user-icon"/>
-                                            </Button>
+                                            <Button variant="link" className="remove-user-btn" onClick={() => removeUser(user.user_id)} title="Remove user">
+                                            <IoPersonRemove size="1.5em" className="remove-user-icon"/> </Button>
                                         </ListGroup.Item>
                                     </div>
                                 ))}
@@ -72,8 +71,8 @@ const Admin = () => {
                                             <span className="post-title">{post.title}</span>
                                         </div>
                                         <div className="post-actions">
-                                            <Button variant="primary" size="sm" className="view-btn">View</Button>
-                                            <IoTrashOutline className="remove-post-icon" onClick={() => removePost(post.post_id)} />
+                                            <Button variant="primary" size="sm" className="view-btn" title="View post">View</Button> 
+                                            <IoTrashOutline className="remove-post-icon" onClick={() => removePost(post.post_id)} title="Remove post"/>
                                         </div>
                                     </ListGroup.Item>
                                 ))}
