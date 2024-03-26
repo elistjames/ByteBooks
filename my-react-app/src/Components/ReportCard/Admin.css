@@ -38,17 +38,19 @@
 }
 
 .remove-user-btn {
-    padding: 0.5rem;
-    justify-content: center;
-    color: red;
-    border: none;
+    position: absolute; 
+    right: 10px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    font-size: 15px; 
+    color: red; 
+    cursor: pointer;
+    padding: 8px; 
     border-radius: 50%; 
-    margin-right: 10px;
 }
 
 .remove-user-btn:hover {
     background-color: red; 
-    border-radius: 50%;
     color:white;
 }
 
@@ -134,7 +136,7 @@
         margin-left: -5px;
     }
     .userId {
-        margin: auto;
+        margin-left: 15px;
     }
     .post-bar {
         flex-direction: column; 
