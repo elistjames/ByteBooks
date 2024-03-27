@@ -22,6 +22,7 @@ const Comment = ({comment, onSubmit}) => {
     }
 
     const onKeyDown = (event) => {
+
         if (event.key === 'Enter') {
             event.preventDefault();
         }
@@ -58,7 +59,8 @@ const Comment = ({comment, onSubmit}) => {
                                     className="comment-input"
                                     disabled={false}
                                     html={userComment}
-                                    onChange={handleChange}/>
+                                    onChange={handleChange}
+                                />
                                 <button type="submit" className="submit-comment"  disabled={userComment === ""} ref={btnRef}>
                                     <BsArrowUpCircleFill size={20}
                                                          style={userComment === "" ? {color: 'darkgray'} : {color: "#533128"}}/>

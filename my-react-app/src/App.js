@@ -9,7 +9,7 @@ import postData from './demoData/posts.json';
 // import SignIn from "./Components/SignIn";
 // import SignOut from "./Components/SigOut";
 // import Register from "./Components/Register";
-// import Admin from "./Components/Admin";
+import Admin from "./Components/AdminCard/Admin";
 import BottomBar from "./Components/BottomBar";
 import { useMediaQuery } from 'react-responsive';
 
@@ -43,6 +43,7 @@ const App = () => {
                                 <Route path='/' element={<MainPage posts={posts}/>} />
                                 <Route path="/profile" element={<Profile />} />
                                 <Route path="/viewPost" element={<ViewPost post={posts[8]} />} />
+                                <Route path="/admin" element={<Admin />} /> 
                             </Routes>
                         </div>
                     </div>
@@ -54,6 +55,7 @@ const App = () => {
                                 <Route path='/' element={<MainPage posts={posts}/>} />
                                 <Route path="/profile" element={<Profile />} />
                                 <Route path="/viewPost" element={<ViewPost post={posts[8]} />} />
+                                <Route path="/admin" element={<Admin />} /> 
                             </Routes>
                         </div>
                         <BottomBar />
