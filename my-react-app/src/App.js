@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HeaderBar from "./Components/HeaderBar";
 import Profile from "./Components/Profile";
@@ -6,9 +6,9 @@ import MainPage from "./Components/MainPage/MainPage";
 import ViewPost from "./Components/ViewPost/ViewPost"
 import SideNavBar from "./Components/SideNavbar";
 import postData from './demoData/posts.json';
-// import SignIn from "./Components/SignIn";
-// import SignOut from "./Components/SigOut";
-// import Register from "./Components/Register";
+import SignIn from "./Components/SignIn";
+import SignOut from "./Components/SignOut";
+import Register from "./Components/Register";
 // import Admin from "./Components/Admin";
 import BottomBar from "./Components/BottomBar";
 import { useMediaQuery } from 'react-responsive';
@@ -41,8 +41,11 @@ const App = () => {
                             padding: '15px 20px 0 20px'
                         }}>
                             <Routes>
-                                <Route path='/' element={<MainPage posts={posts}/>} />
-                                <Route path="/profile" element={<Profile />} />
+                                <Route path='/' element={<MainPage posts={posts} />} />
+
+                                <Route path="profile" element={<Profile />} />
+                                <Route path="signin" element={<SignIn />} />
+                                <Route path="register" element={<Register />} />
                                 <Route path="/admin" element={<Admin />} />
                                 <Route path="/viewPost/:id" element={<ViewPost />} />
                             </Routes>
@@ -50,12 +53,14 @@ const App = () => {
                     </div>
                 )}
                 {isMobile && (
-                    <div>
+                    <div> { }
                         <div className="viewport" style={{ padding: '15px 20px 0 20px' }}>
                             <Routes>
-                                <Route path='/' element={<MainPage posts={posts}/>} />
-                                <Route path="/profile" element={<Profile />} />
-                                <Route path="/admin" element={<Admin />} />
+                                <Route path='/' element={<MainPage posts={posts} />} />
+                                <Route path="profile" element={<Profile />} />
+                                <Route path="signin" element={<SignIn />} />
+                                <Route path="register" element={<Register />} />
+                                <Route path="/admin" element={<Admin />} /> 
                                 <Route path="/viewPost/:id" element={<ViewPost />} />
                             </Routes>
                         </div>
