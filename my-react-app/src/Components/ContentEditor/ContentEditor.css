@@ -1,0 +1,12 @@
+.edit-title {
+    text-align: center;
+}
+
+.edit-card {
+    box-shadow: 5px 5px 0.5rem darkgrey;
+    border-radius: 2rem;
+}
+
+.edit-button {
+    padding: 1rem;
+}
