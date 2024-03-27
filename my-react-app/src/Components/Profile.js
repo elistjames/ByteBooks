@@ -11,15 +11,15 @@ const Profile = ({ posts = [] }) => {
   return (
     <>
 
-      <Card className="form-card ">
+      <Card className="form-card rounded-custom">
         <Card.Body>
           <div className="mb-3">
-            <div className="static-field">
+            <div className="static-field mb-3">
               <Card.Title className="text-muted">Username</Card.Title>
 
               <Card.Text className="static-value">@elistjames</Card.Text>
             </div>
-            <div className="static-field">
+            <div className="static-field mb-3">
               <Card.Title className="text-muted">Email</Card.Title>
 
               <Card.Text className="static-value">elistjames@gmail.com</Card.Text>
