@@ -1,7 +1,6 @@
 .content-card{
-    margin: 0 25px 50px 25px;
+    margin: 50px 25px 0px 25px;
     width: 20rem;
-
     height: 500px;
     background: var(--white);
     box-shadow: 2px 2px 0.5rem darkgrey;

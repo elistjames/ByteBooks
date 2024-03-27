@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SearchBar from "../SearchBar";
 import Button from "react-bootstrap/Button";
 import { PiPlusBold } from "react-icons/pi";
 import './MainPage.css';
 import ContentCard from "../ContentCard/ContentCard";
+import postData from "../../demoData/posts.json";
+import { v4 as uuidv4 } from 'uuid';
 
-const MainPage = ({posts}) =>
+const MainPage = () =>
 {
+    const [posts, setPosts] = useState(postData);
+
     return(
         <div className=" main-page-container">
             <SearchBar />
@@ -14,13 +18,13 @@ const MainPage = ({posts}) =>
                 <PiPlusBold size={40} className="post-mobile"/>
             </Button>
             <div className="main-page-body">
-                {posts.map((post) => (
-                    <ContentCard key={post.post_id} post={post}/>
-                ))}
+                <div className="content-flex-container">
+                    {posts.map((post) => (
+                        <ContentCard key={uuidv4()} post={post}/>
+                    ))}
+                </div>
             </div>
-
         </div>
-
 
 
     );

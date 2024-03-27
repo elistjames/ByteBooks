@@ -1,0 +1,14 @@
+.expand-button-container{
+    width: 100%;
+    display: inline-flex;
+    justify-content: end;
+}
+
+.expand-button {
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    height: 1.2rem;
+    border-radius: 0.6rem;
+    box-shadow: 2px 2px 0.5rem #787878;
+}
