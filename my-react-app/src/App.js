@@ -6,9 +6,9 @@ import MainPage from "./Components/MainPage/MainPage";
 import ViewPost from "./Components/ViewPost/ViewPost"
 import SideNavBar from "./Components/SideNavbar";
 import postData from './demoData/posts.json';
-// import SignIn from "./Components/SignIn";
-// import SignOut from "./Components/SigOut";
-// import Register from "./Components/Register";
+import SignIn from "./Components/SignIn";
+import SignOut from "./Components/SignOut";
+import Register from "./Components/Register";
 // import Admin from "./Components/Admin";
 import BottomBar from "./Components/BottomBar";
 import { useMediaQuery } from 'react-responsive';
@@ -42,7 +42,8 @@ const App = () => {
                         }}>
                             <Routes>
                                 <Route path='/' element={<MainPage posts={posts} />} />
-                                <Route path="/profile" element={<Profile posts={posts} />} />
+                                <Route path="signin" element={<SignIn />} />
+                                <Route path="register" element={<Register />} />
                                 <Route path="/admin" element={<Admin />} />
                                 <Route path="/viewPost/:id" element={<ViewPost />} />
                             </Routes>
@@ -55,6 +56,9 @@ const App = () => {
                             <Routes>
                                 <Route path='/' element={<MainPage posts={posts} />} />
                                 <Route path="/profile" element={<Profile posts={posts} />} />
+                                <Route path="signin" element={<SignIn />} />
+                                <Route path="register" element={<Register />} />
+                                <Route path="/admin" element={<Admin />} /> 
                                 <Route path="/viewPost/:id" element={<ViewPost />} />
                             </Routes>
                         </div>
