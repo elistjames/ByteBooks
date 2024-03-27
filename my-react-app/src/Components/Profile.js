@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Comment from './Comment/Comment';
 
 const Profile = () => {
-  return (
+
+    return (
     <div>
       <h1>Profile Page</h1>
       <p>Welcome to the Profile page!</p>
     </div>
+
   );
 };
 

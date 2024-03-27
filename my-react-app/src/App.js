@@ -8,7 +8,7 @@ import postData from './demoData/posts.json';
 import SignIn from "./Components/SignIn";
 import SignOut from "./Components/SignOut";
 import Register from "./Components/Register";
-// import Admin from "./Components/Admin";
+import Admin from "./Components/AdminCard/Admin";
 import BottomBar from "./Components/BottomBar";
 import { useMediaQuery } from 'react-responsive';
 
@@ -44,23 +44,21 @@ const App = () => {
                                 <Route path="profile" element={<Profile />} />
                                 <Route path="signin" element={<SignIn />} />
                                 <Route path="register" element={<Register />} />
-                                {/*<Route path="signout" element={<SignOut />} />
-                            <Route path="admin" element={<Admin/>}/> */}
+
                             </Routes>
                         </div>
                     </div>
                 )}
                 {isMobile && (
+<<<<<<< my-react-app/src/App.js
                     <div> { }
                         <div className="viewport" style={{ padding: '15px 20px 0 20px' }}>
                             <Routes>
                                 <Route path='/' element={<MainPage posts={posts} />} />
-
                                 <Route path="profile" element={<Profile />} />
                                 <Route path="signin" element={<SignIn />} />
                                 <Route path="register" element={<Register />} />
-                                {/*<Route path="signout" element={<SignOut />} />
-                            <Route path="admin" element={<Admin/>}/> */}
+                                <Route path="/admin" element={<Admin />} /> 
                             </Routes>
                         </div>
                         <BottomBar />
