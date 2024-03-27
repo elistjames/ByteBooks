@@ -3,8 +3,9 @@ import "./../index.css";
 import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import ContentCard from "./ContentCard/ContentCard";
+import './MainPage/MainPage.css';
 
-const Profile = ({ posts }) => {
+const Profile = ({ posts = [] }) => {
   const usersPosts = posts.filter(post => post.user_id === '@elistjames');
 
   return (
@@ -29,8 +30,8 @@ const Profile = ({ posts }) => {
           </Button>
         </Card.Body>
       </Card>
-      <h2 className="posts-heading text-center mt-4">Your Posted Content</h2>
-      <div className="user-posts">
+      <h2 className="posts-heading text-center ">Your Posted Content</h2>
+      <div className="main-page-body">
         {usersPosts.map(post => (
           <ContentCard key={post.post_id} post={post} username="@elistjames" />
         ))}

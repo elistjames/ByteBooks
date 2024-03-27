@@ -185,9 +185,9 @@ search-option.input {
 }
 
 
-.btn-danger {
-  border-radius: 100rem;
+.card .btn-danger {
   color: #eeeeee;
+  border-radius: 30px;
 
 }
 
@@ -199,4 +199,8 @@ search-option.input {
   width: 100%;
   max-width: 600px; 
   margin: 2rem auto;
+}
+
+.posts-heading{
+  margin-top: 5rem;
 }

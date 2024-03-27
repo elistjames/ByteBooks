@@ -21,7 +21,7 @@
   },
   {
     "post_id": 3,
-    "user_id": "@username3",
+    "user_id": "@elistjames",
     "title": "Third Post",
     "content": "This is the content of the third post.",
     "created_at": "Mar 7 2024",
@@ -31,7 +31,7 @@
   },
   {
     "post_id": 4,
-    "user_id": "@username4",
+    "user_id": "@elistjames",
     "title": "Fourth Post",
     "content": "This is the content of the fourth post.",
     "created_at": "Mar 8 2024",
