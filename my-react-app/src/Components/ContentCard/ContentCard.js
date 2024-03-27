@@ -104,7 +104,7 @@ const ContentCard = ({post}) => {
                         <span>{compressNum(post.dislikes)}</span>
                     </Button>
                 </div>
-                <Button className="media-btn" variant="link" onClick={viewPost}>
+                <Button className="media-btn" variant="link" href={`viewPost/${post.post_id}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          className="bi bi-chat" viewBox="0 0 16 16">
                         <path

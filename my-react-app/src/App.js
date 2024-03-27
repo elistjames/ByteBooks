@@ -12,6 +12,7 @@ import postData from './demoData/posts.json';
 // import Admin from "./Components/Admin";
 import BottomBar from "./Components/BottomBar";
 import { useMediaQuery } from 'react-responsive';
+import Admin from "./Components/AdminCard/Admin";
 
 const App = () => {
 
