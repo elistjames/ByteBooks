@@ -31,7 +31,7 @@ const Profile = ({ posts = [] }) => {
         </Card.Body>
       </Card>
       <h2 className="posts-heading text-center ">Your Posted Content</h2>
-      <div className="main-page-body">
+      <div className="posts">
         {usersPosts.map(post => (
           <ContentCard key={post.post_id} post={post} username="@elistjames" />
         ))}

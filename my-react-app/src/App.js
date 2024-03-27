@@ -54,7 +54,7 @@ const App = () => {
                         <div className="viewport" style={{ padding: '15px 20px 0 20px' }}>
                             <Routes>
                                 <Route path='/' element={<MainPage posts={posts} />} />
-                                <Route path="/profile" element={<Profile />} />
+                                <Route path="/profile" element={<Profile posts={posts} />} />
                                 <Route path="/viewPost/:id" element={<ViewPost />} />
                             </Routes>
                         </div>

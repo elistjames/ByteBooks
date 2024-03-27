@@ -147,6 +147,15 @@ search-option.input {
     top: 5rem;
     margin-left: 0;
   }
+  .posts {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: auto;
+    gap: 1rem;
+    justify-content: center;
+  
+  }
 }
 
 .bottom-bar {
@@ -209,7 +218,7 @@ search-option.input {
 .card.form-card.rounded-custom {
   border-radius: 3rem;
 }
-.main-page-body {
+.posts {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
