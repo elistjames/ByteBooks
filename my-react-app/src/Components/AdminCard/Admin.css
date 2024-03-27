@@ -1,0 +1,155 @@
+.mid {
+    margin-top: 3rem;
+}
+
+.tabs {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.tab {
+    cursor: pointer;
+    font-weight: normal;
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+    border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+    font-weight: bold;
+    border-bottom: 2px solid black;
+}
+
+.reports {
+    background-color: #eeeeee;
+    border-radius: 30px;
+    padding: 5px 15px;
+    color: red;
+    font-weight: bold;
+    margin-top: 1px;
+}
+
+.userId {
+    font-weight: bold;
+    flex-grow: 1; 
+    text-align: center; 
+    margin-left: -70px;
+    margin-top: 5px;
+}
+
+.remove-user-btn {
+    position: absolute; 
+    right: 10px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    font-size: 15px; 
+    color: red; 
+    cursor: pointer;
+    padding: 8px; 
+    border-radius: 50%; 
+}
+
+.remove-user-btn:hover {
+    background-color: red; 
+    color:white;
+}
+
+.post-username {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: -20px;
+}
+
+.view-btn {
+    padding: 0.25rem 2rem;
+    border-radius: 30px;
+    margin-top: 8px;
+    margin-right: -20px;
+}
+
+.report-count{
+    position: absolute; 
+    left: 15px; 
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #eeeeee;
+    border-radius: 30px; 
+    padding: 5px 15px;
+    color: red;
+    font-weight: bold;
+}
+
+.post-title{
+    margin-right: -20px;
+    text-align: center;
+    margin: auto;
+    display: block;
+    font-weight: bold;
+    margin-right: -20px;
+}
+
+.post-bar {
+    border-radius: 50px; 
+    background: #FFFFFF; 
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); 
+    margin-bottom: 2rem; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.post-bar:first-child, .post-bar:last-child {
+    border-radius: 50px; 
+}
+
+.remove-post-icon {
+    position: absolute; 
+    right: 30px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    font-size: 45px; 
+    color: red; 
+    cursor: pointer;
+    padding: 8px; 
+    border-radius: 50%; 
+}
+
+.remove-post-icon:hover {
+    background-color: red; 
+    color: white; 
+}
+
+@media (max-width: 768px) {
+    .tab {
+        width: auto; 
+    }
+    .remove-post-icon{
+        right: 5px; 
+        font-size: 45px; 
+    }
+    .reports {
+        margin: 10px 0;
+        padding: 10px;
+    }
+    .report-count {
+        margin-bottom: 10px;
+        margin-left: -5px;
+    }
+    .userId {
+        margin-left: -30px;
+        padding: 15px;
+    }
+    .post-bar {
+        flex-direction: column; 
+        padding: 20px;
+        margin-bottom: 2.5rem; 
+    }
+    .view-btn, .post-title,.post-username{
+        margin-left: 70px;
+    }
+    .post-bar:last-child {
+        margin-bottom: 4rem;
+    }
+}
