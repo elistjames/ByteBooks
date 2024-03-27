@@ -209,3 +209,11 @@ search-option.input {
 .card.form-card.rounded-custom {
   border-radius: 3rem;
 }
+.main-page-body {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 1rem;
+  justify-content: center;
+
+}
