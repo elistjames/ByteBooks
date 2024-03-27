@@ -26,8 +26,8 @@ const SignIn = () => {
                 {loginError && <div className="error-message">{loginError}</div>}
                 <Form>
                     <Form.Group>
-                        <Form.Label className="form-label">Email</Form.Label>
-                        <Form.Control type="email" className="form-control" placeholder="Enter email" />
+                        <Form.Label className="form-label">Username</Form.Label>
+                        <Form.Control type="text" className="form-control" placeholder="Enter username" />
                     </Form.Group>
 
                     <Form.Group>
