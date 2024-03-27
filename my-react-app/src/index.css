@@ -232,7 +232,7 @@ search-option.input {
   box-shadow: none;
 }
 
-.form-submit-btn {
+.card .form-submit-btn {
   background: var(--brown);
   color: var(--white);
   border: none;
@@ -244,13 +244,13 @@ search-option.input {
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: darken(var(--brown), 5%);
+    background-color: var(--beige);
   }
 }
 
-.form-toggle-btn {
-  background: var(--beige);
-  color: var(--brown);
+.card .form-toggle-btn {
+  background: var(--brown);
+  color: var(--white);
   border: none;
   border-radius: 20px;
   padding: 0.5rem 1rem;
@@ -261,7 +261,7 @@ search-option.input {
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: darken(var(--beige), 5%);
+    background-color: var(--beige);
   }
 }
 

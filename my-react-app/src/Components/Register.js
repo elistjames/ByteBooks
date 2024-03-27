@@ -37,7 +37,7 @@ const Register = () => {
                     </Form.Group>
 
                     <Button className="form-submit-btn" type="submit">
-                        Sign up
+                        Sign Up
                     </Button>
                     <div className="text-center mt-3">
                         Already have an account?
