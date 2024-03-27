@@ -39,7 +39,7 @@ const SignIn = () => {
                     <div className="text-center mt-3">
                         Don't have an account?
                         <Button className="form-toggle-btn" onClick={() => navigate('/register')}>
-                            Register Here
+                            Sign Up
                         </Button>
                     </div>
 
