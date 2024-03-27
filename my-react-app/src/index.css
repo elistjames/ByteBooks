@@ -100,7 +100,7 @@ search-option.input {
 }
 
 .viewport {
-  transition: margin-left .5s;
+  transition: all 0.3s ease;
   margin-top: 60px;
 
 }
@@ -136,6 +136,7 @@ search-option.input {
 
   .viewport {
     margin-top: 50px;
+    margin-bottom: 50px;
   }
 
   #side-nav-toggle {
