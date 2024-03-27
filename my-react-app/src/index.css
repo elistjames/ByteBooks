@@ -295,6 +295,12 @@ search-option.input {
     top: 5rem;
     margin-left: 0;
   }
+  .posts {
+
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+  
+  }
 }
 
 .bottom-bar {
@@ -323,4 +329,50 @@ search-option.input {
 
 .nav-item.active {
   opacity: 1;
+}
+
+.static-value {
+  background-color: #eeeeee;
+  border-radius: 30px;
+  padding: 5px 15px;
+  color: black;
+  margin-top: 10px;
+}
+
+
+.card .btn-danger {
+  color: #eeeeee;
+  border-radius: 30px;
+
+}
+
+.form-card {
+  background: var(--white);
+  border-radius: 5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px; 
+  margin: 1rem auto;
+}
+
+.posts-heading{
+  margin-top: 5rem;
+}
+
+.card.form-card.rounded-custom {
+  border-radius: 3rem;
+}
+.posts {
+  display: inline-flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: auto;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+
+  padding:0;
+  transition: all 0.3s ease;
+
 }
