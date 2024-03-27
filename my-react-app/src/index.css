@@ -148,12 +148,9 @@ search-option.input {
     margin-left: 0;
   }
   .posts {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    overflow-y: auto;
-    gap: 1rem;
-    justify-content: center;
+
+    margin-top: 5rem;
+    margin-bottom: 2rem;
   
   }
 }
@@ -219,10 +216,15 @@ search-option.input {
   border-radius: 3rem;
 }
 .posts {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  gap: 1rem;
+  display: inline-flex;
   justify-content: center;
+  flex-wrap: wrap;
+  height: auto;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+
+  padding:0;
+  transition: all 0.3s ease;
 
 }
