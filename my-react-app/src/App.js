@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HeaderBar from "./Components/HeaderBar";
 import Profile from "./Components/Profile";
@@ -39,20 +39,20 @@ const App = () => {
                             padding: '15px 20px 0 20px'
                         }}>
                             <Routes>
-                                <Route path='/' element={<MainPage posts={posts}/>} />
-                                <Route path="/profile" element={<Profile />} />
-                                <Route path="/admin" element={<Admin />} /> 
+                                <Route path='/' element={<MainPage posts={posts} />} />
+                                <Route path="/profile" element={<Profile posts={posts} />} />
+                                <Route path="/admin" element={<Admin />} />
                             </Routes>
                         </div>
                     </div>
                 )}
                 {isMobile && (
-                    <div> {}
+                    <div> { }
                         <div className="viewport" style={{ padding: '15px 20px 0 20px' }}>
                             <Routes>
-                                <Route path='/' element={<MainPage posts={posts}/>} />
+                                <Route path='/' element={<MainPage posts={posts} />} />
                                 <Route path="/profile" element={<Profile />} />
-                                <Route path="/admin" element={<Admin />} /> 
+                                <Route path="/admin" element={<Admin />} />
                             </Routes>
                         </div>
                         <BottomBar />

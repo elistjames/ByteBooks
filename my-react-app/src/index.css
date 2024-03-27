@@ -175,3 +175,28 @@ search-option.input {
 .nav-item.active {
   opacity: 1;
 }
+
+.static-value {
+  background-color: #eeeeee;
+  border-radius: 30px;
+  padding: 5px 15px;
+  color: black;
+  margin-top: 10px;
+}
+
+
+.btn-danger {
+  border-radius: 100rem;
+  color: #eeeeee;
+
+}
+
+.form-card {
+  background: var(--white);
+  border-radius: 50px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px; 
+  margin: 2rem auto;
+}
