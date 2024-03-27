@@ -47,7 +47,7 @@ const App = () => {
                     </div>
                 )}
                 {isMobile && (
-                    <div> {}
+                    <div>
                         <div className="viewport" style={{ padding: '15px 20px 0 20px' }}>
                             <Routes>
                                 <Route path='/' element={<MainPage posts={posts}/>} />
