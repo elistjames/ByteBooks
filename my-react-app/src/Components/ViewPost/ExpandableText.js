@@ -19,7 +19,7 @@ const ExpandableText = ({ children, descriptionLength, disabled}) => {
         return <p>{ fullText }</p>
     }
     return (
-      <p>
+      <div>
         {isExpanded ? fullText : `${fullText.slice(0, descriptionLength)}...`}
         <br></br><br></br>
         <div className="expand-button-container">
@@ -27,7 +27,7 @@ const ExpandableText = ({ children, descriptionLength, disabled}) => {
             {isExpanded ? 'Show less' : 'Show more'}
             </Button>
         </div>
-      </p>
+      </div>
     );
   };
 
