@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Comment from './Comment/Comment'
+import Comment from './Comment/Comment';
 
 const Profile = () => {
 
@@ -8,6 +8,7 @@ const Profile = () => {
       <h1>Profile Page</h1>
       <p>Welcome to the Profile page!</p>
     </div>
+
   );
 };
 

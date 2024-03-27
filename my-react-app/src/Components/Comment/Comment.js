@@ -23,6 +23,7 @@ const Comment = ({comment, onSubmit}) => {
     }
 
     const onKeyDown = (event) => {
+
         if (event.key === 'Enter') {
             event.preventDefault();
         }
