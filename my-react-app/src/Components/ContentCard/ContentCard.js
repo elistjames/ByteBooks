@@ -70,9 +70,6 @@ const ContentCard = ({post}) => {
                             <Dropdown.Item className="option" eventKey="2" onClick={report(false)}>Report
                                 user</Dropdown.Item>
                         </DropdownButton>
-                        {/*<Dropdown.Menu className="dropdown-menu">*/}
-                        {/*    */}
-                        {/*</Dropdown.Menu>*/}
                     </Dropdown>
                 </div>
                 <h4 className="title">{post.title}</h4>
@@ -82,7 +79,7 @@ const ContentCard = ({post}) => {
                     <Card.Text ref={containerRef} className="content-text">{post.content}</Card.Text>
 
                     {readMore && <div style={{display: "flex", justifyContent: "space-between"}}>
-                        <span>...</span><Button className="read-more" onClick={viewPost}>Read more</Button>
+                        <span>...</span><Button className="read-more" href={`viewPost/${post.post_id}`}>Read more</Button>
                     </div>
                     }
                 </Card.Body>
@@ -107,7 +104,7 @@ const ContentCard = ({post}) => {
                         <span>{compressNum(post.dislikes)}</span>
                     </Button>
                 </div>
-                <Button className="media-btn" variant="link" onClick={viewPost}>
+                <Button className="media-btn" variant="link" href={`viewPost/${post.post_id}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          className="bi bi-chat" viewBox="0 0 16 16">
                         <path
