@@ -50,7 +50,6 @@ const App = () => {
                     </div>
                 )}
                 {isMobile && (
-<<<<<<< my-react-app/src/App.js
                     <div> { }
                         <div className="viewport" style={{ padding: '15px 20px 0 20px' }}>
                             <Routes>
