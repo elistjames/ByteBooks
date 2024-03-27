@@ -1,6 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
+const postRoutes = require('./routes/post');
+const commentRoutes = require('./routes/comment');
+const reportRoutes = require('./routes/report');
+const likeRoutes = require('./routes/like');
+const dislikeRoutes = require('./routes/dislike');
 
 const app = express();
 

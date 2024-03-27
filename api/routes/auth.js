@@ -1,6 +1,6 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const db = require('../db');
+const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
 
@@ -11,4 +11,7 @@ const jwtSecretKey = crypto.randomBytes(32).toString('hex');
 
 /* Requests */
 
+
+
 module.exports = router;
+
