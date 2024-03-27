@@ -22,8 +22,8 @@ const ExpandableText = ({ children, descriptionLength, disabled}) => {
       <p>
         {isExpanded ? fullText : `${fullText.slice(0, descriptionLength)}...`}
         <br></br><br></br>
-        <div className="expand-button">
-            <Button className="expand-button-inner" onClick={toggleText}>
+        <div className="expand-button-container">
+            <Button className="expand-button" onClick={toggleText}>
             {isExpanded ? 'Show less' : 'Show more'}
             </Button>
         </div>

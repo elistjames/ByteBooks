@@ -2,11 +2,12 @@
 
 .comment-container{
     border-radius: 2rem;
-    margin:0;
+    margin:1.5rem 0 1.5rem 0;
     padding:0.5rem 1rem 0.5rem 1rem;
     display: flex;
-    width: auto;
+    width: fit-content;
     height: auto;
+    transition: all 0.3s ease;
 }
 
 .comment-input-container{
@@ -36,11 +37,15 @@
 
 .comment-text{
     height: auto;
+    width: auto;
+    overflow-wrap: break-word;
+    word-break: break-all;
 }
 
 .comment-form{
     display: inline-flex;
     justify-content: space-between;
+    align-items:center;
     height: auto;
     min-width: 250px;
     max-height: 100%;

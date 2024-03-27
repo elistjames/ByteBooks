@@ -5,7 +5,6 @@ import Profile from "./Components/Profile";
 import MainPage from "./Components/MainPage/MainPage";
 import ViewPost from "./Components/ViewPost/ViewPost"
 import SideNavBar from "./Components/SideNavbar";
-import postData from './demoData/posts.json';
 // import SignIn from "./Components/SignIn";
 // import SignOut from "./Components/SigOut";
 // import Register from "./Components/Register";
@@ -23,7 +22,6 @@ const App = () => {
     });
     const sideNavRef = useRef();
     const [expanded, setExpanded] = useState(false)
-    const [posts, setPosts] = useState(postData);
     const expand = (state) => {
         setExpanded(state);
     };
@@ -40,20 +38,21 @@ const App = () => {
                             padding: '15px 20px 0 20px'
                         }}>
                             <Routes>
-                                <Route path='/' element={<MainPage posts={posts}/>} />
+                                <Route path='/' element={<MainPage />} />
                                 <Route path="/profile" element={<Profile />} />
-                                <Route path="/viewPost" element={<ViewPost post={posts[8]} />} />
+                                <Route path="/viewPost/:id" element={<ViewPost />} />
                             </Routes>
                         </div>
                     </div>
                 )}
                 {isMobile && (
                     <div>
-                        <div className="viewport" style={{ padding: '15px 20px 0 20px' }}>
+                        <div className="viewport" style={{
+                            padding: '15px 20px 40px 20px' }}>
                             <Routes>
-                                <Route path='/' element={<MainPage posts={posts}/>} />
+                                <Route path='/' element={<MainPage />} />
                                 <Route path="/profile" element={<Profile />} />
-                                <Route path="/viewPost" element={<ViewPost post={posts[8]} />} />
+                                <Route path="/viewPost/:id" element={<ViewPost />} />
                             </Routes>
                         </div>
                         <BottomBar />

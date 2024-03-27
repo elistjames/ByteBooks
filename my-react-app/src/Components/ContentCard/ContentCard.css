@@ -1,7 +1,6 @@
 .content-card{
-    margin: 0 25px 50px 25px;
+    margin: 50px 25px 0px 25px;
     width: 20rem;
-
     height: 500px;
     background: var(--white);
     box-shadow: 2px 2px 0.5rem darkgrey;
@@ -63,11 +62,14 @@
     display: none;
 }
 
-.icon-dropdown-toggle::before {
+.dropstart .dropdown-toggle::before {
     display: none;
+
 }
 
 .dropdown-menu{
+    position: absolute;
+    right: 40px;
     min-width: 115px;
     padding: 0;
     z-index: 5;
