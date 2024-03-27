@@ -1,4 +1,3 @@
-<<<<<<< f8ee9418beb4b127d1a7e5d92961d192e7d962a8
 import React from 'react';
 import "./../index.css";
 import { Button } from 'react-bootstrap';
@@ -38,19 +37,6 @@ const Profile = ({ posts = [] }) => {
         ))}
       </div>
     </>
-=======
-import React, {useState} from 'react';
-import Comment from './Comment/Comment';
-
-const Profile = () => {
-
-    return (
-    <div>
-      <h1>Profile Page</h1>
-      <p>Welcome to the Profile page!</p>
-    </div>
-
->>>>>>> 1d6ae4ff26d4d6f932224ced0bf1cdaab817c748
   );
 };
 
