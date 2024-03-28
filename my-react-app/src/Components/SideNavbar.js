@@ -2,6 +2,7 @@ import React from "react";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import { Link, useLocation } from "react-router-dom";
 import { IoHomeOutline, IoPersonOutline, IoBarChartOutline } from "react-icons/io5";
+import { useSession } from "./SessionContext";
 
 import SideNav, {
   NavItem,
@@ -12,6 +13,7 @@ import SideNav, {
 const SideNavBar = () => {
   const location = useLocation();
   const { pathname } = location;
+  const { userType } = useSession();
 
   const getDefaultSelected = () => {
     switch (pathname) {
@@ -25,6 +27,9 @@ const SideNavBar = () => {
         return "home";
     }
   };
+  if (userType === "guest") {
+    return null;
+  }
 
   return (
     <SideNav style={{
@@ -54,19 +59,22 @@ const SideNavBar = () => {
             <Link to="/profile" style={{ textDecoration: 'none', color: 'inherit' }}>Profile</Link>
           </NavText>
         </NavItem>
-        <NavItem eventKey="admin" selected={pathname === "/admin"}>
-          <NavIcon>
-            <Link to="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <IoBarChartOutline  style={{marginBottom: "5px"}}/>
-            </Link>
-          </NavIcon>
-          <NavText>
-            <Link to="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>Admin</Link>
-          </NavText>
-        </NavItem>
+        {userType === "admin" && (
+          <NavItem eventKey="admin" selected={pathname === "/admin"}>
+            <NavIcon>
+              <Link to="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <IoBarChartOutline  style={{marginBottom: "5px"}}/>
+              </Link>
+            </NavIcon>
+            <NavText>
+              <Link to="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>Admin</Link>
+            </NavText>
+          </NavItem>
+        )}
       </SideNav.Nav>
     </SideNav>
   );
 };
+
 
 export default SideNavBar;

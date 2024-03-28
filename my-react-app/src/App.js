@@ -3,19 +3,20 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HeaderBar from "./Components/HeaderBar";
 import Profile from "./Components/Profile";
 import MainPage from "./Components/MainPage/MainPage";
-import ViewPost from "./Components/ViewPost/ViewPost"
 import SideNavBar from "./Components/SideNavbar";
 import postData from './demoData/posts.json';
+import BottomBar from "./Components/BottomBar";
+import Admin from "./Components/AdminCard/Admin";
+import { useMediaQuery } from 'react-responsive';
+import { Link } from 'react-router-dom';
+import { SessionProvider, useSession } from "./Components/SessionContext";
 import SignIn from "./Components/SignIn";
 import SignOut from "./Components/SignOut";
 import Register from "./Components/Register";
-// import Admin from "./Components/Admin";
-import BottomBar from "./Components/BottomBar";
-import { useMediaQuery } from 'react-responsive';
-import Admin from "./Components/AdminCard/Admin";
+import ViewPost from "./Components/ViewPost/ViewPost";
+
 
 const App = () => {
-
     const isMobile = useMediaQuery({
         query: '(max-width: 767px)'
     });
@@ -23,7 +24,7 @@ const App = () => {
         query: '(min-width: 768px)'
     });
     const sideNavRef = useRef();
-    const [expanded, setExpanded] = useState(false)
+    const [expanded, setExpanded] = useState(false);
     const [posts, setPosts] = useState(postData);
     const expand = (state) => {
         setExpanded(state);
@@ -31,44 +32,108 @@ const App = () => {
 
     return (
         <div className="app">
-            <Router>
-                <HeaderBar />
-                {isDesktop && (
-                    <div>
-                        <SideNavBar ref={sideNavRef} onClick={expand} />
-                        <div className="viewport" style={{
-                            marginLeft: expanded ? 240 : 64,
-                            padding: '15px 20px 0 20px'
-                        }}>
-                            <Routes>
-                                <Route path='/' element={<MainPage posts={posts} />} />
-                                <Route path="/profile" element={<Profile posts={posts} />} />
-                                <Route path="signin" element={<SignIn />} />
-                                <Route path="register" element={<Register />} />
-                                <Route path="/admin" element={<Admin />} />
-                                <Route path="/viewPost/:id" element={<ViewPost />} />
-                            </Routes>
+            <SessionProvider>
+                <Router>
+                    <HeaderBar />
+                    {isDesktop && (
+                        <div>
+                            <SideNavBar ref={sideNavRef} onClick={expand} />
+                            <div className="viewport" style={{
+                                marginLeft: expanded ? 240 : 64,
+                                padding: '15px 20px 0 20px'
+                            }}>
+                                <Routes>
+                                    <Route path='/' element={<MainPage posts={posts}/>} />
+                                    <Route path="/profile" element={<ProtectedProfile />} />
+                                    <Route path="/admin" element={<ProtectedAdmin />} /> 
+                                    <Route path="/signin" element={<ProtectedSignIn />} />
+                                    <Route path="/signout" element={<SignOut />} />
+                                    <Route path="/register" element={<ProtectedRegister />} />
+                                    <Route path="/viewPost/:id" element={<ViewPost />} />
+                                </Routes>
+                            </div>
                         </div>
-                    </div>
-                )}
-                {isMobile && (
-                    <div> { }
-                        <div className="viewport" style={{ padding: '15px 20px 0 20px' }}>
-                            <Routes>
-                                <Route path='/' element={<MainPage posts={posts} />} />
-                                <Route path="/profile" element={<Profile posts={posts} />} />
-                                <Route path="signin" element={<SignIn />} />
-                                <Route path="register" element={<Register />} />
-                                <Route path="/admin" element={<Admin />} />
-                                <Route path="/viewPost/:id" element={<ViewPost />} />
-                            </Routes>
+                    )}
+                    {isMobile && (
+                        <div>
+                            <div className="viewport" style={{ padding: '15px 20px 0 20px' }}>
+                                <Routes>
+                                    <Route path='/' element={<MainPage posts={posts}/>} />
+                                    <Route path="/profile" element={<ProtectedProfile />} />
+                                    <Route path="/admin" element={<ProtectedAdmin />} /> 
+                                    <Route path="/signin" element={<ProtectedSignIn />} />
+                                    <Route path="/signout" element={<SignOut />} />
+                                    <Route path="/register" element={<ProtectedRegister />} />
+                                    <Route path="/viewPost/:id" element={<ViewPost />} />
+                                </Routes>
+                            </div>
+                            <BottomBar />
                         </div>
-                        <BottomBar />
-                    </div>
-                )}
-            </Router>
+                    )}
+                </Router>
+            </SessionProvider>
         </div>
     )
 }
+
+const ProtectedProfile = () => {
+    const { userType } = useSession();
+    const [posts, setPosts] = useState(postData);
+
+    if (userType === 'member' || userType === 'admin') {
+        return <Profile />;
+    } else {
+        return <SignIn/>;
+    }
+}
+
+const ProtectedRegister = () => {
+    const { userType } = useSession();
+    const [posts, setPosts] = useState(postData);
+
+    if (userType === 'member' || userType === 'admin') {
+        return <MainPage posts={posts} />;
+    } else {
+        return <Register/>;
+    }
+}
+
+const ProtectedSignIn = () => {
+    const { userType } = useSession();
+    const [posts, setPosts] = useState(postData);
+
+    if (userType === 'member' || userType === 'admin') {
+        return <MainPage posts={posts}/>;;
+    } else {
+        return <SignIn />;
+    }
+}
+
+const ProtectedAdmin = () => {
+    const { userType } = useSession();
+    const [posts, setPosts] = useState(postData);
+
+    if (userType === 'admin') {
+        return <Admin />;
+    } if (userType === 'member') {
+        return <UnauthorizedAdminPage />;
+    } else{
+        return <SignIn />;
+    }
+}
+
+const UnauthorizedAdminPage = () => {
+    return (
+        <div className="unauthorizedContainer">
+            <h2>You must be an admin to view this page.</h2>
+            <br></br>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+                <div className="unauthorizedButton">
+                    Home
+                </div>
+            </Link>
+        </div>
+    );
+};
 
 export default App;
