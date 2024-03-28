@@ -14,6 +14,7 @@ import SignOut from "./Components/SignOut";
 import Register from "./Components/Register";
 import Admin from "./Components/AdminCard/Admin";
 import ViewPost from "./Components/ViewPost/ViewPost";
+import ContentEditor from "./Components/ContentEditor/ContentEditor";
 
 
 const App = () => {
@@ -127,6 +128,19 @@ const ProtectedAdmin = () => {
 }
 
 const UnauthorizedAdminPage = () => {
+    const isMobile = useMediaQuery({
+        query: '(max-width: 767px)'
+    });
+    const isDesktop = useMediaQuery({
+        query: '(min-width: 768px)'
+    });
+    const sideNavRef = useRef();
+    const [expanded, setExpanded] = useState(false);
+    const [posts, setPosts] = useState(postData);
+    const expand = (state) => {
+        setExpanded(state);
+    };
+
     return (
         <div className="unauthorizedContainer">
             <h2>You must be an admin to view this page.</h2>
