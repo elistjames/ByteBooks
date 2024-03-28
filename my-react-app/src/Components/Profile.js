@@ -5,6 +5,7 @@ import './../index.css';
 import './MainPage/MainPage.css';
 import ConfirmationModal from './ConfirmationCard/ConfirmationModal'; 
 import ChangePasswordModal from './ConfirmationCard/ChangePasswordModal'; 
+import ConfirmationToast from './ConfirmationCard/ConfirmationToast'; 
 import postData from "../demoData/posts.json"
 
   const Profile = () => {
@@ -15,10 +16,12 @@ import postData from "../demoData/posts.json"
   const handleCloseModal = () => setShowModal(false);
   const handleConfirmDelete = () => {handleCloseModal();};
   
+  const [showPasswordChangedToast, passwordChangedToast] = useState(false); 
   const handlePasswordModal = () => addPasswordModal(true);
   const [changePasswordModal, addPasswordModal] = useState(false);
   const closePasswordModal = () => addPasswordModal(false);
   const passwordChange = () => {
+    passwordChangedToast(true); 
     closePasswordModal();};
 
   return (
@@ -57,6 +60,11 @@ import postData from "../demoData/posts.json"
         show={changePasswordModal} 
         handleClose={closePasswordModal}
         onSaveChanges={passwordChange} 
+      />
+       <ConfirmationToast
+        show={showPasswordChangedToast}
+        message="Password changed successfully."
+        onClose={() => passwordChangedToast(false)}
       />
     </>
   );
