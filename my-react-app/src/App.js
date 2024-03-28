@@ -47,7 +47,8 @@ const App = () => {
                                 <Route path="register" element={<Register />} />
                                 <Route path="/admin" element={<Admin />} />
                                 <Route path="/viewPost/:id" element={<ViewPost />} />
-                                <Route path="/edit" element={<ContentEditor post={posts[0]} />} />
+                                <Route path="/editPost/:id" element={<ContentEditor newPost={false}/>} />
+                                <Route path="/createPost" element={<ContentEditor />} newPost={true}/>
                             </Routes>
                         </div>
                     </div>
@@ -62,7 +63,8 @@ const App = () => {
                                 <Route path="register" element={<Register />} />
                                 <Route path="/admin" element={<Admin />} />
                                 <Route path="/viewPost/:id" element={<ViewPost />} />
-                                <Route path="/edit" element={<ContentEditor post={posts[0]} />} />
+                                <Route path="/editPost/:id" element={<ContentEditor newPost={false}/>} />
+                                <Route path="/createPost" element={<ContentEditor />} newPost={true}/>
                             </Routes>
                         </div>
                         <BottomBar />
