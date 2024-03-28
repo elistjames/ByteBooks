@@ -3,6 +3,7 @@ import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap';
 import { IoPersonRemove, IoTrashOutline } from 'react-icons/io5';
 import './Admin.css';
 import ConfirmationModal from '../ConfirmationCard/ConfirmationModal';
+import ConfirmationToast from '../ConfirmationCard/ConfirmationToast'; 
 
 const Admin = () => {
     const [reportedUsers, setReportedUsers] = useState([
@@ -22,7 +23,9 @@ const Admin = () => {
     const [activeTab, setActiveTab] = useState('users');
     const [modalDialog, setModalDialog] = useState(false);
     const [currentItemId, setCurrentItemId] = useState(null);
-    const [dialogMessage, setdialogMessage] = useState('');
+    const [dialogMessage, setDialogMessage] = useState('');
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
 
     const deleteItem = (itemId) => {
         setCurrentItemId(itemId);
@@ -32,20 +35,31 @@ const Admin = () => {
         const message = activeTab === 'users'
             ? `Are you sure you want to ban the user "${detail}"?`
             : `Are you sure you want to delete the post "${detail}"?`;
-        setdialogMessage(message);
+        setDialogMessage(message);
         setModalDialog(true);
     };
 
     const handleDelete = () => {
+        let itemName = '';
         if (activeTab === 'users') {
+            const user = reportedUsers.find(user => user.user_id === currentItemId);
+            if(user) {
+                itemName = user.userId; 
+            }
             setReportedUsers(prevUsers => prevUsers.filter(user => user.user_id !== currentItemId));
+            setToastMessage(`User "${itemName}" has been banned.`); 
         } else {
+            const post = reportedPosts.find(post => post.post_id === currentItemId);
+            if(post) {
+                itemName = post.title; 
+            }
             setReportedPosts(prevPosts => prevPosts.filter(post => post.post_id !== currentItemId));
+            setToastMessage(`Post "${itemName}" has been deleted.`); 
         }
+        setShowToast(true);
         setModalDialog(false);
     };
-
-
+    
     return (
         <Container className="mid">
             <Row className="justify-content-md-center">
@@ -82,7 +96,7 @@ const Admin = () => {
                         )}
                         {activeTab === 'posts' && (
                             <ListGroup>
-                                {reportedPosts.map((post) => (
+                                {reportedPosts.map((post, index) => (
                                     <ListGroup.Item key={post.post_id} className="post-bar">
                                         <div className="post-info">
                                             <span className="report-count">{post.reports}</span>
@@ -90,7 +104,7 @@ const Admin = () => {
                                             <span className="post-title">{post.title}</span>
                                         </div>
                                         <div className="post-actions">
-                                            <Button variant="primary" size="sm" className="view-btn" title="View post">View</Button> 
+                                            <Button variant="primary" size="sm" className="view-btn" title="View post">View</Button>
                                             <IoTrashOutline className="remove-post-icon" onClick={() => deleteItem(post.post_id)} title="Delete post"/>
                                         </div>
                                     </ListGroup.Item>
@@ -106,8 +120,13 @@ const Admin = () => {
                 onConfirm={handleDelete}
                 message={dialogMessage}
             />
+            <ConfirmationToast
+                show={showToast}
+                message={toastMessage}
+                onClose={() => setShowToast(false)}
+            />
         </Container>
-        );
-    };
-    
-    export default Admin;
+    );
+};
+
+export default Admin;
