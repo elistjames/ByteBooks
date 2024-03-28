@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap';
 import { IoPersonRemove, IoTrashOutline } from 'react-icons/io5';
 import './Admin.css';
+import ConfirmationModal from '../ConfirmationCard/ConfirmationModal';
 
 const Admin = () => {
     const [reportedUsers, setReportedUsers] = useState([
@@ -19,14 +20,31 @@ const Admin = () => {
     ]);
 
     const [activeTab, setActiveTab] = useState('users');
+    const [modalDialog, setModalDialog] = useState(false);
+    const [currentItemId, setCurrentItemId] = useState(null);
+    const [dialogMessage, setdialogMessage] = useState('');
 
-    const removeUser = (userId) => {
-        setReportedUsers(reportedUsers.filter(user => user.user_id !== userId));
+    const deleteItem = (itemId) => {
+        setCurrentItemId(itemId);
+        const detail = activeTab === 'users'
+            ? reportedUsers.find(user => user.user_id === itemId)?.userId
+            : reportedPosts.find(post => post.post_id === itemId)?.title;
+        const message = activeTab === 'users'
+            ? `Are you sure you want to ban the user "${detail}"?`
+            : `Are you sure you want to delete the post "${detail}"?`;
+        setdialogMessage(message);
+        setModalDialog(true);
     };
 
-    const removePost = (postId) => {
-        setReportedPosts(reportedPosts.filter(post => post.post_id !== postId));
+    const handleDelete = () => {
+        if (activeTab === 'users') {
+            setReportedUsers(prevUsers => prevUsers.filter(user => user.user_id !== currentItemId));
+        } else {
+            setReportedPosts(prevPosts => prevPosts.filter(post => post.post_id !== currentItemId));
+        }
+        setModalDialog(false);
     };
+
 
     return (
         <Container className="mid">
@@ -51,11 +69,12 @@ const Admin = () => {
                             <ListGroup>
                                 {reportedUsers.map((user, index) => (
                                     <div key={index} className="user-item">
-                                        <ListGroup.Item key ={user.user_id} className="d-flex justify-content-between my-2 rounded-pill">
+                                        <ListGroup.Item key={user.user_id} className="d-flex justify-content-between my-2 rounded-pill">
                                             <span className="reports">{user.reports}</span>
                                             <span className="userId">{user.userId}</span>
-                                            <Button variant="link" className="remove-user-btn" onClick={() => removeUser(user.user_id)} title="Ban user">
-                                            <IoPersonRemove size="1.5em" className="remove-user-icon"/> </Button>
+                                            <Button variant="link" className="remove-user-btn" onClick={() => deleteItem(user.user_id)} title="Ban user">
+                                                <IoPersonRemove size="1.5em" className="remove-user-icon"/> 
+                                            </Button>
                                         </ListGroup.Item>
                                     </div>
                                 ))}
@@ -72,7 +91,7 @@ const Admin = () => {
                                         </div>
                                         <div className="post-actions">
                                             <Button variant="primary" size="sm" className="view-btn" title="View post">View</Button> 
-                                            <IoTrashOutline className="remove-post-icon" onClick={() => removePost(post.post_id)} title="Delete post"/>
+                                            <IoTrashOutline className="remove-post-icon" onClick={() => deleteItem(post.post_id)} title="Delete post"/>
                                         </div>
                                     </ListGroup.Item>
                                 ))}
@@ -81,8 +100,14 @@ const Admin = () => {
                     </div>
                 </Col>
             </Row>
+            <ConfirmationModal
+                show={modalDialog}
+                onHide={() => setModalDialog(false)}
+                onConfirm={handleDelete}
+                message={dialogMessage}
+            />
         </Container>
-    );
-};
-
-export default Admin;
+        );
+    };
+    
+    export default Admin;
