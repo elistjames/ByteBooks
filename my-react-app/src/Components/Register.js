@@ -6,6 +6,7 @@ import "./../index.css";
 import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+import { useSession } from "./SessionContext";
 
 
 const Register = () => {
@@ -13,11 +14,14 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('patient');
     const navigate = useNavigate();
+    const { setUserRoleType } = useSession();
 
 
 
     const handleSubmit = async (e) => {
         // for later to add db stuff and move to next page
+        setUserRoleType('member');
+        navigate("/")
 
     };
 
@@ -25,7 +29,7 @@ const Register = () => {
         <Card className="form-card">
             <Card.Body>
                 <Card.Title className="form-header">Sign Up</Card.Title>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Label className="form-label">Username</Form.Label>
                         <Form.Control type="text" className="form-control" placeholder="Enter username" />

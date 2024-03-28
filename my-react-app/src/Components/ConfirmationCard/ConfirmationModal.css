@@ -1,0 +1,32 @@
+.modal-header {
+    background-color: #533128;
+    border-bottom: 1px solid black;
+}
+
+.modal-title {
+    color: white;
+}
+
+.modal-body {
+    color: black;
+    background-color: #f3e8d7;
+}
+
+.modal-footer {
+    background-color: #f3e8d7;
+    border-top: 1px solid #f3e8d7;
+}
+
+
+.btn-custom-light {
+    background-color: white; 
+    color: black;
+    border-radius: 35px;
+}
+
+.btn-custom-danger {
+    background-color: #ed5757; 
+    color: black;
+    border-radius: 35px;
+    border-color: #ed5757;
+}
