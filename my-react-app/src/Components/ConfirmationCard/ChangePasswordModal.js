@@ -45,15 +45,15 @@ const ChangePasswordModal = ({ show, handleClose, onSaveChanges }) => {
           )}
           <Form.Group controlId="formOldPassword">
             <Form.Label>Old Password</Form.Label>
-            <Form.Control type="text" placeholder="Enter old password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)}/>
+            <Form.Control type="password" placeholder="Enter old password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)}/>
           </Form.Group>
           <Form.Group controlId="formNewPassword">
             <Form.Label>New Password</Form.Label>
-            <Form.Control type="text" placeholder="Enter new password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
+            <Form.Control type="password" placeholder="Enter new password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
           </Form.Group>
           <Form.Group controlId="formConfirmPassword">
             <Form.Label>Confirm New Password</Form.Label>
-            <Form.Control type="text" placeholder="Confirm new password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+            <Form.Control type="password" placeholder="Confirm new password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
           </Form.Group>
         </Form>
       </Modal.Body>
