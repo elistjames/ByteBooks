@@ -11,6 +11,7 @@ RUN npm install \
     && npm install sass \
     && npm install react-icons \
     && npm install react-responsive \
-    && npm install react-contenteditable
+    && npm install react-contenteditable \
+    && npm install uuid
 
 CMD ["npm", "start"]
