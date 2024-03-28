@@ -4,15 +4,22 @@ import ContentCard from "./ContentCard/ContentCard";
 import './../index.css';
 import './MainPage/MainPage.css';
 import ConfirmationModal from './ConfirmationCard/ConfirmationModal'; 
+import ChangePasswordModal from './ConfirmationCard/ChangePasswordModal'; 
+import postData from "../demoData/posts.json"
 
-const Profile = ({ posts = [] }) => {
+  const Profile = () => {
+  const [posts, setPosts] = useState(postData);
   const usersPosts = posts.filter(post => post.user_id === '@elistjames');
-
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
-  const handleConfirmDelete = () => {handleCloseModal();
-  };
+  const handleConfirmDelete = () => {handleCloseModal();};
+  
+  const handlePasswordModal = () => addPasswordModal(true);
+  const [changePasswordModal, addPasswordModal] = useState(false);
+  const closePasswordModal = () => addPasswordModal(false);
+  const passwordChange = () => {
+    closePasswordModal();};
 
   return (
     <>
@@ -23,9 +30,14 @@ const Profile = ({ posts = [] }) => {
               <Card.Title className="text-muted">Username</Card.Title>
               <Card.Text className="static-value">@elistjames</Card.Text>
             </div>
-              <Button variant="danger" className="mx-auto d-flex justify-content-around mb-3" onClick={handleShowModal}>
+            <div className="d-flex justify-content-around mb-3">
+              <Button variant="primary" className="change-password-btn rounded-button" onClick={handlePasswordModal}>
+                Change Password
+              </Button>
+              <Button variant="danger" onClick={handleShowModal}>
                 Delete Account
               </Button>
+              </div>
           </div>
         </Card.Body>
       </Card>
@@ -41,6 +53,11 @@ const Profile = ({ posts = [] }) => {
         onConfirm={handleConfirmDelete}
         message="Are you sure you want to delete your account?"
       />  
+       <ChangePasswordModal 
+        show={changePasswordModal} 
+        handleClose={closePasswordModal}
+        onSaveChanges={passwordChange} 
+      />
     </>
   );
 };
