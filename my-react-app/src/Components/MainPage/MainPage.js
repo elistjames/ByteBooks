@@ -14,7 +14,7 @@ const MainPage = () =>
     return(
         <div className=" main-page-container">
             <SearchBar />
-            <Button variant="primary" className="post-btn">
+            <Button variant="primary" className="post-btn" href={`createPost`}>
                 <PiPlusBold size={40} className="post-mobile"/>
             </Button>
             <div className="main-page-body">

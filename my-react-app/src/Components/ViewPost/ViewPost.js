@@ -121,7 +121,7 @@ const ViewPost = () => {
                         </div>
                     </div>
                     <div className="view-post-body">
-                    <Card className="view-post-card">
+                        <Card className="view-post-card">
                             <div className="view-post-options">
                                 <Dropdown autoClose="outside" drop="down">
                                     <DropdownButton className="icon-dropdown-toggle options_btn" variant="link"
