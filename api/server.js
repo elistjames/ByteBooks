@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
-const postRoutes = require('./routes/post');
-const commentRoutes = require('./routes/comment');
+const postRoutes = require('./routes/mainPage');
+const commentRoutes = require('./routes/viewPost');
 const reportRoutes = require('./routes/report');
 const likeRoutes = require('./routes/like');
 const dislikeRoutes = require('./routes/dislike');
@@ -13,12 +13,12 @@ app.use(express.json());
 
 
 const corsOptions = {
-    origin: 'http://localhost:5000/'
+    origin: 'http://127.0.0.1:8080/'
     };
 app.use (cors(corsOptions));
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 // route for authentication requests
 app.use('/auth', authRoutes);
@@ -41,7 +41,7 @@ app.get("/status", (request, response) => {
 });
 
 
-// API listening on port 5000
+// API listening on port 3306
 app.listen(PORT, () => {
     console.log("Server listening on PORT:", PORT);
 })

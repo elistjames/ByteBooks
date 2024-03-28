@@ -1,11 +1,12 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 // MySQL Connection Configuration
 const db = mysql.createConnection({
-    host: 'localhost',
+    host: 'host.docker.internal',
     user: 'root',
     password: 'secret',
-    database: 'app_db'
+    database: 'app_db',
+    port: 3307,
 });
 
 // Connect to Mysql db
@@ -16,4 +17,16 @@ db.connect((err) => {
     console.log('Connected to MySQL database');
 });
 
-module.exports = db;
+// Function to execute a SQL query
+function executeQuery(sql, params, callback) {
+    // Check if params is a function (overloading without params)
+    if (typeof params === 'function') {
+        callback = params;
+        params = []; // Set params to an empty array
+    }
+    db.query(sql, params, callback);
+}
+
+module.exports = {
+    executeQuery
+};

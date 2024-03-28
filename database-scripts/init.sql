@@ -15,9 +15,6 @@ CREATE TABLE posts (
     title VARCHAR(50) NOT NULL,
     content VARCHAR(1000) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    likes INT,
-    dislikes INT,
-    n_comments INT,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
