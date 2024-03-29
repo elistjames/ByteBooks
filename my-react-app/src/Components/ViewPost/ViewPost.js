@@ -7,7 +7,8 @@ import { useMediaQuery } from 'react-responsive';
 import {getPost} from '../../demoApi';
 import Comment from '../Comment/Comment';
 import { v4 as uuidv4 } from 'uuid';
-
+import { useSession } from "./../SessionContext";
+import { Link } from 'react-router-dom';
 import ExpandableText from "./ExpandableText";
 
 import "./ViewPost.css"
@@ -56,6 +57,7 @@ const diplayTest = (limit) => {
 }
 
 const ViewPost = () => {
+    const { userType } = useSession();
 
     const [comments, setComments] = useState([
             {
@@ -170,11 +172,20 @@ const ViewPost = () => {
                 </div>
             </div>
             <div className="comments-section">
-                <div className="comments-container">
+                <div className={"comments-container"}>
                     <div className="comments-header">
                         <h1>{comments.length} {comments.length > 1 ? "Comments" : "Comment"}</h1>
+                        {(userType !== "admin" || userType !== "member") && (
+                        <Link to="/signin" style={{ textDecoration: 'none' }}>
+                            <div className="sign-in-button">
+                                Sign in to view comments
+                            </div>
+                        </Link>
+                        )}
                     </div>
-                    <div className="comments-body">
+
+                    <div className={userType === "admin" || userType === "member" ? "comments-body" : "comments-body-blurred disabled"}>
+                    {(userType === "admin" || userType === "member") && (
                         <Comment comment={{
                             "comment_id": -1,
                             "post_id": -1,
@@ -182,6 +193,7 @@ const ViewPost = () => {
                             "username": "estjames",  // TODO: need to pass in session username
                             "content": ""
                         }} onSubmit={handleOnSubmit}/>
+                        )}
                         {comments.map((comment) => (
                             <Comment key={uuidv4()} comment={comment}/>
                         ))}
