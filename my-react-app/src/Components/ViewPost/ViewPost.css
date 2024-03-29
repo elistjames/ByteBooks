@@ -142,21 +142,14 @@ view-post-title {
     padding: 0 2rem 0 2rem;
 }
 
-.comments-body {
-    pointer-events: none;
-}
-
-.comments-body-blurred {
+.comments-blurred {
     filter: blur(3px);
-    pointer-events: none;
     z-index: -1;
     position: relative;
+    margin-top: -50px;
 }
 
 .sign-in-button-overlay {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 10px 10px;
     background-color: var(--brown);
     color: var(--white);
     border-radius: 30px;
@@ -164,9 +157,7 @@ view-post-title {
     text-decoration: none;
     transition: all 0.3s;
     font-weight: normal;
-    position: absolute;
-    top: 50%;
+    position: relative;
     left: 50%;
-    transform: translate(-50%, 700%);
-    z-index: 1;
+    transform: translate(-50%, 400%);
 }
