@@ -175,33 +175,31 @@ const ViewPost = () => {
                 <div className={"comments-container"}>
                     <div className="comments-header">
                         <h1>{comments.length} {comments.length > 1 ? "Comments" : "Comment"}</h1>
-                        {(userType !== "admin" || userType !== "member") && (
-                        <Link to="/signin" style={{ textDecoration: 'none' }}>
-                            <div className="sign-in-button">
-                                Sign in to view comments
+                        </div>                          
+                            <div className={userType === "admin" || userType === "member" ? "comments-body" : "comments-body-blurred disabled"}>
+                            {(userType === "admin" || userType === "member") && (
+                                <Comment comment={{
+                                    "comment_id": -1,
+                                    "post_id": -1,
+                                    "user_id": 1234535, //TODO: need to passing in session user id
+                                    "username": "estjames",  // TODO: need to pass in session username
+                                    "content": ""
+                                }} onSubmit={handleOnSubmit}/>
+                                )}
+                                {comments.map((comment) => (
+                                    <Comment key={uuidv4()} comment={comment}/>
+                                ))}
                             </div>
+                        </div>
+                </div>
+                    {(userType !== "admin" && userType !== "member") && (
+                        <Link to="/signin" style={{ textDecoration: 'none' }}>
+                            <Button className="sign-in-button-overlay">
+                            Sign in to view comments
+                            </Button>
                         </Link>
                         )}
-                    </div>
-
-                    <div className={userType === "admin" || userType === "member" ? "comments-body" : "comments-body-blurred disabled"}>
-                    {(userType === "admin" || userType === "member") && (
-                        <Comment comment={{
-                            "comment_id": -1,
-                            "post_id": -1,
-                            "user_id": 1234535, //TODO: need to passing in session user id
-                            "username": "estjames",  // TODO: need to pass in session username
-                            "content": ""
-                        }} onSubmit={handleOnSubmit}/>
-                        )}
-                        {comments.map((comment) => (
-                            <Comment key={uuidv4()} comment={comment}/>
-                        ))}
-                    </div>
-                </div>
             </div>
-
-        </div>
     );
 };
 
