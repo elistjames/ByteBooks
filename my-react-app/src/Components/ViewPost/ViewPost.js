@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Card from 'react-bootstrap/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from 'react-bootstrap/Button';
@@ -58,6 +58,7 @@ const diplayTest = (limit) => {
 
 const ViewPost = () => {
     const { userType } = useSession();
+    const [postHeight, setPostHeight] = useState(0);
 
     const [comments, setComments] = useState([
             {
@@ -108,6 +109,14 @@ const ViewPost = () => {
     if (post.content.length > SECONDARY_CHARACTER_LIMIT && isMobile) {
         notOverLimit = false;
     }
+    useEffect(() => {
+        // Update post height when expanded state changes
+        const postContainer = document.querySelector(".view-post-container");
+        if (postContainer) {
+            setPostHeight(postContainer.offsetHeight);
+        }
+    }, [post.content]);
+    const transformValue = `translate(-50%, calc(50% + ${postHeight}px))`;
 
     return (
         <div className="view-post-container">
@@ -176,7 +185,13 @@ const ViewPost = () => {
                     <div className="comments-header">
                         <h1>{comments.length} {comments.length > 1 ? "Comments" : "Comment"}</h1>
                         </div>                          
-                            <div className={userType === "admin" || userType === "member" ? "comments-body" : "comments-body-blurred disabled"}>
+                            {(userType !== "admin" && userType !== "member") && (
+                                <Link to="/signin" style={{ transform: transformValue }}>
+                                    <Button className="sign-in-button-overlay">
+                                    Sign in to view comments
+                                    </Button>
+                                </Link>
+                                )}
                             {(userType === "admin" || userType === "member") && (
                                 <Comment comment={{
                                     "comment_id": -1,
@@ -185,20 +200,15 @@ const ViewPost = () => {
                                     "username": "estjames",  // TODO: need to pass in session username
                                     "content": ""
                                 }} onSubmit={handleOnSubmit}/>
+                            
                                 )}
+                            <div  className={userType === "admin" || userType === "member" ? "" : "comments-blurred"} >
                                 {comments.map((comment) => (
                                     <Comment key={uuidv4()} comment={comment}/>
                                 ))}
                             </div>
                         </div>
                 </div>
-                    {(userType !== "admin" && userType !== "member") && (
-                        <Link to="/signin" style={{ textDecoration: 'none' }}>
-                            <Button className="sign-in-button-overlay">
-                            Sign in to view comments
-                            </Button>
-                        </Link>
-                        )}
             </div>
     );
 };
