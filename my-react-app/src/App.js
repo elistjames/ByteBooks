@@ -4,7 +4,6 @@ import HeaderBar from "./Components/HeaderBar";
 import Profile from "./Components/Profile";
 import MainPage from "./Components/MainPage/MainPage";
 import SideNavBar from "./Components/SideNavbar";
-import postData from './demoData/posts.json';
 import BottomBar from "./Components/BottomBar";
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
@@ -26,7 +25,6 @@ const App = () => {
     });
     const sideNavRef = useRef();
     const [expanded, setExpanded] = useState(false);
-    const [posts, setPosts] = useState(postData);
     const expand = (state) => {
         setExpanded(state);
     };
@@ -44,7 +42,7 @@ const App = () => {
                                 padding: '15px 20px 0 20px'
                             }}>
                                 <Routes>
-                                    <Route path='/' element={<MainPage posts={posts}/>} />
+                                    <Route path='/' element={<MainPage />} />
                                     <Route path="/profile" element={<ProtectedProfile />} />
                                     <Route path="/admin" element={<ProtectedAdmin />} />
                                     <Route path="/signin" element={<ProtectedSignIn />} />
@@ -61,7 +59,7 @@ const App = () => {
                         <div>
                             <div className="viewport" style={{ padding: '15px 20px 0 20px' }}>
                                 <Routes>
-                                    <Route path='/' element={<MainPage posts={posts}/>} />
+                                    <Route path='/' element={<MainPage />} />
                                     <Route path="/profile" element={<ProtectedProfile />} />
                                     <Route path="/admin" element={<ProtectedAdmin />} />
                                     <Route path="/signin" element={<ProtectedSignIn />} />
@@ -83,7 +81,6 @@ const App = () => {
 
 const ProtectedProfile = () => {
     const { userType } = useSession();
-    const [posts, setPosts] = useState(postData);
 
     if (userType === 'member' || userType === 'admin') {
         return <Profile />;
@@ -94,10 +91,9 @@ const ProtectedProfile = () => {
 
 const ProtectedRegister = () => {
     const { userType } = useSession();
-    const [posts, setPosts] = useState(postData);
 
     if (userType === 'member' || userType === 'admin') {
-        return <MainPage posts={posts} />;
+        return <MainPage/>;
     } else {
         return <Register/>;
     }
@@ -105,10 +101,9 @@ const ProtectedRegister = () => {
 
 const ProtectedSignIn = () => {
     const { userType } = useSession();
-    const [posts, setPosts] = useState(postData);
 
     if (userType === 'member' || userType === 'admin') {
-        return <MainPage posts={posts}/>;;
+        return <MainPage/>;;
     } else {
         return <SignIn />;
     }
@@ -116,7 +111,6 @@ const ProtectedSignIn = () => {
 
 const ProtectedAdmin = () => {
     const { userType } = useSession();
-    const [posts, setPosts] = useState(postData);
 
     if (userType === 'admin') {
         return <Admin />;
@@ -136,7 +130,6 @@ const UnauthorizedAdminPage = () => {
     });
     const sideNavRef = useRef();
     const [expanded, setExpanded] = useState(false);
-    const [posts, setPosts] = useState(postData);
     const expand = (state) => {
         setExpanded(state);
     };
@@ -150,46 +143,6 @@ const UnauthorizedAdminPage = () => {
                     Home
                 </div>
             </Link>
-            <Router>
-                <HeaderBar />
-                {isDesktop && (
-                    <div>
-                        <SideNavBar ref={sideNavRef} onClick={expand} />
-                        <div className="viewport" style={{
-                            marginLeft: expanded ? 240 : 64,
-                            padding: '15px 20px 0 20px'
-                        }}>
-                            <Routes>
-                                <Route path='/' element={<MainPage posts={posts} />} />
-                                <Route path="/profile" element={<Profile posts={posts} />} />
-                                <Route path="signin" element={<SignIn />} />
-                                <Route path="register" element={<Register />} />
-                                <Route path="/admin" element={<Admin />} />
-                                <Route path="/viewPost/:id" element={<ViewPost />} />
-                                <Route path="/editPost/:id" element={<ContentEditor createPost={false}/>} />
-                                <Route path="/createPost" element={<ContentEditor createPost={true}/>} />
-                            </Routes>
-                        </div>
-                    </div>
-                )}
-                {isMobile && (
-                    <div>
-                        <div className="viewport" style={{ padding: '15px 20px 0 20px' }}>
-                            <Routes>
-                                <Route path='/' element={<MainPage posts={posts} />} />
-                                <Route path="/profile" element={<Profile posts={posts} />} />
-                                <Route path="signin" element={<SignIn />} />
-                                <Route path="register" element={<Register />} />
-                                <Route path="/admin" element={<Admin />} />
-                                <Route path="/viewPost/:id" element={<ViewPost />} />
-                                <Route path="/editPost/:id" element={<ContentEditor createPost={false}/>} />
-                                <Route path="/createPost" element={<ContentEditor createPost={true}/>} />
-                            </Routes>
-                        </div>
-                        <BottomBar />
-                    </div>
-                )}
-            </Router>
         </div>
     );
 };
