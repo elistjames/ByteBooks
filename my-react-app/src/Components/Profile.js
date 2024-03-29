@@ -1,41 +1,71 @@
-import React from 'react';
-import "./../index.css";
-import { Button } from 'react-bootstrap';
-import Card from 'react-bootstrap/Card';
+import React, { useState } from 'react';
+import { Button, Card } from 'react-bootstrap';
 import ContentCard from "./ContentCard/ContentCard";
+import './../index.css';
 import './MainPage/MainPage.css';
+import ConfirmationModal from './ConfirmationCard/ConfirmationModal'; 
+import ChangePasswordModal from './ConfirmationCard/ChangePasswordModal'; 
+import ConfirmationToast from './ConfirmationCard/ConfirmationToast'; 
+import postData from "../demoData/posts.json"
 
-const Profile = ({ posts = [] }) => {
+  const Profile = () => {
+  const [posts, setPosts] = useState(postData);
   const usersPosts = posts.filter(post => post.user_id === '@elistjames');
+  const [showModal, setShowModal] = useState(false);
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+  const handleConfirmDelete = () => {handleCloseModal();};
+  
+  const [showPasswordChangedToast, passwordChangedToast] = useState(false); 
+  const handlePasswordModal = () => addPasswordModal(true);
+  const [changePasswordModal, addPasswordModal] = useState(false);
+  const closePasswordModal = () => addPasswordModal(false);
+  const passwordChange = () => {
+    passwordChangedToast(true); 
+    closePasswordModal();};
 
   return (
     <>
-
       <Card className="form-card rounded-custom">
         <Card.Body>
           <div className="mb-3">
             <div className="static-field mb-3">
               <Card.Title className="text-muted">Username</Card.Title>
-
               <Card.Text className="static-value">@elistjames</Card.Text>
             </div>
-            <div className="static-field mb-3">
-              <Card.Title className="text-muted">Email</Card.Title>
-
-              <Card.Text className="static-value">elistjames@gmail.com</Card.Text>
-            </div>
+            <div className="d-flex justify-content-around mb-3">
+              <Button variant="primary" className="change-password-btn rounded-button" onClick={handlePasswordModal}>
+                Change Password
+              </Button>
+              <Button variant="danger" onClick={handleShowModal}>
+                Delete Account
+              </Button>
+              </div>
           </div>
-          <Button variant="danger" className="mx-auto d-block">
-            Delete Account
-          </Button>
         </Card.Body>
       </Card>
-      <h2 className="posts-heading text-center ">Your Posted Content</h2>
+      <h2 className="posts-heading text-center">Your Posted Content</h2>
       <div className="posts">
         {usersPosts.map(post => (
           <ContentCard key={post.post_id} post={post} username="@elistjames" />
         ))}
       </div>
+      <ConfirmationModal
+        show={showModal}
+        onHide={handleCloseModal}
+        onConfirm={handleConfirmDelete}
+        message="Are you sure you want to delete your account?"
+      />  
+       <ChangePasswordModal 
+        show={changePasswordModal} 
+        handleClose={closePasswordModal}
+        onSaveChanges={passwordChange} 
+      />
+       <ConfirmationToast
+        show={showPasswordChangedToast}
+        message="Password changed successfully."
+        onClose={() => passwordChangedToast(false)}
+      />
     </>
   );
 };
