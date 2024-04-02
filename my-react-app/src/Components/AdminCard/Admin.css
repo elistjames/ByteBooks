@@ -25,7 +25,7 @@
     background-color: #eeeeee;
     border-radius: 30px;
     padding: 5px 15px;
-    color: red;
+    color: #ed5757;
     font-weight: bold;
     margin-top: 1px;
 }
@@ -44,14 +44,14 @@
     top: 50%; 
     transform: translateY(-50%); 
     font-size: 15px; 
-    color: red; 
+    color: #ed5757; 
     cursor: pointer;
     padding: 8px; 
     border-radius: 50%; 
 }
 
 .remove-user-btn:hover {
-    background-color: red; 
+    background-color: #ed5757; 
     color:white;
 }
 
@@ -110,14 +110,14 @@
     top: 50%; 
     transform: translateY(-50%); 
     font-size: 45px; 
-    color: red; 
+    color: #ed5757; 
     cursor: pointer;
     padding: 8px; 
     border-radius: 50%; 
 }
 
 .remove-post-icon:hover {
-    background-color: red; 
+    background-color: #ed5757; 
     color: white; 
 }
 

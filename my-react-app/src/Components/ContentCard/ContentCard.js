@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect, forwardRef} from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import "./ContentCard.css";
-import {Dropdown} from "react-bootstrap";
+import {Dropdown, DropdownButton} from "react-bootstrap";
 
 
 const ContentCard = ({post}) => {
@@ -57,18 +57,19 @@ const ContentCard = ({post}) => {
             <div className="header">
                 <span className="user-name">{post.user_id}</span>
                 <div className="options">
-                    <Dropdown autoClose="outside" drop="down-centered">
-                        <Dropdown.Toggle className="icon-dropdown-toggle options_btn" variant="link">
+                    <Dropdown autoClose="outside" drop="down">
+                        <DropdownButton className="icon-dropdown-toggle options_btn" variant="link" drop="start" title={
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                  className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
                                 <path
                                     d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
                             </svg>
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu className="dropdown-menu">
-                            <Dropdown.Item className="option" eventKey="1" onClick={report(true)}>Report post</Dropdown.Item>
-                            <Dropdown.Item className="option" eventKey="2" onClick={report(false)}>Report user</Dropdown.Item>
-                        </Dropdown.Menu>
+                        }>
+                            <Dropdown.Item className="option" eventKey="1" onClick={report(true)}>Report
+                                post</Dropdown.Item>
+                            <Dropdown.Item className="option" eventKey="2" onClick={report(false)}>Report
+                                user</Dropdown.Item>
+                        </DropdownButton>
                     </Dropdown>
                 </div>
                 <h4 className="title">{post.title}</h4>
@@ -78,7 +79,7 @@ const ContentCard = ({post}) => {
                     <Card.Text ref={containerRef} className="content-text">{post.content}</Card.Text>
 
                     {readMore && <div style={{display: "flex", justifyContent: "space-between"}}>
-                        <span>...</span><Button className="read-more" onClick={viewPost}>Read more</Button>
+                        <span>...</span><Button className="read-more" href={`viewPost/${post.post_id}`}>Read more</Button>
                     </div>
                     }
                 </Card.Body>
@@ -103,7 +104,7 @@ const ContentCard = ({post}) => {
                         <span>{compressNum(post.dislikes)}</span>
                     </Button>
                 </div>
-                <Button className="media-btn" variant="link" onClick={viewPost}>
+                <Button className="media-btn" variant="link" href={`viewPost/${post.post_id}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          className="bi bi-chat" viewBox="0 0 16 16">
                         <path

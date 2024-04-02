@@ -1,0 +1,33 @@
+.confirmation-toast {
+    position: fixed;
+    top: 70px;
+    right: 15px;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 16px;
+}
+
+.toast-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 16px 16px 0 0;
+    background-color: transparent;
+}
+
+.toast-header .header-content {
+    flex-grow: 1;
+}
+
+.toast-body {
+    border-radius: 0 0 16px 16px;
+}
+
+@media (max-width: 480px) {
+    .confirmation-toast {
+        top: 50px; 
+        right: 10px; 
+        left: 10px; 
+    }
+
+}

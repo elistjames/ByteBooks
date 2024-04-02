@@ -100,7 +100,7 @@ search-option.input {
 }
 
 .viewport {
-  transition: margin-left .5s;
+  transition: all 0.3s ease;
   margin-top: 60px;
 
 }
@@ -128,6 +128,144 @@ search-option.input {
   padding-top: 10px
 }
 
+.form-card {
+  background: var(--white);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px; 
+  margin: 2rem auto;
+}
+
+.form-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--brown);
+}
+
+.form-label {
+  font-weight: bold;
+  color: var(--grey);
+}
+
+.form-control {
+  border-radius: 20px;
+  border: 1px solid var(--grey);
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  border-color: var(--brown);
+  box-shadow: none;
+}
+
+.form-submit-btn {
+  background: var(--brown);
+  color: var(--white);
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken(var(--brown), 5%);
+  }
+}
+
+.form-toggle-btn {
+  background: var(--beige);
+  color: var(--brown);
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken(var(--beige), 5%);
+  }
+}
+
+
+.form-card {
+  background: var(--white);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px; 
+  margin: 2rem auto;
+}
+
+.form-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--brown);
+}
+
+.form-label {
+  font-weight: bold;
+  color: var(--grey);
+}
+
+.form-control {
+  border-radius: 20px;
+  border: 1px solid var(--grey);
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  border-color: var(--brown);
+  box-shadow: none;
+}
+
+.card .form-submit-btn {
+  background: var(--brown);
+  color: var(--white);
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: var(--beige);
+  }
+}
+
+.card .form-toggle-btn {
+  background: var(--brown);
+  color: var(--white);
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: var(--beige);
+  }
+}
+
+
 @media (max-width: 680px) {
   .logo-image {
     max-width: 100px;
@@ -136,15 +274,32 @@ search-option.input {
 
   .viewport {
     margin-top: 50px;
+    margin-bottom: 50px;
   }
 
   #side-nav-toggle {
     height: 50px;
   }
+  .form-card {
+    padding: 1rem;
+    margin: 1rem;
+    width: auto;
+  }
+
+  .d-flex.align-items-center.justify-content-center {
+    height: auto;
+    padding: 20px 0; 
+  }
 
   .search-form{
     top: 5rem;
     margin-left: 0;
+  }
+  .posts {
+
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+  
   }
 }
 
@@ -174,4 +329,71 @@ search-option.input {
 
 .nav-item.active {
   opacity: 1;
+}
+
+.static-value {
+  background-color: #eeeeee;
+  border-radius: 30px;
+  padding: 5px 15px;
+  color: black;
+  margin-top: 10px;
+}
+
+
+.card .btn-danger {
+  color: #eeeeee;
+  border-radius: 30px;
+
+}
+
+.form-card {
+  background: var(--white);
+  border-radius: 5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px; 
+  margin: 1rem auto;
+}
+
+.posts-heading{
+  margin-top: 5rem;
+}
+
+.card.form-card.rounded-custom {
+  border-radius: 3rem;
+}
+.posts {
+  display: inline-flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: auto;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+
+  padding:0;
+  transition: all 0.3s ease;
+
+}
+
+.unauthorizedContainer {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.unauthorizedButton {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--brown);
+  color: var(--white);
+  border-radius: 30px;
+  font-size: 20px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.unauthorizedButton:hover {
+  background-color: var(--white);
+  color: var(--brown);
 }
