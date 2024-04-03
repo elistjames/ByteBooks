@@ -14,10 +14,12 @@ mainPageRouter.get('/posts', (req, res) => {
 
     const sql = 'SELECT \n' +
         '    p.post_id,\n' +
+        '    p.user_id,\n' +
+        '    p.username,\n' +
         '    p.title,\n' +
         '    p.content,\n' +
         '    COUNT(DISTINCT l.like_id) AS num_likes,\n' +
-        '    COUNT(DISTINCT d.dislike_id) AS num_dislikes,\n' +
+        '    COUNT(DISTINCT d.like_id) AS num_dislikes,\n' +
         '    COUNT(DISTINCT c.comment_id) AS num_comments\n' +
         'FROM \n' +
         '    posts p\n' +
@@ -28,7 +30,7 @@ mainPageRouter.get('/posts', (req, res) => {
         'LEFT JOIN \n' +
         '    comments c ON p.post_id = c.post_id\n' +
         'GROUP BY \n' +
-        '    p.post_id, p.title, p.content';
+        '    p.post_id, p.title, p.content;';
     executeQuery(sql, (err, results) => {
         if (err) {
             res.status(500).json({ error: 'Failed to get posts' });
