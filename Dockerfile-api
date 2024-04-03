@@ -1,0 +1,17 @@
+FROM node:alpine
+
+WORKDIR /app-api
+
+COPY api/package*.json /app-api
+
+RUN npm install \
+   && npm install express \
+   && npm install cors \
+   && npm install crypto \
+   && npm install jsonwebtoken \
+   && npm install mysql \
+   && npm install mysql2
+
+COPY api/ /app-api
+
+CMD [ "node", "server.js" ]
