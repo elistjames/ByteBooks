@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 8080;
 app.use('/auth', authRoutes);
 
 // route for content main page requests
-app.use('/posts', postRoutes);
+app.use('/post', postRoutes);
 // route for comment requests
 
 // route for report requests
