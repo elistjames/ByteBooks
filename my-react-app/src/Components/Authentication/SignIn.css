@@ -1,0 +1,20 @@
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-control.password-input {
+    padding-right: 40px;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    align-items: center;
+    display: flex;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}

@@ -35,16 +35,16 @@ authRouter.post('/login', (req, res) => {
         return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    const sql = 'SELECT * FROM users WHERE username = ? AND password = ?';
+    const sql = 'SELECT username, permission FROM users WHERE username = ? AND password = ?';
     executeQuery(sql, [username, password], (err, results) => {
         if (err) {
             res.status(500).json({ error: 'Failed to authenticate' });
             throw err;
         }
         if (results.length > 0) {
-            // User authenticated successfully, generate JWT
-            const token = jwt.sign({ username }, jwtSecretKey);
-            res.json({ token });
+            const user = results[0];
+            const token = jwt.sign({ username, permission: user.permission }, jwtSecretKey);
+            res.json({ token, permission: user.permission });
         } else {
             res.status(401).json({ error: 'Invalid username or password' });
         }
