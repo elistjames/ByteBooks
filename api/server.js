@@ -13,7 +13,7 @@ app.use(express.json());
 
 
 const corsOptions = {
-    origin: 'http://127.0.0.1:8080/'
+    origin: 'http://localhost:3000'  // when testing locally, change port to 3000
     };
 app.use (cors(corsOptions));
 

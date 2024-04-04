@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SearchBar from "../SearchBar";
 import Button from "react-bootstrap/Button";
 import { PiPlusBold } from "react-icons/pi";
@@ -6,10 +6,21 @@ import './MainPage.css';
 import ContentCard from "../ContentCard/ContentCard";
 import postData from "../../demoData/posts.json";
 import { v4 as uuidv4 } from 'uuid';
+import MainPageController from "../../Controllers/MainPageController";
 
 const MainPage = () =>
 {
-    const [posts, setPosts] = useState(postData);
+
+    const [posts, setPosts] = useState([]);
+
+    // useEffect means run this when component renders
+    useEffect(() => {
+        MainPageController.getAllPosts().then((data) => {
+            console.log(data); // for testing
+            setPosts(data);
+        });
+    }, []);
+
 
     return(
         <div className=" main-page-container">

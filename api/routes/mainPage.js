@@ -18,6 +18,7 @@ mainPageRouter.get('/posts', (req, res) => {
         '    p.username,\n' +
         '    p.title,\n' +
         '    p.content,\n' +
+        '    p.created_at,\n' +
         '    COUNT(DISTINCT l.like_id) AS num_likes,\n' +
         '    COUNT(DISTINCT d.like_id) AS num_dislikes,\n' +
         '    COUNT(DISTINCT c.comment_id) AS num_comments\n' +
@@ -30,7 +31,8 @@ mainPageRouter.get('/posts', (req, res) => {
         'LEFT JOIN \n' +
         '    comments c ON p.post_id = c.post_id\n' +
         'GROUP BY \n' +
-        '    p.post_id, p.title, p.content;';
+        '    p.post_id, p.title, p.content\n' +
+        'ORDER BY created_at desc;';
     executeQuery(sql, (err, results) => {
         if (err) {
             res.status(err.statusCode).json({ error: 'Failed to get posts' });
