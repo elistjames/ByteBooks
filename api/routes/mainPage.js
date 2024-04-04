@@ -11,7 +11,7 @@ const mainPageRouter = express.Router();
 
 // request to get all posts, as well as the number of likes, dislikes, and comments on each post.
 mainPageRouter.get('/posts', (req, res) => {
-
+    const { userId } = req.query;
     const sql = 'SELECT \n' +
         '    p.post_id,\n' +
         '    p.user_id,\n' +
@@ -21,7 +21,13 @@ mainPageRouter.get('/posts', (req, res) => {
         '    p.created_at,\n' +
         '    COUNT(DISTINCT l.like_id) AS num_likes,\n' +
         '    COUNT(DISTINCT d.like_id) AS num_dislikes,\n' +
-        '    COUNT(DISTINCT c.comment_id) AS num_comments\n' +
+        '    COUNT(DISTINCT c.comment_id) AS num_comments,\n' +
+        '    CASE WHEN EXISTS (\n' +
+        '        SELECT 1 FROM likes l WHERE l.post_id = p.post_id AND l.user_id = ?\n' +
+        '    ) THEN TRUE ELSE FALSE END AS liked_by_user,\n' +
+        '    CASE WHEN EXISTS (\n' +
+        '        SELECT 1 FROM dislikes d WHERE d.post_id = p.post_id AND d.user_id = ?\n' +
+        '    ) THEN TRUE ELSE FALSE END AS disliked_by_user\n' +
         'FROM \n' +
         '    posts p\n' +
         'LEFT JOIN \n' +
@@ -33,7 +39,7 @@ mainPageRouter.get('/posts', (req, res) => {
         'GROUP BY \n' +
         '    p.post_id, p.title, p.content\n' +
         'ORDER BY created_at desc;';
-    executeQuery(sql, (err, results) => {
+    executeQuery(sql, [userId, userId], (err, results) => {
         if (err) {
             res.status(err.statusCode).json({ error: 'Failed to get posts' });
             throw err;
