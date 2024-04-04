@@ -13,7 +13,7 @@ app.use(express.json());
 
 
 const corsOptions = {
-    origin: 'http://127.0.0.1:8080/'
+    origin: 'http://localhost:8888'  // when running on docker, set to 8888, when testing locally, change port to 3000
     };
 app.use (cors(corsOptions));
 
@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 8080;
 app.use('/auth', authRoutes);
 
 // route for content main page requests
-app.use('/posts', postRoutes);
+app.use('/post', postRoutes);
 // route for comment requests
 
 // route for report requests
