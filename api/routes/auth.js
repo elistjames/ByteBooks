@@ -17,7 +17,10 @@ authRouter.post('/register', (req, res) => {
     if (!username || !password) {
         return res.status(400).json({ error: 'Username and password are required' });
     }
-    const newUser = { username, password };
+    
+    const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
+    const newUser = { username, password: hashedPassword, permission: 'MEMBER' };
+    
     const sql = 'INSERT INTO users SET ?';
     executeQuery(sql, newUser, (err, result) => {
         if (err) {
@@ -34,9 +37,10 @@ authRouter.post('/login', (req, res) => {
     if (!username || !password) {
         return res.status(400).json({ error: 'Username and password are required' });
     }
+    const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
     const sql = 'SELECT username, permission FROM users WHERE username = ? AND password = ?';
-    executeQuery(sql, [username, password], (err, results) => {
+    executeQuery(sql, [username, hashedPassword], (err, results) => {
         if (err) {
             res.status(500).json({ error: 'Failed to authenticate' });
             throw err;
@@ -50,6 +54,7 @@ authRouter.post('/login', (req, res) => {
         }
     });
 });
+
 
 authRouter.get('/users', (req, res) => {
 

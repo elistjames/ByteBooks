@@ -28,7 +28,7 @@ const SignIn = () => {
             if (permission === 'ADMIN') {
                 setUserRoleType('admin');
             } 
-            if (permission === 'USER') {
+            if (permission === 'MEMBER') {
                 setUserRoleType('member');
             }
             setUser(username);

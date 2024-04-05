@@ -4,7 +4,7 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL,
     password VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    permission VARCHAR(10) NOT NULL DEFAULT 'USER'   -- role is either USER or ADMIN
+    permission VARCHAR(10) NOT NULL DEFAULT 'MEMBER'   -- role is either MEMBER or ADMIN
 );
 
 -- Posts refer to the basic content that members can upload for others to read.
