@@ -1,11 +1,11 @@
 -- Seed
 INSERT INTO users (username, password, created_at, permission)
 VALUES
-    ('alex_admin', 'adminpassword1', NOW(), 'ADMIN'),
-    ('sara_admin', 'adminpassword2', NOW(), 'ADMIN'),
-    ('emily_writer', 'password1', NOW(), 'USER'),
-    ('jon_jones', 'password2', NOW(), 'USER'),
-    ('adam.help', 'password3', NOW(), 'USER');
+    ('alex_admin', '4179a76f97865271164fa5cccdaa0e3f173dc2e27b72becaf83fddc4eb799b9d', NOW(), 'ADMIN'), -- password: adminpassword1
+    ('sara_admin', 'f2414955bb915be77a03ba13b08e7196a1a6d8f6a23b8fa5cdfacdab1aba4c0c', NOW(), 'ADMIN'), -- password: adminpassword2
+    ('emily_writer', '0b14d501a594442a01c6859541bcb3e8164d183d32937b851835442f69d5c94e', NOW(), 'MEMBER'), -- password: password1
+    ('jon_jones', '6cf615d5bcaac778352a8f1f3360d23f02f34ec182e259897fd6ce485d7870d4', NOW(), 'MEMBER'), -- password: password2
+    ('adam.help', '5906ac361a137e2d286465cd6588ebb5ac3f5ae955001100bc41577c3d751764', NOW(), 'MEMBER'); -- password:
 
 
 INSERT INTO posts (user_id, username, title, content, created_at)

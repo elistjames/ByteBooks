@@ -6,24 +6,28 @@ export const SessionProvider = ({ children }) => {
   const [userType, setUserType] = useState(
     localStorage.getItem("userType") || "guest" //default to guest if no user type is found
   );
-
-  const [user, setUser] = useState({
-    "id": 3,
-    "username": "emily_writer"
-  })
+  const [username, setUsername] = useState(
+    localStorage.getItem("username") || "" //default to empty string if no username is found
+  );
 
   useEffect(() => {
     localStorage.setItem("userType", userType);
-    localStorage.setItem("username", user.username);
-    localStorage.setItem("id", user.id);
-  }, [userType, user]);
+  }, [userType]);
+
+  useEffect(() => {
+    localStorage.setItem("username", username);
+  }, [username]);
 
   const setUserRoleType = (newUserType) => {
     setUserType(newUserType);
   };
 
+  const setUser = (newUsername) => {
+    setUsername(newUsername);
+  };
+
   return (
-    <SessionContext.Provider value={{ userType, setUserRoleType, user, setUser }}>
+    <SessionContext.Provider value={{ userType, username, setUserRoleType, setUser }}>
       {children}
     </SessionContext.Provider>
   );

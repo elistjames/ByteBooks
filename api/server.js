@@ -2,10 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/mainPage');
-const commentRoutes = require('./routes/viewPost');
-const reportRoutes = require('./routes/report');
-const likeRoutes = require('./routes/like');
-const dislikeRoutes = require('./routes/dislike');
+// const commentRoutes = require('./routes/viewPost');
+// const reportRoutes = require('./routes/report');
+// const likeRoutes = require('./routes/like');
+// const dislikeRoutes = require('./routes/dislike');
 
 const app = express();
 
