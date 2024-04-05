@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSession } from "./SessionContext";
+import { useSession } from "../SessionContext";
 
 const SignOut = () => {
     const navigate = useNavigate();
