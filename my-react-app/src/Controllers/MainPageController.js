@@ -9,7 +9,6 @@ class MainPageController{
     }
 
     async getAllPosts(user_id) {
-        console.log(user_id);
         return await makeRequest('GET', `${this.POSTS_API_ROUTE}/posts/?userId=${user_id}`);
     }
 

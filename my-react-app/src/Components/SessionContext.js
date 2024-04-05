@@ -9,6 +9,9 @@ export const SessionProvider = ({ children }) => {
   const [username, setUsername] = useState(
     localStorage.getItem("username") || "" //default to empty string if no username is found
   );
+  const [userId, setUserId] = useState(
+      localStorage.getItem("userId") || "" //default to empty string if no user id is found
+  )
 
   useEffect(() => {
     localStorage.setItem("userType", userType);
@@ -18,6 +21,10 @@ export const SessionProvider = ({ children }) => {
     localStorage.setItem("username", username);
   }, [username]);
 
+  useEffect(() => {
+    localStorage.setItem("userId", userId);
+  }, []);
+
   const setUserRoleType = (newUserType) => {
     setUserType(newUserType);
   };
@@ -26,8 +33,12 @@ export const SessionProvider = ({ children }) => {
     setUsername(newUsername);
   };
 
+  const setId = (newUserId) => {
+    setUserId(newUserId);
+  };
+
   return (
-    <SessionContext.Provider value={{ userType, username, setUserRoleType, setUser }}>
+    <SessionContext.Provider value={{ userType, username, userId, setUserRoleType, setUser, setId }}>
       {children}
     </SessionContext.Provider>
   );

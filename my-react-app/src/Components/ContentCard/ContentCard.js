@@ -4,10 +4,19 @@ import Button from 'react-bootstrap/Button';
 import "./ContentCard.css";
 import {Dropdown, DropdownButton} from "react-bootstrap";
 import { BsHandThumbsUp, BsHandThumbsUpFill, BsHandThumbsDown, BsHandThumbsDownFill, BsChat } from "react-icons/bs";
+import {brown} from "@mui/material/colors";
+import LikesController from "../../Controllers/LikesController";
+import {useSession} from "../SessionContext";
 
 
 const ContentCard = ({post}) => {
+    const { userId } = useSession();
     const [readMore, setReadMore] = useState(false);
+    const [likedByUser, setLikedByUser] = useState(post.liked_by_user);
+    const [dislikedByUser, setDislikedByUser] = useState(post.disliked_by_user);
+    const [numLikes, setNumLikes] = useState(post.num_likes);
+    const [numDislikes, setNumDislikes] = useState(post.num_dislikes);
+    const [numComments, setNumComments] = useState(post.num_comments);
     const containerRef = useRef();
     useEffect(() => {
         if (containerRef.current) {
@@ -23,12 +32,64 @@ const ContentCard = ({post}) => {
 
     const report = (reportPostMode) => {
         if(reportPostMode){
-            //TODO: create report post functionality
+
         }
         else{
             //TODO: create report user functionality
         }
     }
+
+    const likeClicked = ()=> {
+        if(userId === "") return;
+        //if post is likes, remove like
+        console.log({
+            likesByUser: likedByUser,
+            dislikedByUser: dislikedByUser,
+            postId: post.post_id,
+            userId: userId
+        });
+        if(likedByUser){
+            LikesController.removeLike(post.post_id, likedByUser, dislikedByUser, userId)
+                .then(()=>{
+                    setNumLikes(numLikes - 1);
+                    setLikedByUser(false);
+                })
+                .catch();
+        }
+        else{
+            LikesController.addLike(post.post_id, likedByUser, dislikedByUser, userId).then(() => {
+                setNumLikes(numLikes + 1);
+                setLikedByUser(true);
+                if(dislikedByUser){
+                    setNumDislikes(numDislikes-1);
+                    setDislikedByUser(false);
+                }
+            });
+        }
+    };
+
+    const dislikeClicked = () => {
+        if(userId === "") return;
+        //if post is disliked, remove dislike
+        if(dislikedByUser){
+            LikesController.removeDislike(post.post_id, likedByUser, dislikedByUser, userId)
+                .then(()=>{
+                    setNumDislikes(numDislikes - 1);
+                    setDislikedByUser(false);
+                })
+                .catch();
+        }
+        else{
+            LikesController.addDislike(post.post_id, likedByUser, dislikedByUser, userId).then(() => {
+                setNumDislikes(numDislikes+1);
+                setDislikedByUser(true);
+                if(likedByUser){
+                    setNumLikes(numLikes-1);
+                    setLikedByUser(false);
+                }
+            });
+        }
+    };
 
     const compressNum = (num) => {
 
@@ -87,19 +148,19 @@ const ContentCard = ({post}) => {
             </div>
             <div className="footer">
                 <div>
-                    <Button className="media-btn" variant="link" >
-                        {post.liked_by_user ? <BsHandThumbsUpFill/> : <BsHandThumbsUp/> }
-                        <span>{compressNum(post.num_likes)}</span>
+                    <Button className="media-btn" variant="link" onClick={likeClicked}>
+                        {likedByUser ? <BsHandThumbsUpFill /> : <BsHandThumbsUp/> }
+                        <span>{compressNum(numLikes)}</span>
 
                     </Button>
-                    <Button className="media-btn" variant="link">
-                        {post.disliked_by_user ? <BsHandThumbsDownFill/> : <BsHandThumbsDown/> }
-                        <span>{compressNum(post.num_dislikes)}</span>
+                    <Button className="media-btn" variant="link" onClick={dislikeClicked}>
+                        {dislikedByUser ? <BsHandThumbsDownFill /> : <BsHandThumbsDown/> }
+                        <span>{compressNum(numDislikes)}</span>
                     </Button>
                 </div>
                 <Button className="media-btn" variant="link" href={`viewPost/${post.post_id}`}>
                     <BsChat />
-                    <span>{compressNum(post.num_comments)}</span>
+                    <span>{compressNum(numComments)}</span>
                 </Button>
             </div>
         </Card>

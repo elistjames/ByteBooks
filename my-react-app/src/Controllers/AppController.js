@@ -13,15 +13,13 @@ export async function makeRequest(method, endpoint, body) {
     if (body) {
         requestOptions.body = JSON.stringify(body);
     }
-
-    try {
+    try{
         const response = await fetch(`${BASE_URL}${endpoint}`, requestOptions);
-        if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
-        }
+
         return await response.json();
-    } catch (error) {
-        console.error('API Error:', error.message);
-        throw error;
     }
+    catch (error){
+        return error;
+    }
+
 }
