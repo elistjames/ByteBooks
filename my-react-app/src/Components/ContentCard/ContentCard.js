@@ -12,7 +12,7 @@ import MessageToast from "../MessageToast";
 
 
 const ContentCard = ({post}) => {
-    const { username, userId } = useSession();
+    const {userType, username, userId } = useSession();
     const [readMore, setReadMore] = useState(false);
     const [likedByUser, setLikedByUser] = useState(post.liked_by_user);
     const [dislikedByUser, setDislikedByUser] = useState(post.disliked_by_user);
@@ -50,14 +50,8 @@ const ContentCard = ({post}) => {
     const likeClicked = ()=> {
         if(userId === "") return;
         //if post is likes, remove like
-        console.log({
-            likesByUser: likedByUser,
-            dislikedByUser: dislikedByUser,
-            postId: post.post_id,
-            userId: userId
-        });
         if(likedByUser){
-            LikesController.removeLike(post.post_id, likedByUser, dislikedByUser, userId)
+            LikesController.removeLike(post.post_id, userId)
                 .then(()=>{
                     setNumLikes(numLikes - 1);
                     setLikedByUser(false);
@@ -80,7 +74,7 @@ const ContentCard = ({post}) => {
         if(userId === "") return;
         //if post is disliked, remove dislike
         if(dislikedByUser){
-            LikesController.removeDislike(post.post_id, likedByUser, dislikedByUser, userId)
+            LikesController.removeDislike(post.post_id, userId)
                 .then(()=>{
                     setNumDislikes(numDislikes - 1);
                     setDislikedByUser(false);
@@ -128,6 +122,11 @@ const ContentCard = ({post}) => {
         setShowError(true);
     };
 
+    const isOwner = () => {
+        if(post === null) return false;
+        return post.user_id == userId;
+    }
+
     return(
         <Card className="content-card">
             <div className="header">
@@ -141,10 +140,16 @@ const ContentCard = ({post}) => {
                                     d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
                             </svg>
                         }>
-                            <Dropdown.Item className="option" eventKey="1" onClick={() => handleReport(true)}>Report
+                            <Dropdown.Item className="option" eventKey="1" href={`viewPost/${post.post_id}`}>View
                                 post</Dropdown.Item>
-                            <Dropdown.Item className="option" eventKey="2" onClick={() => handleReport(false)}>Report
-                                user</Dropdown.Item>
+                            {(!isOwner() && userType !== 'guest') &&
+                                <Dropdown.Item className="option" eventKey="2" onClick={() => handleReport(true)}>Report
+                                    post</Dropdown.Item>
+                            }
+                            {(!isOwner() && userType !== 'guest') &&
+                                <Dropdown.Item className="option" eventKey="3" onClick={() => handleReport(false)}>Report user</Dropdown.Item>
+                            }
+
                         </DropdownButton>
                     </Dropdown>
                 </div>

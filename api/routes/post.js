@@ -48,16 +48,42 @@ postRouter.get('/posts', (req, res) => {
 
 
 postRouter.get('/getPost', (req, res) => {
-    const {postId} = req.query;
+    const {postId, userId} = req.query;
 
-    const sql = 'SELECT p.title, p.content FROM posts p WHERE p.post_id = ?;';
+    const sql = 'SELECT \n' +
+        '    p.post_id,\n' +
+        '    p.user_id,\n' +
+        '    p.username,\n' +
+        '    p.title,\n' +
+        '    p.content,\n' +
+        '    p.created_at,\n' +
+        '    COUNT(DISTINCT l.like_id) AS num_likes,\n' +
+        '    COUNT(DISTINCT d.like_id) AS num_dislikes,\n' +
+        '    CASE WHEN EXISTS (\n' +
+        '        SELECT 1 FROM likes l WHERE l.post_id = p.post_id AND l.user_id = ?\n' +
+        '    ) THEN TRUE ELSE FALSE END AS liked_by_user,\n' +
+        '    CASE WHEN EXISTS (\n' +
+        '        SELECT 1 FROM dislikes d WHERE d.post_id = p.post_id AND d.user_id = ?\n' +
+        '    ) THEN TRUE ELSE FALSE END AS disliked_by_user\n' +
+        'FROM \n' +
+        '    posts p\n' +
+        'LEFT JOIN \n' +
+        '    likes l ON p.post_id = l.post_id\n' +
+        'LEFT JOIN \n' +
+        '    dislikes d ON p.post_id = d.post_id\n' +
+        'WHERE p.post_id = ?\n' +
+        'GROUP BY \n' +
+        '    p.post_id, p.title, p.content;';
 
-    executeQuery(sql, [postId], (err, results) => {
+    executeQuery(sql, [userId, userId, postId], (err, results) => {
         if (err) {
             res.status(500).json({ message: "Failed to get post" });
             return;
         }
-        res.json(results);
+        let post = results[0];
+        const date = new Date(post.created_at);
+        post.created_at = date.toLocaleDateString();
+        res.json(post);
     });
 });
 
