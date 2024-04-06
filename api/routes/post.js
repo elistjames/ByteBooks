@@ -39,8 +39,8 @@ postRouter.get('/posts', (req, res) => {
         'ORDER BY created_at desc;';
     executeQuery(sql, [userId, userId], (err, results) => {
         if (err) {
-            res.status(err.statusCode).json({ error: 'Failed to get posts' });
-            throw err;
+            res.status(500).json({ message: "Failed to get posts" });
+            return;
         }
         res.json(results);
     });
@@ -54,8 +54,8 @@ postRouter.get('/getPost', (req, res) => {
 
     executeQuery(sql, [postId], (err, results) => {
         if (err) {
-            res.status(err.statusCode).json({ error: 'post not is database' });
-            throw err;
+            res.status(500).json({ message: "Failed to get post" });
+            return;
         }
         res.json(results);
     });
@@ -68,8 +68,8 @@ postRouter.post('/createPost', (req, res) => {
     const sql = 'INSERT INTO posts SET ?';
     executeQuery(sql, newPost, (err, result) => {
         if (err) {
-            res.status(err.statusCode).json({ error: 'Failed to create post' });
-            throw err;
+            res.status(500).json({ message: "Failed to create post" });
+            return;
         }
         res.status(200).json({ message: 'Post successfully created', id: result.insertId });
     });
@@ -86,8 +86,8 @@ postRouter.post('/updatePost', (req, res) => {
 
     executeQuery(sql, [title, content, post_id], (err, result) => {
         if (err) {
-            res.status(err.statusCode).json({ error: 'Failed to update post' });
-            throw err;
+            res.status(500).json({ message: "Failed to update post" });
+            return;
         }
         res.status(200).json({ message: 'Post successfully updated', id: result.id });
     });
@@ -100,8 +100,8 @@ postRouter.delete('/deletePost', (req, res) => {
 
     executeQuery(sql, post_id, (err, result) => {
         if (err) {
-            res.status(err.statusCode).json({ error: 'Failed to delete post' });
-            throw err;
+            res.status(500).json({ message: "Failed to delete post" });
+            return;
         }
         res.status(200).json({ message: 'Post successfully deleted', id: result.id });
     });

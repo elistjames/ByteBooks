@@ -23,6 +23,9 @@ class LikesController {
                         user_id: userId
                     })
                 ]);
+
+                console.log(response1);
+                console.log(response2);
             }
             catch(error){
                 console.log(error);
@@ -30,11 +33,10 @@ class LikesController {
         }
         else{
             try{
-                const response = await makeRequest('POST', `${this.LIKE_API_ROUTE}/createLike`, {
+                await makeRequest('POST', `${this.LIKE_API_ROUTE}/createLike`, {
                     post_id: post_id,
                     user_id: userId
                 });
-
 
             }
             catch(error){
@@ -68,6 +70,9 @@ class LikesController {
                         user_id: userId
                     })
                 ]);
+
+                console.log(response1);
+                console.log(response2);
             }
             catch(error){
                 console.log(error);

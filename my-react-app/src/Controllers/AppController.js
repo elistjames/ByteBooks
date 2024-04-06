@@ -15,7 +15,6 @@ export async function makeRequest(method, endpoint, body) {
     }
     try{
         const response = await fetch(`${BASE_URL}${endpoint}`, requestOptions);
-
         return await response.json();
     }
     catch (error){

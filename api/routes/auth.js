@@ -24,8 +24,8 @@ authRouter.post('/register', (req, res) => {
     const sql = 'INSERT INTO users SET ?';
     executeQuery(sql, newUser, (err, result) => {
         if (err) {
-            res.status(500).json({ error: 'Failed to register user' });
-            throw err;
+            res.status(500).json({ message: "Failed to register user" });
+            return;
         }
         res.status(201).json({ message: 'User registered successfully', id: result.insertId });
     });
@@ -42,8 +42,8 @@ authRouter.post('/login', (req, res) => {
     const sql = 'SELECT id, username, permission FROM users WHERE username = ? AND password = ?';
     executeQuery(sql, [username, hashedPassword], (err, results) => {
         if (err) {
-            res.status(500).json({ error: 'Failed to authenticate' });
-            throw err;
+            res.status(500).json({ message: "Failed to authenticate" });
+            return;
         }
         if (results.length > 0) {
             const user = results[0];
@@ -61,8 +61,8 @@ authRouter.get('/users', (req, res) => {
     const sql = 'SELECT * FROM users';
     executeQuery(sql, (err, results) => {
         if (err) {
-            res.status(500).json({ error: 'Failed to get users' });
-            throw err;
+            res.status(500).json({ message: "Failed to get users" });
+            return;
         }
         res.json(results);
     });

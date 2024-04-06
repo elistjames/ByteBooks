@@ -9,7 +9,13 @@ class MainPageController{
     }
 
     async getAllPosts(user_id) {
-        return await makeRequest('GET', `${this.POSTS_API_ROUTE}/posts/?userId=${user_id}`);
+        try{
+            const response = await makeRequest('GET', `${this.POSTS_API_ROUTE}/posts/?userId=${user_id}`);
+            return response;
+        }
+        catch(error){
+            throw new Error('Failed to get posts:' + error.message);
+        }
     }
 
     async getSearchedPosts(search) {
@@ -28,7 +34,7 @@ class MainPageController{
     async getPostById(id){
         try{
             const response = await makeRequest('GET', `${this.POSTS_API_ROUTE}/getPost/?postId=${id}`);
-            return response;
+            return await response.json();
         }
         catch (error){
             throw new Error('Failed to get post: ' + error.message);
@@ -36,12 +42,6 @@ class MainPageController{
     }
 
     async addPost(userId, username, title, content) {
-        console.log({
-            user_id: userId,
-            username: username,
-            title: title,
-            content: content
-        });
         try{
             const response = await makeRequest('POST', this.POSTS_API_ROUTE+'/createPost', {
                 user_id: userId,

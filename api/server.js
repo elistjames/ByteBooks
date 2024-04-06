@@ -3,7 +3,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
 // const commentRoutes = require('./routes/viewPost');
-// const reportRoutes = require('./routes/report');
+reportRoutes = require('./routes/report');
 const likeRoutes = require('./routes/like');
 const dislikeRoutes = require('./routes/dislike');
 
@@ -28,7 +28,7 @@ app.use('/post', postRoutes);
 // route for comment requests
 
 // route for report requests
-
+app.use('/report', reportRoutes);
 // route for like requests
 app.use('/like', likeRoutes);
 

@@ -18,7 +18,8 @@ dislikeRouter.post('/createDislike', (req, res) => {
 
     executeQuery(sql, newDislike, (err, result) => {
         if (err) {
-            res.sendStatus(400);
+            res.status(500).json({ message: "Failed to dislike post" });
+            return;
         }
         res.sendStatus(200);
     });
@@ -29,7 +30,8 @@ dislikeRouter.delete('/deleteDislike', (req, res) => {
 
     executeQuery(sql, [post_id, user_id], (err, result) => {
         if (err) {
-            res.sendStatus(400);
+            res.status(500).json({ message: "Failed to remove dislike" });
+            return;
         }
         res.sendStatus(200);
     });

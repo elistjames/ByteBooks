@@ -7,10 +7,12 @@ import { BsHandThumbsUp, BsHandThumbsUpFill, BsHandThumbsDown, BsHandThumbsDownF
 import {brown} from "@mui/material/colors";
 import LikesController from "../../Controllers/LikesController";
 import {useSession} from "../SessionContext";
+import ReportController from "../../Controllers/ReportController";
+import MessageToast from "../MessageToast";
 
 
 const ContentCard = ({post}) => {
-    const { userId } = useSession();
+    const { username, userId } = useSession();
     const [readMore, setReadMore] = useState(false);
     const [likedByUser, setLikedByUser] = useState(post.liked_by_user);
     const [dislikedByUser, setDislikedByUser] = useState(post.disliked_by_user);
@@ -18,6 +20,9 @@ const ContentCard = ({post}) => {
     const [numDislikes, setNumDislikes] = useState(post.num_dislikes);
     const [numComments, setNumComments] = useState(post.num_comments);
     const containerRef = useRef();
+    const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
     useEffect(() => {
         if (containerRef.current) {
             setReadMore(containerRef.current.scrollHeight > containerRef.current.clientHeight);
@@ -25,14 +30,22 @@ const ContentCard = ({post}) => {
 
     }, [post.content]);
 
-    const report = (reportPostMode) => {
+    const handleReport = (reportPostMode) => {
         if(reportPostMode){
-
+            ReportController.reportPost(post.post_id, userId, username, "It's offensive").then((response) =>{
+                handleError("This post has been reported");
+            }).catch((err) => {
+                handleError(err.message);
+            });
         }
         else{
-            //TODO: create report user functionality
+            ReportController.reportUser(post.user_id, userId, username, "It's offensive").then((response) =>{
+                handleError(`User @${post.username} has been reported`);
+            }).catch((err) => {
+                handleError(err.message);
+            });
         }
-    }
+    };
 
     const likeClicked = ()=> {
         if(userId === "") return;
@@ -109,6 +122,12 @@ const ContentCard = ({post}) => {
         return num;
     }
 
+    const handleError = (message) => {
+        console.log(message);
+        setErrorMessage(message);
+        setShowError(true);
+    };
+
     return(
         <Card className="content-card">
             <div className="header">
@@ -122,9 +141,9 @@ const ContentCard = ({post}) => {
                                     d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
                             </svg>
                         }>
-                            <Dropdown.Item className="option" eventKey="1" onClick={report(true)}>Report
+                            <Dropdown.Item className="option" eventKey="1" onClick={() => handleReport(true)}>Report
                                 post</Dropdown.Item>
-                            <Dropdown.Item className="option" eventKey="2" onClick={report(false)}>Report
+                            <Dropdown.Item className="option" eventKey="2" onClick={() => handleReport(false)}>Report
                                 user</Dropdown.Item>
                         </DropdownButton>
                     </Dropdown>
@@ -158,6 +177,11 @@ const ContentCard = ({post}) => {
                     <span>{compressNum(numComments)}</span>
                 </Button>
             </div>
+            <MessageToast
+                show={showError}
+                message={errorMessage}
+                onClose={() => setShowError(false)}
+            />
         </Card>
     );
 }
