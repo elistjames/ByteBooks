@@ -34,7 +34,7 @@ likeRouter.delete('/deleteLike', (req, res) => {
             res.status(500).json({ message: "Failed to remove like" });
             return;
         }
-        res.sendStatus(200);
+        res.status(200).json({ message: "Like has been removed" });
     });
 });
 

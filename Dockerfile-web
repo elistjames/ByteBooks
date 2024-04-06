@@ -12,6 +12,7 @@ RUN npm install \
     && npm install react-icons \
     && npm install react-responsive \
     && npm install react-contenteditable \
-    && npm install uuid
+    && npm install uuid \
+    && npm install date-fns --save
 
 CMD ["npm", "start"]

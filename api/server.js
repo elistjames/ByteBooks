@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
-// const commentRoutes = require('./routes/viewPost');
-reportRoutes = require('./routes/report');
+const commentRoutes = require('./routes/comment');
+const reportRoutes = require('./routes/report');
 const likeRoutes = require('./routes/like');
 const dislikeRoutes = require('./routes/dislike');
 
@@ -26,7 +26,7 @@ app.use('/auth', authRoutes);
 // route for content main page requests
 app.use('/post', postRoutes);
 // route for comment requests
-
+app.use('/comment', commentRoutes);
 // route for report requests
 app.use('/report', reportRoutes);
 // route for like requests
