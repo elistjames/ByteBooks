@@ -26,7 +26,7 @@ class CommentController {
                 username: username,
                 content: content
             });
-            return response;
+            return response.id;
         }
         catch(error){
             throw new Error('Failed to create comment: ' + error.message);

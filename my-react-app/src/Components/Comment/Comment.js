@@ -32,13 +32,7 @@ const Comment = ({comment, onSubmit}) => {
     const handleSubmit = (event)=>{
         setLoading(true);
         event.preventDefault();
-        onSubmit({
-            "comment_id": 2,
-            "post_id": 1,
-            "user_id": 1,
-            "username": "estjames",
-            "content": userComment
-        });
+        onSubmit(userComment);
         setUserComment("");
         setLoading(false);
     }

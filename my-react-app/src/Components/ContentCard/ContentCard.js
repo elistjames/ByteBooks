@@ -12,7 +12,7 @@ import MessageToast from "../MessageToast";
 
 
 const ContentCard = ({post}) => {
-    const { username, userId } = useSession();
+    const {userType, username, userId } = useSession();
     const [readMore, setReadMore] = useState(false);
     const [likedByUser, setLikedByUser] = useState(post.liked_by_user);
     const [dislikedByUser, setDislikedByUser] = useState(post.disliked_by_user);
@@ -50,12 +50,6 @@ const ContentCard = ({post}) => {
     const likeClicked = ()=> {
         if(userId === "") return;
         //if post is likes, remove like
-        console.log({
-            likesByUser: likedByUser,
-            dislikedByUser: dislikedByUser,
-            postId: post.post_id,
-            userId: userId
-        });
         if(likedByUser){
             LikesController.removeLike(post.post_id, userId)
                 .then(()=>{
@@ -148,11 +142,11 @@ const ContentCard = ({post}) => {
                         }>
                             <Dropdown.Item className="option" eventKey="1" href={`viewPost/${post.post_id}`}>View
                                 post</Dropdown.Item>
-                            {!isOwner() &&
+                            {(!isOwner() && userType !== 'guest') &&
                                 <Dropdown.Item className="option" eventKey="2" onClick={() => handleReport(true)}>Report
                                     post</Dropdown.Item>
                             }
-                            {!isOwner() &&
+                            {(!isOwner() && userType !== 'guest') &&
                                 <Dropdown.Item className="option" eventKey="3" onClick={() => handleReport(false)}>Report user</Dropdown.Item>
                             }
 

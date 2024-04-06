@@ -48,7 +48,6 @@ const ViewPost = () => {
 
         MainPageController.getPostById(id, userId)
             .then((postData) => {
-                console.log(postData);
                 setPost(postData);
                 setNumLikes(postData.num_likes);
                 setNumDislikes(postData.num_dislikes);
@@ -56,7 +55,6 @@ const ViewPost = () => {
                 setDislikedByUser(postData.disliked_by_user);
                 isOwner();
                 CommentController.getCommentsForPost(id).then((data) => {
-                    console.log(data);
                     setComments(data);
                 }).catch((error) => {
                     handleError(error);
@@ -69,13 +67,23 @@ const ViewPost = () => {
     }, [id, userId]);
 
     const handleOnSubmit =(com)=>{
+        if(post === null) return;
         if(com != null){
-
-            setComments((prev) => {
-                const cloneComments = [...prev];
-                cloneComments.unshift(com);
-                return cloneComments;
-            });
+            CommentController.createComment(post.post_id, userId, username, com).then((commentId) => {
+                const newComment = {
+                    post_id: commentId,
+                    user_id: userId,
+                    username: username,
+                    content: com
+                };
+                setComments((prev) => {
+                    const cloneComments = [...prev];
+                    cloneComments.unshift(newComment);
+                    return cloneComments;
+                });
+            }).catch((error) => {
+                handleError(error);
+            })
         }
     };
 
@@ -118,12 +126,6 @@ const ViewPost = () => {
     const likeClicked = ()=> {
         if(userId === "") return;
         //if post is likes, remove like
-        console.log({
-            likesByUser: likedByUser,
-            dislikedByUser: dislikedByUser,
-            postId: post.post_id,
-            userId: userId
-        });
         if(likedByUser){
             LikesController.removeLike(post.post_id, likedByUser, dislikedByUser, userId)
                 .then(()=>{
@@ -230,7 +232,7 @@ const ViewPost = () => {
                                                                 <path
                                                                     d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
                                                             </svg>
-                                                        } disabled={isOwner()}>
+                                                        } disabled={isOwner() || userType === 'guest'}>
                                             <Dropdown.Item className="option" eventKey="1"
                                                            onClick={() => handleReport(true)}>Report
                                                 post</Dropdown.Item>
