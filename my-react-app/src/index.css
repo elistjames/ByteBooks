@@ -266,7 +266,7 @@ search-option.input {
 }
 
 
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .logo-image {
     max-width: 100px;
     max-height: 50px;
@@ -396,4 +396,13 @@ search-option.input {
 .unauthorizedButton:hover {
   background-color: var(--white);
   color: var(--brown);
+}
+
+.message-toast {
+  width: auto;
+  border-radius: 1px;
+  position: fixed;
+  top: 70px;
+  right: 15px;
+  z-index: 100;
 }

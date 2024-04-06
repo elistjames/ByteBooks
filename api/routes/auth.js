@@ -47,7 +47,7 @@ authRouter.post('/login', (req, res) => {
         }
         if (results.length > 0) {
             const user = results[0];
-            const token = jwt.sign({ username, permission: user.permission }, jwtSecretKey);
+            const token = jwt.sign({username, permission: user.permission, id: user.id}, jwtSecretKey);
             res.json({ token, permission: user.permission, id: user.id });
         } else {
             res.status(401).json({ error: 'Invalid username or password' });

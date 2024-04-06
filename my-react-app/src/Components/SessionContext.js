@@ -23,7 +23,7 @@ export const SessionProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("userId", userId);
-  }, []);
+  }, [userId]);
 
   const setUserRoleType = (newUserType) => {
     setUserType(newUserType);

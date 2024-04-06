@@ -11,7 +11,7 @@ import { useSession } from "../SessionContext";
 
 const MainPage = () =>
 {
-    const { userId } = useSession();
+    const { userType, userId } = useSession();
     const [posts, setPosts] = useState([]);
 
     // useEffect means run this when component renders
@@ -31,9 +31,11 @@ const MainPage = () =>
     return(
         <div className=" main-page-container">
             <SearchBar onSubmit={handleOnSubmitSearch}/>
-            <Button variant="primary" className="post-btn" href={`createPost`}>
-                <PiPlusBold size={40} className="post-mobile"/>
-            </Button>
+            {userType !== 'guest' &&
+                <Button variant="primary" className="post-btn" href={`createPost`}>
+                    <PiPlusBold size={40} className="post-mobile"/>
+                </Button>
+            }
             <div className="main-page-body">
                 <div className="content-flex-container">
                     {posts.map((post) => (

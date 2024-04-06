@@ -1,15 +1,14 @@
 const express = require('express');
 const {executeQuery} = require("../db");
 
-const mainPageRouter = express.Router();
+const postRouter = express.Router();
 
 
 
 /* Requests */
 
-
 // request to get all posts, as well as the number of likes, dislikes, and comments on each post.
-mainPageRouter.get('/posts', (req, res) => {
+postRouter.get('/posts', (req, res) => {
     const { userId } = req.query;
     const sql = 'SELECT \n' +
         '    p.post_id,\n' +
@@ -48,26 +47,54 @@ mainPageRouter.get('/posts', (req, res) => {
 });
 
 
-mainPageRouter.post('/createPost', (req, res) => {
+postRouter.get('/getPost', (req, res) => {
+    const {postId} = req.query;
+
+    const sql = 'SELECT p.title, p.content FROM posts p WHERE p.post_id = ?;';
+
+    executeQuery(sql, [postId], (err, results) => {
+        if (err) {
+            res.status(err.statusCode).json({ error: 'post not is database' });
+            throw err;
+        }
+        res.json(results);
+    });
+});
+
+
+postRouter.post('/createPost', (req, res) => {
     const { user_id, username, title, content } = req.body;
     const newPost = { user_id, username, title, content };
     const sql = 'INSERT INTO posts SET ?';
     executeQuery(sql, newPost, (err, result) => {
         if (err) {
-            res.status(500).json({ error: 'Failed to create post' });
+            res.status(err.statusCode).json({ error: 'Failed to create post' });
             throw err;
         }
-        res.status(201).json({ message: 'Post successfully created', id: result.insertId });
+        res.status(200).json({ message: 'Post successfully created', id: result.insertId });
     });
 });
 
 
-mainPageRouter.post('/updatePost', (req, res) => {
+postRouter.post('/updatePost', (req, res) => {
+    const { post_id, title, content } = req.body;
 
+    const sql = 'UPDATE posts\n' +
+        'SET title = ?,\n' +
+        '    content = ?\n' +
+        'WHERE post_id = ?;';
+
+    executeQuery(sql, [title, content, post_id], (err, result) => {
+        if (err) {
+            res.status(err.statusCode).json({ error: 'Failed to update post' });
+            throw err;
+        }
+        res.status(200).json({ message: 'Post successfully updated', id: result.id });
+    });
 });
 
 
-mainPageRouter.delete('/deletePost', (req, res) => {
+postRouter.delete('/deletePost', (req, res) => {
     const { post_id } = req.body;
     const sql = 'DELETE FROM posts p WHERE p.post_id = ?;';
 
@@ -76,8 +103,8 @@ mainPageRouter.delete('/deletePost', (req, res) => {
             res.status(err.statusCode).json({ error: 'Failed to delete post' });
             throw err;
         }
-        res.status(201).json({ message: 'Post successfully deleted', id: result.id });
+        res.status(200).json({ message: 'Post successfully deleted', id: result.id });
     });
 });
 
-module.exports = mainPageRouter;
+module.exports = postRouter;

@@ -103,7 +103,7 @@ const ProtectedSignIn = () => {
     const { userType } = useSession();
 
     if (userType === 'member' || userType === 'admin') {
-        return <MainPage/>;;
+        return <MainPage/>;
     } else {
         return <SignIn />;
     }

@@ -25,11 +25,6 @@ const ContentCard = ({post}) => {
 
     }, [post.content]);
 
-    const viewPost = () => {
-        //TODO: This will go to the 'view post'
-
-    };
-
     const report = (reportPostMode) => {
         if(reportPostMode){
 

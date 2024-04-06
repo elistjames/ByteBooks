@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
-const postRoutes = require('./routes/mainPage');
+const postRoutes = require('./routes/post');
 // const commentRoutes = require('./routes/viewPost');
 // const reportRoutes = require('./routes/report');
 const likeRoutes = require('./routes/like');

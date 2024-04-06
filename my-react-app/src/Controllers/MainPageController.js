@@ -25,8 +25,61 @@ class MainPageController{
         return posts;
     }
 
-    async addPost(postData) {
-        return await makeRequest('POST', this.POSTS_API_ROUTE+'/posts/createPost', postData);
+    async getPostById(id){
+        try{
+            const response = await makeRequest('GET', `${this.POSTS_API_ROUTE}/getPost/?postId=${id}`);
+            return response;
+        }
+        catch (error){
+            throw new Error('Failed to get post: ' + error.message);
+        }
+    }
+
+    async addPost(userId, username, title, content) {
+        console.log({
+            user_id: userId,
+            username: username,
+            title: title,
+            content: content
+        });
+        try{
+            const response = await makeRequest('POST', this.POSTS_API_ROUTE+'/createPost', {
+                user_id: userId,
+                username: username,
+                title: title,
+                content: content
+            });
+            return response;
+        }
+        catch(error){
+            throw new Error('Failed to create post: ' + error.message);
+        }
+    }
+
+    async updatePost(postId, title, content){
+        try{
+            const response = await makeRequest('PUT', this.POSTS_API_ROUTE+'/updatePost', {
+                post_id: postId,
+                title: title,
+                content: content
+            });
+            return response;
+        }
+        catch(error){
+            throw new Error('Failed to create post: ' + error.message);
+        }
+    }
+
+    async deletePost(postId){
+        try{
+            const response = await makeRequest('DELETE', this.POSTS_API_ROUTE+'/deletePost', {
+                post_id: postId
+            });
+            return response;
+        }
+        catch(error){
+            throw new Error('Failed to delete post: ' + error.message);
+        }
     }
 }
 
