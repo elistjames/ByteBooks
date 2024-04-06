@@ -11,7 +11,6 @@ class ReportsController {
     async getAllReports(){
         try {
             const reports = await makeRequest('GET', `${this.REPORTS_API_ROUTE}/reports`);
-            console.log(reports);
             return reports;
         }
         catch (error) {
