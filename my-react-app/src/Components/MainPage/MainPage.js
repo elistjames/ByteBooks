@@ -7,27 +7,35 @@ import ContentCard from "../ContentCard/ContentCard";
 import postData from "../../demoData/posts.json";
 import { v4 as uuidv4 } from 'uuid';
 import MainPageController from "../../Controllers/MainPageController";
+import { useSession } from "../SessionContext";
 
 const MainPage = () =>
 {
-
+    const { userType, userId } = useSession();
     const [posts, setPosts] = useState([]);
 
     // useEffect means run this when component renders
     useEffect(() => {
-        MainPageController.getAllPosts().then((data) => {
-            console.log(data); // for testing
+        MainPageController.getAllPosts(userId).then((data) => {
             setPosts(data);
         });
-    }, []);
+    }, [userId]);
+
+    const handleOnSubmitSearch = (search) => {
+        MainPageController.getSearchedPosts(search).then((data) => {
+            setPosts(data);
+        });
+    }
 
 
     return(
         <div className=" main-page-container">
-            <SearchBar />
-            <Button variant="primary" className="post-btn" href={`createPost`}>
-                <PiPlusBold size={40} className="post-mobile"/>
-            </Button>
+            <SearchBar onSubmit={handleOnSubmitSearch}/>
+            {userType !== 'guest' &&
+                <Button variant="primary" className="post-btn" href={`createPost`}>
+                    <PiPlusBold size={40} className="post-mobile"/>
+                </Button>
+            }
             <div className="main-page-body">
                 <div className="content-flex-container">
                     {posts.map((post) => (

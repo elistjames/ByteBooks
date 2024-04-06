@@ -1,9 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-function SearchBar () {
+function SearchBar ({onSubmit}) {
+
+    const [search, setSearch] = useState("");
+    const handleOnChange = (event) => {
+        if(event.target.value === null){
+            setSearch("");
+        }
+        setSearch(event.target.value);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        onSubmit(search);
+    }
+
     return (
-        <form className="search-form">
-            <input type="search" value="" placeholder="Search" className="search-input"/>
+        <form className="search-form" onSubmit={handleSubmit}>
+            <input type="text" value={search} placeholder="Search" className="search-input" onChange={handleOnChange}/>
             <button type="submit" className="search-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      className="bi bi-search" viewBox="0 0 16 16">

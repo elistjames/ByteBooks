@@ -1,24 +1,16 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap';
 import { IoPersonRemove, IoTrashOutline } from 'react-icons/io5';
 import './Admin.css';
 import ConfirmationModal from '../ConfirmationCard/ConfirmationModal';
-import ConfirmationToast from '../ConfirmationCard/ConfirmationToast'; 
+import ConfirmationToast from '../ConfirmationCard/ConfirmationToast';
+import ReportController from "../../Controllers/ReportController";
+import { v4 as uuidv4 } from 'uuid';
 
 const Admin = () => {
-    const [reportedUsers, setReportedUsers] = useState([
-        { user_id: 1, userId: '@farmerjoe', reports: '1.6k reports'},
-        { user_id: 2, userId: '@riotGoose', reports: '1.4k reports'},
-        { user_id: 3, userId: '@tomglue83', reports: '743 reports' },
-        { user_id: 4, userId: '@trollot', reports: '425 reports'}
-    ]);
+    const [reportedUsers, setReportedUsers] = useState([]);
 
-    const [reportedPosts, setReportedPosts] = useState([
-        { post_id: 1, username: '@farmerjoe', title: 'Night Song', reports: '3.3k reports' },
-        { post_id: 2, username: '@riotGoose', title: 'I h8 my cat', reports: '1.2k reports' },
-        { post_id: 3, username: '@drRubrik', title: 'My Wife Left Me', reports: '989 reports' },
-        { post_id: 4, username: '@meadowspring42', title: 'Hi Guys!', reports: '735 reports' },
-    ]);
+    const [reportedPosts, setReportedPosts] = useState([]);
 
     const [activeTab, setActiveTab] = useState('users');
     const [modalDialog, setModalDialog] = useState(false);
@@ -26,6 +18,13 @@ const Admin = () => {
     const [dialogMessage, setDialogMessage] = useState('');
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState('');
+
+    useEffect(() => {
+        ReportController.getAllReports().then((data) => {
+            setReportedPosts(data.filter(report => report.reported_user_id === null));
+            setReportedUsers(data.filter(report => report.post_id === null));
+        })
+    }, []);
 
     const deleteItem = (itemId) => {
         setCurrentItemId(itemId);
@@ -81,11 +80,11 @@ const Admin = () => {
                     <div className="content-area">
                         {activeTab === 'users' && (
                             <ListGroup>
-                                {reportedUsers.map((user, index) => (
-                                    <div key={index} className="user-item">
-                                        <ListGroup.Item key={user.user_id} className="d-flex justify-content-between my-2 rounded-pill">
-                                            <span className="reports">{user.reports}</span>
-                                            <span className="userId">{user.userId}</span>
+                                {reportedUsers.map((user) => (
+                                    <div key={uuidv4()} className="user-item">
+                                        <ListGroup.Item className="d-flex justify-content-between my-2 rounded-pill">
+                                            <span className="reports">{user.report_count}</span>
+                                            <span className="userId">@{user.username}</span>
                                             <Button variant="link" className="remove-user-btn" onClick={() => deleteItem(user.user_id)} title="Ban user">
                                                 <IoPersonRemove size="1.5em" className="remove-user-icon"/> 
                                             </Button>
@@ -96,10 +95,10 @@ const Admin = () => {
                         )}
                         {activeTab === 'posts' && (
                             <ListGroup>
-                                {reportedPosts.map((post, index) => (
-                                    <ListGroup.Item key={post.post_id} className="post-bar">
+                                {reportedPosts.map((post) => (
+                                    <ListGroup.Item key={uuidv4()} className="post-bar">
                                         <div className="post-info">
-                                            <span className="report-count">{post.reports}</span>
+                                            <span className="report-count">{post.report_count}</span>
                                             <span className="post-username">{post.username}</span>
                                             <span className="post-title">{post.title}</span>
                                         </div>

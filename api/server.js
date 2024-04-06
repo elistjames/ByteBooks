@@ -1,11 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
-const postRoutes = require('./routes/mainPage');
+const postRoutes = require('./routes/post');
 // const commentRoutes = require('./routes/viewPost');
-// const reportRoutes = require('./routes/report');
-// const likeRoutes = require('./routes/like');
-// const dislikeRoutes = require('./routes/dislike');
+reportRoutes = require('./routes/report');
+const likeRoutes = require('./routes/like');
+const dislikeRoutes = require('./routes/dislike');
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(express.json());
 
 
 const corsOptions = {
-    origin: 'http://localhost:8888'  // when running on docker, set to 8888, when testing locally, change port to 3000
+    origin: 'http://localhost:3000'  // when running on docker, set to 8888, when testing locally, change port to 3000
     };
 app.use (cors(corsOptions));
 
@@ -28,10 +28,13 @@ app.use('/post', postRoutes);
 // route for comment requests
 
 // route for report requests
-
+app.use('/report', reportRoutes);
 // route for like requests
+app.use('/like', likeRoutes);
 
 // route for dislike requests
+app.use('/dislike', dislikeRoutes);
+
 app.get("/status", (request, response) => {
     const status = {
         "status": "Running"
