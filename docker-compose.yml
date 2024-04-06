@@ -22,6 +22,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
+      - /app-api/node_modules
       - ./api:/app-api
     depends_on:
       db:
