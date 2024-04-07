@@ -7,7 +7,7 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import { useSession } from "../SessionContext";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import './SignIn.css';
+import './Authentication.css';
 import SignInController from "../../Controllers/SignInController";
 
 
@@ -17,13 +17,13 @@ const SignIn = () => {
     const [loginError, setLoginError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
-    const { setUserRoleType, setUser, setId } = useSession();
+    const { setUserRoleType, setUser } = useSession();
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { token, permission, id } = await SignInController.signIn({ username, password });
+            const { token, permission } = await SignInController.signIn({ username, password });
             // localStorage.setItem('token', token);
             if (permission === 'ADMIN') {
                 setUserRoleType('admin');
@@ -32,7 +32,6 @@ const SignIn = () => {
                 setUserRoleType('member');
             }
             setUser(username);
-            setId(id);
             navigate('/');
         } catch (error) {
             setLoginError('Invalid username or password.');

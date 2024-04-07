@@ -68,6 +68,25 @@ authRouter.get('/users', (req, res) => {
     });
 });
 
+// API endpoint for to check if a user exists
+authRouter.get('/checkUserExists', (req, res) => {
+    const { username } = req.query; // Assuming the username is sent as a query parameter
+
+    if (!username) {
+        return res.status(400).json({ error: 'Username query parameter is required' });
+    }
+
+    const sql = 'SELECT COUNT(username) AS count FROM users WHERE username = ?';
+    executeQuery(sql, [username], (err, results) => {
+        if (err) {
+            res.status(500).json({ error: 'Failed to query the database' });
+            throw err;
+        }
+        const userExists = results[0].count > 0;
+        res.json({ exists: userExists });
+    });
+});
+
 // Middleware to verify JWT
 function authenticateToken(req, res, next) {
     const token = req.headers['authorization'];
