@@ -23,6 +23,10 @@ const SignIn = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            if (!username || !password) {
+            setLoginError('Please fill out all fields.');
+            return;
+            }
             const { token, permission } = await SignInController.signIn({ username, password });
             // localStorage.setItem('token', token);
             if (permission === 'ADMIN') {
