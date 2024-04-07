@@ -23,14 +23,14 @@ const ContentEditor = () => {
 
     useEffect(() => {
         if(!newPost){
-            MainPageController.getPostById(id).then((postData) => {
+            MainPageController.getPostById(id, userId).then((postData) => {
                 setTitle(postData.title);
                 setContent(postData.content);
             }).catch((err) => {
                 handleError(err);
             });
         }
-    }, [newPost, id]);
+    }, [newPost, id, userId]);
 
     const handleOnChangeTitle = (e) => {
         if(!e.target.value){

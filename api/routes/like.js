@@ -8,7 +8,7 @@ likeRouter.post('/createLike', (req, res) => {
     const { post_id, user_id } = req.body;
 
     if (!post_id || !user_id) {
-        res.sendStatus(400);
+        res.status(400).json({ message: "post id and user not provided" });
     }
 
     const newLike = { post_id, user_id };
@@ -20,7 +20,7 @@ likeRouter.post('/createLike', (req, res) => {
             res.status(500).json({ message: "Failed to like post" });
             return;
         }
-        res.sendStatus(200);
+        res.status(200).json({ message: "Post has been liked" });
     });
 });
 
@@ -34,7 +34,7 @@ likeRouter.delete('/deleteLike', (req, res) => {
             res.status(500).json({ message: "Failed to remove like" });
             return;
         }
-        res.sendStatus(200);
+        res.status(200).json({ message: "Like has been removed" });
     });
 });
 

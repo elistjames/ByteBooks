@@ -31,10 +31,10 @@ class MainPageController{
         return posts;
     }
 
-    async getPostById(id){
+    async getPostById(id, user_id){
         try{
-            const response = await makeRequest('GET', `${this.POSTS_API_ROUTE}/getPost/?postId=${id}`);
-            return await response.json();
+            const response = await makeRequest('GET', `${this.POSTS_API_ROUTE}/getPost/?postId=${id}&userId=${user_id}`);
+            return response;
         }
         catch (error){
             throw new Error('Failed to get post: ' + error.message);
