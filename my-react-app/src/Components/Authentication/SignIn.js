@@ -17,13 +17,13 @@ const SignIn = () => {
     const [loginError, setLoginError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
-    const { setUserRoleType, setUser } = useSession();
+    const { setUserRoleType, setUser, setId } = useSession();
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { token, permission } = await SignInController.signIn({ username, password });
+            const { token, permission, id } = await SignInController.signIn({ username, password });
             // localStorage.setItem('token', token);
             if (permission === 'ADMIN') {
                 setUserRoleType('admin');
@@ -32,6 +32,7 @@ const SignIn = () => {
                 setUserRoleType('member');
             }
             setUser(username);
+            setId(id);
             navigate('/');
         } catch (error) {
             setLoginError('Invalid username or password.');
