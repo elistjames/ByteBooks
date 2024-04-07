@@ -39,16 +39,16 @@ authRouter.post('/login', (req, res) => {
     }
     const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
-    const sql = 'SELECT id, username, permission FROM users WHERE username = ? AND password = ?';
+    const sql = 'SELECT username, permission FROM users WHERE username = ? AND password = ?';
     executeQuery(sql, [username, hashedPassword], (err, results) => {
         if (err) {
-            res.status(500).json({ message: "Failed to authenticate" });
-            return;
+            res.status(500).json({ error: 'Failed to authenticate' });
+            throw err;
         }
         if (results.length > 0) {
             const user = results[0];
-            const token = jwt.sign({username, permission: user.permission, id: user.id}, jwtSecretKey);
-            res.json({ token, permission: user.permission, id: user.id });
+            const token = jwt.sign({ username, permission: user.permission }, jwtSecretKey);
+            res.json({ token, permission: user.permission });
         } else {
             res.status(401).json({ error: 'Invalid username or password' });
         }
