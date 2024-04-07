@@ -3,26 +3,39 @@ import { Button, Card } from 'react-bootstrap';
 import ContentCard from "./ContentCard/ContentCard";
 import './../index.css';
 import './MainPage/MainPage.css';
-import ConfirmationModal from './ConfirmationCard/ConfirmationModal'; 
-import ChangePasswordModal from './ConfirmationCard/ChangePasswordModal'; 
-import ConfirmationToast from './ConfirmationCard/ConfirmationToast'; 
+import ConfirmationModal from './ConfirmationCard/ConfirmationModal';
+import ChangePasswordModal from './ConfirmationCard/ChangePasswordModal';
+import ConfirmationToast from './ConfirmationCard/ConfirmationToast';
 import postData from "../demoData/posts.json"
+import { useNavigate } from 'react-router-dom';
+import UserController from "../Controllers/UserController";
+import { useSession } from "./SessionContext";
 
-  const Profile = () => {
+const Profile = () => {
   const [posts, setPosts] = useState(postData);
+  const { userId } = useSession();
+  const navigate = useNavigate();
   const usersPosts = posts.filter(post => post.user_id === '@elistjames');
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
-  const handleConfirmDelete = () => {handleCloseModal();};
-  
-  const [showPasswordChangedToast, passwordChangedToast] = useState(false); 
+
+  const [showPasswordChangedToast, passwordChangedToast] = useState(false);
   const handlePasswordModal = () => addPasswordModal(true);
   const [changePasswordModal, addPasswordModal] = useState(false);
   const closePasswordModal = () => addPasswordModal(false);
   const passwordChange = () => {
-    passwordChangedToast(true); 
-    closePasswordModal();};
+    passwordChangedToast(true);
+    closePasswordModal();
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      UserController.deleteAccount(userId).then(navigate('/register'));
+    } catch (error) {
+      console.error('Account deletion failed:', error);
+    }
+  }
 
   return (
     <>
@@ -40,7 +53,7 @@ import postData from "../demoData/posts.json"
               <Button variant="danger" onClick={handleShowModal}>
                 Delete Account
               </Button>
-              </div>
+            </div>
           </div>
         </Card.Body>
       </Card>
@@ -55,13 +68,13 @@ import postData from "../demoData/posts.json"
         onHide={handleCloseModal}
         onConfirm={handleConfirmDelete}
         message="Are you sure you want to delete your account?"
-      />  
-       <ChangePasswordModal 
-        show={changePasswordModal} 
-        handleClose={closePasswordModal}
-        onSaveChanges={passwordChange} 
       />
-       <ConfirmationToast
+      <ChangePasswordModal
+        show={changePasswordModal}
+        handleClose={closePasswordModal}
+        onSaveChanges={passwordChange}
+      />
+      <ConfirmationToast
         show={showPasswordChangedToast}
         message="Password changed successfully."
         onClose={() => passwordChangedToast(false)}
