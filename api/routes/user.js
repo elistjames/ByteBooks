@@ -6,16 +6,16 @@ const userRouter = express.Router();
 
 
 
-userRouter.delete('/delete-account', (req, res) => {
-    const { userId } = req.body;
+userRouter.delete('/deleteUser', (req, res) => {
+    const { user_id } = req.body;
 
-    const deleteUserSql = 'DELETE FROM users WHERE id = ?;';
-    executeQuery(deleteUserSql, [userId], (err, result) => {
+    const sql = 'DELETE FROM users WHERE id = ?;';
+    executeQuery(sql, [user_id], (err, result) => {
         if (err) {
             res.status(500).json({ message: "Failed to delete account." });
             return;
         }
-        res.json({ message: "Account successfully deleted." });
+        res.status(200).json({ message: "Account successfully deleted." });
     });
 });
 

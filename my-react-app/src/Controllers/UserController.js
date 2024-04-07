@@ -9,7 +9,7 @@ class UserController {
 
     async deleteAccount(userId) {
         try {
-            const response = await makeRequest('DELETE', this.USER_API_ROUTE + '/delete', {
+            const response = await makeRequest('DELETE', this.USER_API_ROUTE + '/deleteUser', {
                 user_id: userId
             });
             return response.message;

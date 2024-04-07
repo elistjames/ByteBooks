@@ -30,15 +30,14 @@ const Profile = () => {
   };
 
   const handleConfirmDelete = async () => {
-    try {
-      await UserController.deleteAccount(userId);
+    UserController.deleteAccount(userId).then((response) => {
       setUserRoleType('guest');
       setUser('');
       setId('');
       navigate('/');
-    } catch (error) {
-      console.error('Account deletion failed:', error);
-    }
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   return (
