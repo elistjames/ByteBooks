@@ -16,6 +16,7 @@
 
 .post-container {
     display: block;
+    width: 100%;
     max-width: var(--max);
 }
 
@@ -43,6 +44,7 @@
 .view-post-card {
     box-shadow: 2px 2px 0.5rem darkgrey;
     border-radius: 2rem;
+    width: 100%;
     max-width: var(--max);
 }
 
@@ -78,7 +80,7 @@ view-post-title {
 
 .view-post-media-btn {
     display: inline-flex;
-    color: black;
+    color: var(--brown);
     padding: 0 1rem 0 0;
     margin: 0;
     text-decoration: none;
@@ -131,8 +133,16 @@ view-post-title {
     margin-top: 2rem;
 }
 
+.wrapper{
+
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 .comments-container {
     display: block;
+    width: 100%;
     max-width: var(--max);
 }
 

@@ -1,31 +1,36 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-
 import "./ContentEditor.css"
-import {Navigate, useLocation, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {getPost} from "../../demoApi";
 import ContentEditable from "react-contenteditable";
 import Form from "react-bootstrap/Form";
+import MainPageController from "../../Controllers/MainPageController";
+import {useSession} from "../SessionContext";
+import MessageToast from "../MessageToast";
 
-const ContentEditor = ({createPost}) => {
+const ContentEditor = () => {
     const { id } = useParams();
+    const { userId } = useSession();
+    const { username } = useSession();
+    const navigate = useNavigate();
+    const [newPost, setNewPost] = useState(!id);
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
-    let postTitle = "";
-    let postContent = "";
-
-    const location = useLocation();
-    const [newPost, setNewPost] = useState(createPost)
-
-    if(!newPost){
-
-        const post = getPost(id);
-        postTitle = post.title;
-        postContent = post.content;
-    }
-
-    const [title, setTitle] = useState(postTitle);
-    const [content, setContent] = useState(postContent);
+    useEffect(() => {
+        if(!newPost){
+            MainPageController.getPostById(id, userId).then((postData) => {
+                setTitle(postData.title);
+                setContent(postData.content);
+            }).catch((err) => {
+                handleError(err);
+            });
+        }
+    }, [newPost, id, userId]);
 
     const handleOnChangeTitle = (e) => {
         if(!e.target.value){
@@ -47,44 +52,69 @@ const ContentEditor = ({createPost}) => {
 
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(title === ""){
+            handleError("Must have a title")
+            return;
+        }
+        if(content === "") {
+            handleError("Cannot be left empty")
+            return;
+        }
 
+        if(newPost){
+            MainPageController.addPost(userId, username, title, content).then(() => {
+                navigate('/');
+            }).catch((err) => {
+                handleError(err);
+            });
+        }
     };
 
     const handleCancel =() => {
+        navigate(-1);
+    }
 
-
+    const handleError = (message) => {
+        console.log(message);
+        setErrorMessage(message);
+        setShowError(true);
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <div className="content-editor-wrapper">
 
-            <Card className="content-editor-container">
-                <Card.Header className="edit-title-container">
-                    <div className="edit-title">
-                        <input type="text" className="edit-title-input" placeholder="Title" value={title}
-                               onChange={handleOnChangeTitle}/>
-                    </div>
-                </Card.Header>
-                <Card.Body className="edit-post-container">
-                        <div className="edit-post">
-                            <ContentEditable
-                                className="edit-post-input"
-                                disabled={false}
-                                html={content}
-                                required={false}
-                                onChange={handleOnChangeContent}/>
+                <Card className="content-editor-container">
+                    <Card.Header className="edit-title-container">
+                        <div className="edit-title">
+                            <input type="text" className="edit-title-input" placeholder="Title" value={title}
+                                   onChange={handleOnChangeTitle}/>
                         </div>
-                </Card.Body>
-                <Card.Footer className="edit-post-actions">
-                    <Button className="btn-primary action-btn">{newPost ? "Post" : "Save"}</Button>
-                    <Button className="btn-light action-btn" onClick={handleCancel}>Cancel</Button>
-                </Card.Footer>
-            </Card>
-
-        </div>
-    </form>
+                    </Card.Header>
+                    <Card.Body className="edit-post-container">
+                            <div className="edit-post">
+                                <ContentEditable
+                                    className="edit-post-input"
+                                    disabled={false}
+                                    html={content}
+                                    required={false}
+                                    onChange={handleOnChangeContent}/>
+                            </div>
+                    </Card.Body>
+                    <Card.Footer className="edit-post-actions">
+                        <Button type="submit" className="btn-primary action-btn">{newPost ? "Post" : "Save"}</Button>
+                        <Button className="btn-light action-btn" onClick={handleCancel}>Cancel</Button>
+                    </Card.Footer>
+                </Card>
+                <MessageToast
+                    show={showError}
+                    message={errorMessage}
+                    onClose={() => setShowError(false)}
+                />
+            </div>
+        </form>
 )
 }
 

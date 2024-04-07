@@ -55,15 +55,14 @@
 
 
 
-@media (max-width: 680px){
+@media (max-width: 768px){
+    .post-btn{
+        bottom:4rem;
+    }
+
     .content-flex-container{
         margin-top: 5rem;
         padding-bottom: 50px;
-    }
-
-    .post-btn{
-        bottom: 4rem;
-
     }
 
     .post-desktop{

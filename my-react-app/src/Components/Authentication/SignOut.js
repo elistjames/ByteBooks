@@ -4,11 +4,13 @@ import { useSession } from "../SessionContext";
 
 const SignOut = () => {
     const navigate = useNavigate();
-    const { setUserRoleType } = useSession();
+    const { setUserRoleType, setUser, setId } = useSession();
 
     useEffect(() => {
         const handleSignOut = async () => {
             setUserRoleType('guest');
+            setUser('');
+            setId('');
             navigate('/');
         };
 
