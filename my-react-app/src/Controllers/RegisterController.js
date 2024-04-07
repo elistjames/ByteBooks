@@ -11,8 +11,8 @@ class RegisterController{
     async Register(userData) {
         try {
             const response = await makeRequest('POST', `${this.AUTH_API_ROUTE}/register`, userData);
-            const { token } = response;
-            return { token };
+            const { token, id } = response;
+            return { token, id };
         } catch (error) {
             throw new Error('Failed to register: ' + error.message);
         }

@@ -16,7 +16,7 @@ const Register = () => {
     const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
 
     const navigate = useNavigate();
-    const { setUser, setUserRoleType } = useSession();
+    const { setUserRoleType, setUser, setId } = useSession();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,9 +48,10 @@ const Register = () => {
                 return;
             }
 
-            const { token } = await RegisterController.Register({ username, password });
+            const { token, id } = await RegisterController.Register({ username, password });
             setUserRoleType('member');
             setUser(username);
+            setId(id);
             navigate('/');
         } catch (error) {
             setRegisterError(error.message);
