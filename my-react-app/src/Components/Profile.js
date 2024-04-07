@@ -13,7 +13,7 @@ import { useSession } from "./SessionContext";
 
 const Profile = () => {
   const [posts, setPosts] = useState(postData);
-  const { userId } = useSession();
+  const { userId , username, setUserRoleType, setUser, setId} = useSession();
   const navigate = useNavigate();
   const usersPosts = posts.filter(post => post.user_id === '@elistjames');
   const [showModal, setShowModal] = useState(false);
@@ -31,7 +31,11 @@ const Profile = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      UserController.deleteAccount(userId).then(navigate('/register'));
+      await UserController.deleteAccount(userId);
+      setUserRoleType('guest');
+      setUser('');
+      setId('');
+      navigate('/');
     } catch (error) {
       console.error('Account deletion failed:', error);
     }
@@ -44,7 +48,7 @@ const Profile = () => {
           <div className="mb-3">
             <div className="static-field mb-3">
               <Card.Title className="text-muted">Username</Card.Title>
-              <Card.Text className="static-value">@elistjames</Card.Text>
+              <Card.Text className="static-value">{username}</Card.Text>
             </div>
             <div className="d-flex justify-content-around mb-3">
               <Button variant="primary" className="change-password-btn rounded-button" onClick={handlePasswordModal}>
@@ -60,7 +64,7 @@ const Profile = () => {
       <h2 className="posts-heading text-center">Your Posted Content</h2>
       <div className="posts">
         {usersPosts.map(post => (
-          <ContentCard key={post.post_id} post={post} username="@elistjames" />
+          <ContentCard key={post.post_id} post={post} username={username} />
         ))}
       </div>
       <ConfirmationModal
