@@ -53,7 +53,11 @@ const Admin = () => {
                     if(index < 0) {
                         return;
                     }
-                    setReportedUsers(reportedUsers.splice(index, 1));
+                    setReportedUsers((prev) => {
+                        const cloneUsers = [...prev];
+                        cloneUsers.splice(index, 1);
+                        return cloneUsers;}
+                    );
                     setToastMessage(`User has been banned.`);
                     setShowToast(true);
                 }).catch((error) => {
@@ -68,7 +72,11 @@ const Admin = () => {
                     if(index < 0) {
                         return;
                     }
-                    setReportedPosts(reportedPosts.splice(index, 1));
+                    setReportedPosts((prev) => {
+                        const clonePosts = [...prev];
+                        clonePosts.splice(index, 1);
+                        return clonePosts;}
+                    );
                     setToastMessage(`Post "${post.title}" has been deleted.`);
                     setShowToast(true);
                 }).catch((error) =>{

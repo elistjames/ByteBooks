@@ -59,5 +59,5 @@ CREATE TABLE reports (
     reporter_username VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE,
-    FOREIGN KEY (reporter_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (reported_user_id) REFERENCES users(id) ON DELETE CASCADE
 );
