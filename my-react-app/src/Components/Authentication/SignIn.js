@@ -27,7 +27,7 @@ const SignIn = () => {
             setLoginError('Please fill out all fields.');
             return;
             }
-            const { token, permission } = await SignInController.signIn({ username, password });
+            const { token, permission, id } = await SignInController.signIn({ username, password });
             // localStorage.setItem('token', token);
             if (permission === 'ADMIN') {
                 setUserRoleType('admin');
