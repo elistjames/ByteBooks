@@ -6,16 +6,16 @@ const commentRoutes = require('./routes/comment');
 const reportRoutes = require('./routes/report');
 const likeRoutes = require('./routes/like');
 const dislikeRoutes = require('./routes/dislike');
-
+const userRoutes = require('./routes/user');
 const app = express();
 
 app.use(express.json());
 
 
 const corsOptions = {
-    origin: 'http://localhost:8888'  // when running on docker, set to 8888, when testing locally, change port to 3000
-    };
-app.use (cors(corsOptions));
+    origin: 'http://localhost:3000'  // when running on docker, set to 8888, when testing locally, change port to 3000
+};
+app.use(cors(corsOptions));
 
 
 const PORT = process.env.PORT || 8080;
@@ -34,6 +34,9 @@ app.use('/like', likeRoutes);
 
 // route for dislike requests
 app.use('/dislike', dislikeRoutes);
+// route for user requests
+app.use('/user', userRoutes);
+
 
 app.get("/status", (request, response) => {
     const status = {
