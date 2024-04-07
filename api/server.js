@@ -3,20 +3,19 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
 // const commentRoutes = require('./routes/viewPost');
-reportRoutes = require('./routes/report');
+const reportRoutes = require('./routes/report');
 const likeRoutes = require('./routes/like');
 const dislikeRoutes = require('./routes/dislike');
+const adminRoutes = require('./routes/adminroute'); 
 
 const app = express();
 
 app.use(express.json());
 
-
 const corsOptions = {
     origin: 'http://localhost:3000'  // when running on docker, set to 8888, when testing locally, change port to 3000
-    };
-app.use (cors(corsOptions));
-
+};
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 8080;
 
@@ -35,6 +34,9 @@ app.use('/like', likeRoutes);
 // route for dislike requests
 app.use('/dislike', dislikeRoutes);
 
+// route for admin requests
+app.use('/admin', adminRoutes);
+
 app.get("/status", (request, response) => {
     const status = {
         "status": "Running"
@@ -43,9 +45,7 @@ app.get("/status", (request, response) => {
     response.send(status);
 });
 
-
 // API listening on port 3306
 app.listen(PORT, () => {
     console.log("Server listening on PORT:", PORT);
-})
-
+});
