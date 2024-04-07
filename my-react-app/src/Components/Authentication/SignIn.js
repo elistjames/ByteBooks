@@ -7,7 +7,7 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import { useSession } from "../SessionContext";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import './SignIn.css';
+import './Authentication.css';
 import SignInController from "../../Controllers/SignInController";
 
 

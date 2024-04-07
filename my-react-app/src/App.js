@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { SessionProvider, useSession } from "./Components/SessionContext";
 import SignIn from "./Components/Authentication/SignIn";
 import SignOut from "./Components/Authentication/SignOut";
-import Register from "./Components/Register";
+import Register from "./Components/Authentication/Register";
 import Admin from "./Components/AdminCard/Admin";
 import ViewPost from "./Components/ViewPost/ViewPost";
 import ContentEditor from "./Components/ContentEditor/ContentEditor";
