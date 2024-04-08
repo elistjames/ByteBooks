@@ -14,6 +14,7 @@ const Profile = () => {
   const [changeErrorMessage, setChangeErrorMessage] = useState('');
   const [showPasswordChangedToast, setShowPasswordChangedToast] = useState(false);
   const [changePasswordModal, setChangePasswordModal] = useState(false);
+  const [passwordChangedMessage, setPasswordChangedMessage] = useState('');
 
   useEffect(() => {
     if (username) {
@@ -36,16 +37,22 @@ const Profile = () => {
     }
   };
 
-  const passwordChange = async (oldPassword, newPassword) => {
+const passwordChange = async (oldPassword, newPassword) => {
     try {
-      await UserController.changePassword(userId, oldPassword, newPassword);
-      setShowPasswordChangedToast(true);
-      setChangePasswordModal(false);
-      setChangeErrorMessage('');
+        const response = await UserController.changePassword(userId, oldPassword, newPassword);
+        if (response.success) {
+            setShowPasswordChangedToast(true);
+            setPasswordChangedMessage(response.message);
+            setChangePasswordModal(false);
+            setChangeErrorMessage('');
+        } else {
+            setChangeErrorMessage(response.message);
+        }
     } catch (error) {
-      setChangeErrorMessage(error.message);
+        setChangeErrorMessage(error.message);
     }
-  };
+};
+
 
   return (
     <>
@@ -87,7 +94,7 @@ const Profile = () => {
       />
       <ConfirmationToast
         show={showPasswordChangedToast}
-        message="Password changed successfully."
+        message={passwordChangedMessage}
         onClose={() => setShowPasswordChangedToast(false)}
       />
     </>

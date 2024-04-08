@@ -1,10 +1,7 @@
 const express = require('express');
 const { executeQuery } = require("../db");
-
+const crypto = require('crypto');
 const userRouter = express.Router();
-
-
-
 
 userRouter.delete('/deleteUser', (req, res) => {
     const { user_id } = req.body;
@@ -55,5 +52,27 @@ userRouter.get('/posts/:username', (req, res) => {
     });
 });
 
+userRouter.put('/changePassword', (req, res) => {
+    const { userId, oldPassword, newPassword } = req.body;
+    
+    const hashedNewPassword = crypto.createHash('sha256').update(newPassword).digest('hex');
+    
+    const sql = 'SELECT * FROM users WHERE id = ? AND password = ?';
+    executeQuery(sql, [userId, crypto.createHash('sha256').update(oldPassword).digest('hex')], (err, results) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: 'Failed to check old password.' });
+        }
+        if (results.length === 0) {
+            return res.status(200).json({ success: false, message: 'Incorrect old password.' });
+        }
+        const updateUserSql = 'UPDATE users SET password = ? WHERE id = ?';
+        executeQuery(updateUserSql, [hashedNewPassword, userId], (err, result) => {
+            if (err) {
+                return res.status(500).json({ success: false, message: 'Failed to update password.' });
+            }
+            res.status(200).json({ success: true, message: 'Password updated successfully.' });
+        });
+    });
+});
 
 module.exports = userRouter;

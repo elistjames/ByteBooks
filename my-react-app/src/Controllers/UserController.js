@@ -25,6 +25,21 @@ class UserController {
             throw new Error('Failed to fetch user posts: ' + error.message);
         }
     }
+    async changePassword(userId, oldPassword, newPassword) {
+        try {
+            const response = await makeRequest('PUT', `${this.USER_API_ROUTE}/changePassword`, {
+                userId,
+                oldPassword,
+                newPassword
+            });
+
+            return { message: response.message, success: response.success };
+        } catch (error) {
+            throw new Error('Failed to change password: ' + error.message);
+        }
+    }
+
 }
+
 
 export default new UserController();
