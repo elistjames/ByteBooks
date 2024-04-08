@@ -1,44 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import ContentCard from "./ContentCard/ContentCard";
-import './../index.css';
-import './MainPage/MainPage.css';
 import ConfirmationModal from './ConfirmationCard/ConfirmationModal';
 import ChangePasswordModal from './ConfirmationCard/ChangePasswordModal';
 import ConfirmationToast from './ConfirmationCard/ConfirmationToast';
-import postData from "../demoData/posts.json"
-import { useNavigate } from 'react-router-dom';
 import UserController from "../Controllers/UserController";
 import { useSession } from "./SessionContext";
 
 const Profile = () => {
-  const [posts, setPosts] = useState(postData);
-  const { userId , username, setUserRoleType, setUser, setId} = useSession();
-  const navigate = useNavigate();
-  const usersPosts = posts.filter(post => post.user_id === '@elistjames');
+  const [userPosts, setUserPosts] = useState([]);
+  const { userId, username, setUserRoleType, setUser, setId } = useSession();
   const [showModal, setShowModal] = useState(false);
-  const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const [changeErrorMessage, setChangeErrorMessage] = useState('');
+  const [showPasswordChangedToast, setShowPasswordChangedToast] = useState(false);
+  const [changePasswordModal, setChangePasswordModal] = useState(false);
 
-  const [showPasswordChangedToast, passwordChangedToast] = useState(false);
-  const handlePasswordModal = () => addPasswordModal(true);
-  const [changePasswordModal, addPasswordModal] = useState(false);
-  const closePasswordModal = () => addPasswordModal(false);
-  const passwordChange = () => {
-    passwordChangedToast(true);
-    closePasswordModal();
-  };
+  useEffect(() => {
+    if (username) {
+      UserController.getUserPosts(username)
+        .then(posts => {
+          setUserPosts(posts);
+        })
+        .catch(error => console.error("Error fetching user posts:", error));
+    }
+  }, [username]);
 
   const handleConfirmDelete = async () => {
-    UserController.deleteAccount(userId).then((response) => {
+    try {
+      await UserController.deleteAccount(userId);
       setUserRoleType('guest');
       setUser('');
       setId('');
-      navigate('/');
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
+    } catch (error) {
+      console.error("Error deleting account:", error);
+    }
+  };
+
+  const passwordChange = async (oldPassword, newPassword) => {
+    try {
+      await UserController.changePassword(userId, oldPassword, newPassword);
+      setShowPasswordChangedToast(true);
+      setChangePasswordModal(false);
+      setChangeErrorMessage('');
+    } catch (error) {
+      setChangeErrorMessage(error.message);
+    }
+  };
 
   return (
     <>
@@ -50,10 +57,10 @@ const Profile = () => {
               <Card.Text className="static-value">{username}</Card.Text>
             </div>
             <div className="d-flex justify-content-around mb-3">
-              <Button variant="primary" className="change-password-btn rounded-button" onClick={handlePasswordModal}>
+              <Button variant="primary" className="change-password-btn rounded-button" onClick={() => setChangePasswordModal(true)}>
                 Change Password
               </Button>
-              <Button variant="danger" onClick={handleShowModal}>
+              <Button variant="danger" onClick={() => setShowModal(true)}>
                 Delete Account
               </Button>
             </div>
@@ -62,25 +69,26 @@ const Profile = () => {
       </Card>
       <h2 className="posts-heading text-center">Your Posted Content</h2>
       <div className="posts">
-        {usersPosts.map(post => (
+        {userPosts.map(post => (
           <ContentCard key={post.post_id} post={post} username={username} />
         ))}
       </div>
       <ConfirmationModal
         show={showModal}
-        onHide={handleCloseModal}
+        onHide={() => setShowModal(false)}
         onConfirm={handleConfirmDelete}
         message="Are you sure you want to delete your account?"
       />
       <ChangePasswordModal
         show={changePasswordModal}
-        handleClose={closePasswordModal}
+        handleClose={() => setChangePasswordModal(false)}
         onSaveChanges={passwordChange}
+        errorMessage={changeErrorMessage}
       />
       <ConfirmationToast
         show={showPasswordChangedToast}
         message="Password changed successfully."
-        onClose={() => passwordChangedToast(false)}
+        onClose={() => setShowPasswordChangedToast(false)}
       />
     </>
   );

@@ -19,5 +19,41 @@ userRouter.delete('/deleteUser', (req, res) => {
     });
 });
 
+userRouter.get('/posts/:username', (req, res) => {
+    const { username } = req.params;
+    const sql = `
+        SELECT 
+            p.post_id,
+            p.user_id,
+            p.username,
+            p.title,
+            p.content,
+            p.created_at,
+            COUNT(DISTINCT l.like_id) AS num_likes,
+            COUNT(DISTINCT d.like_id) AS num_dislikes,
+            COUNT(DISTINCT c.comment_id) AS num_comments
+        FROM 
+            posts p
+        LEFT JOIN 
+            likes l ON p.post_id = l.post_id
+        LEFT JOIN 
+            dislikes d ON p.post_id = d.post_id
+        LEFT JOIN 
+            comments c ON p.post_id = c.post_id
+        WHERE
+            p.username = ?
+        GROUP BY 
+            p.post_id, p.title, p.content
+        ORDER BY created_at DESC`;
+
+    executeQuery(sql, [username], (err, results) => {
+        if (err) {
+            res.status(err.statusCode).json({ error: 'Failed to get posts' });
+            throw err;
+        }
+        res.json(results);
+    });
+});
+
 
 module.exports = userRouter;
