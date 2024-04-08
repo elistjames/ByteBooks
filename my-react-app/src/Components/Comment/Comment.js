@@ -47,8 +47,21 @@ const Comment = ({comment, is_form, onSubmit, deleteComment}) => {
     const handleSubmit = (event)=>{
         setLoading(true);
         event.preventDefault();
-        onSubmit(editedComment ? editedComment : userComment, comment);
-        setUserComment("");
+        onSubmit(editComment ? editedComment : userComment, comment);
+        if(editComment){
+            if(editedComment !== null){
+                if(editedComment.length < 225){
+                    setEditedComment("");
+                }
+            }
+        }
+        else{
+            if(userComment !== null){
+                if(userComment.length < 225){
+                    setUserComment("");
+                }
+            }
+        }
         setLoading(false);
     }
 

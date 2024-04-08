@@ -77,7 +77,10 @@ const ViewPost = () => {
     const handleOnSubmit =(com, comment)=>{
         if(post === null) return;
         if(com != null && com !== ""){
-
+            if(com.length > 225){
+                handleError(`comment length is ${com.length}/225 characters`);
+                return;
+            }
             if(comment.comment_id === -1){
                 CommentController.createComment(post.post_id, userId, username, com).then((commentId) => {
                     const newComment = {

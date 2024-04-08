@@ -49,7 +49,6 @@ const ContentEditor = () => {
         else{
             setContent(e.target.value);
         }
-
     };
 
     const handleSubmit = (e) => {
@@ -63,6 +62,10 @@ const ContentEditor = () => {
             return;
         }
 
+        if(content.length > 1000){
+            handleError(`Character count ${content.length}/1000`)
+            return;
+        }
 
         if(newPost){
             //create new post
@@ -100,7 +103,7 @@ const ContentEditor = () => {
                     <Card.Header className="edit-title-container">
                         <div className="edit-title">
                             <input type="text" className="edit-title-input" placeholder="Title" value={title}
-                                   onChange={handleOnChangeTitle}/>
+                                   onChange={handleOnChangeTitle} maxLength={50}/>
                         </div>
                     </Card.Header>
                     <Card.Body className="edit-post-container">

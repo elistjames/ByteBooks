@@ -23,11 +23,6 @@ const App = () => {
     const isDesktop = useMediaQuery({
         query: '(min-width: 768px)'
     });
-    const sideNavRef = useRef();
-    const [expanded, setExpanded] = useState(false);
-    const expand = (state) => {
-        setExpanded(state);
-    };
 
     return (
         <div className="app">
@@ -36,9 +31,9 @@ const App = () => {
                     <HeaderBar />
                     {isDesktop && (
                         <div>
-                            <SideNavBar ref={sideNavRef} onClick={expand} />
+                            <SideNavBar />
                             <div className="viewport" style={{
-                                marginLeft: expanded ? 240 : 64,
+                                marginLeft: 64,
                                 padding: '15px 20px 0 20px'
                             }}>
                                 <Routes>
@@ -128,11 +123,6 @@ const UnauthorizedAdminPage = () => {
     const isDesktop = useMediaQuery({
         query: '(min-width: 768px)'
     });
-    const sideNavRef = useRef();
-    const [expanded, setExpanded] = useState(false);
-    const expand = (state) => {
-        setExpanded(state);
-    };
 
     return (
         <div className="unauthorizedContainer">
