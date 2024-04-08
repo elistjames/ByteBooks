@@ -32,6 +32,31 @@ class CommentController {
             throw new Error('Failed to create comment: ' + error.message);
         }
     }
+
+    async updateComment(comment_id, content){
+        try{
+            const response = await makeRequest('PUT', this.COMMENTS_API_ROUTE+'/updateComment', {
+                comment_id: comment_id,
+                content: content
+            });
+            return response.message;
+        }
+        catch(error){
+            throw new Error('Failed to update comment: ' + error.message);
+        }
+    }
+
+    async deleteComment(comment_id){
+        try{
+            const response = await makeRequest('DELETE', this.COMMENTS_API_ROUTE+'/deleteComment', {
+                comment_id: comment_id
+            });
+            return response.message;
+        }
+        catch(error){
+            throw new Error('Failed to delete comment: ' + error.message);
+        }
+    }
 }
 
 export default new CommentController();

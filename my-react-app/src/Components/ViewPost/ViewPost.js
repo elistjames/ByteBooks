@@ -49,6 +49,8 @@ const ViewPost = () => {
     const [dialogMessage, setDialogMessage] = useState('');
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState('');
+    const [selectedComment, setSelectedComment] = useState();
+    const [deletePostMode, setDeletePostMode] = useState(true);
 
     useEffect(() => {
 
@@ -72,24 +74,45 @@ const ViewPost = () => {
 
     }, [id, userId]);
 
-    const handleOnSubmit =(com)=>{
+    const handleOnSubmit =(com, comment)=>{
         if(post === null) return;
-        if(com != null){
-            CommentController.createComment(post.post_id, userId, username, com).then((commentId) => {
-                const newComment = {
-                    post_id: commentId,
-                    user_id: userId,
-                    username: username,
-                    content: com
-                };
-                setComments((prev) => {
-                    const cloneComments = [...prev];
-                    cloneComments.unshift(newComment);
-                    return cloneComments;
-                });
-            }).catch((error) => {
-                handleError(error);
-            })
+        if(com != null && com !== ""){
+
+            if(comment.comment_id === -1){
+                CommentController.createComment(post.post_id, userId, username, com).then((commentId) => {
+                    const newComment = {
+                        post_id: commentId,
+                        user_id: userId,
+                        username: username,
+                        content: com
+                    };
+                    setComments((prev) => {
+                        const cloneComments = [...prev];
+                        cloneComments.unshift(newComment);
+                        return cloneComments;
+                    });
+                }).catch((error) => {
+                    handleError(error);
+                })
+            }
+            else{
+                //update comment
+                CommentController.updateComment(comment.comment_id, com).then(() => {
+                    const index = comments.indexOf(comment);
+                    if(index < 0) {
+                        return;
+                    }
+                    let updatedComment = comment;
+                    updatedComment.content = com;
+                    setComments((prev) => {
+                        const cloneComments = [...prev];
+                        cloneComments[index] = updatedComment;
+                        return cloneComments;
+                    });
+                }).catch(err => {
+                    handleError(err);
+                })
+            }
         }
     };
 
@@ -175,6 +198,36 @@ const ViewPost = () => {
         }
     };
 
+    const handleDeleteComment = (comment) => {
+        setSelectedComment(comment);
+        console.log(comment.comment_id);
+        setDialogMessage("Are you sure you want to delete this comment?");
+        setDeletePostMode(false);
+        setModalDialog(true);
+
+    }
+
+    const deleteComment = () => {
+        if(!selectedComment) return;
+        setModalDialog(false);
+        CommentController.deleteComment(selectedComment.comment_id).then((response) => {
+            const index = comments.indexOf(selectedComment);
+            if(index < 0) {
+                return;
+            }
+            setComments((prev) => {
+                const cloneComments = [...prev];
+                cloneComments.splice(index, 1);
+                return cloneComments;}
+            );
+
+            setToastMessage(response);
+            setShowToast(true);
+        }).catch((err) => {
+            handleError(err);
+        });
+    }
+
     const compressNum = (num) => {
 
         if ((num / 1000000000) >= 1) {
@@ -211,6 +264,7 @@ const ViewPost = () => {
 
     const handleDeletePost = () => {
         setDialogMessage("Are you sure you want to delete this post?");
+        setDeletePostMode(true);
         setModalDialog(true);
     }
 
@@ -323,12 +377,12 @@ const ViewPost = () => {
                                 "user_id": userId,
                                 "username": username,
                                 "content": ""
-                            }} onSubmit={handleOnSubmit}/>
+                            }} is_form={'true'} onSubmit={handleOnSubmit}/>
 
                         )}
                         <div className={userType === "admin" || userType === "member" ? "" : "comments-blurred"}>
                             {comments.map((comment) => (
-                                <Comment key={uuidv4()} comment={comment}/>
+                                <Comment key={uuidv4()} comment={comment} is_form={'false'} onSubmit={handleOnSubmit} deleteComment={handleDeleteComment}/>
                             ))}
                         </div>
                     </div>
@@ -337,7 +391,7 @@ const ViewPost = () => {
             <ConfirmationModal
                 show={modalDialog}
                 onHide={() => setModalDialog(false)}
-                onConfirm={deletePost}
+                onConfirm={deletePostMode ? deletePost : deleteComment}
                 message={dialogMessage}
             />
             <ConfirmationToast
