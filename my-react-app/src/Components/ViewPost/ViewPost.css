@@ -101,6 +101,14 @@ view-post-title {
     justify-content: right;
 }
 
+#options-btn{
+    background: none;
+    appearance: none;
+    outline: none;
+    border: none;
+    color: black;
+}
+
 .icon-dropdown-toggle::after {
     display: none;
 }

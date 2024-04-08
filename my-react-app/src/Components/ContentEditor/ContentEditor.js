@@ -63,11 +63,21 @@ const ContentEditor = () => {
             return;
         }
 
+
         if(newPost){
+            //create new post
             MainPageController.addPost(userId, username, title, content).then(() => {
                 navigate('/');
             }).catch((err) => {
                 handleError(err);
+            });
+        }
+        else{
+            // update existing post
+            MainPageController.updatePost(id, title, content).then(() => {
+                navigate(-1);
+            }).catch((error) => {
+                handleError(error);
             });
         }
     };

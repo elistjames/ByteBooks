@@ -102,7 +102,7 @@ postRouter.post('/createPost', (req, res) => {
 });
 
 
-postRouter.post('/updatePost', (req, res) => {
+postRouter.put('/updatePost', (req, res) => {
     const { post_id, title, content } = req.body;
 
     const sql = 'UPDATE posts\n' +

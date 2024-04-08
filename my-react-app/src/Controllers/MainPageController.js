@@ -63,10 +63,11 @@ class MainPageController{
                 title: title,
                 content: content
             });
+
             return response;
         }
         catch(error){
-            throw new Error('Failed to create post: ' + error.message);
+            throw new Error('Failed to update post: ' + error.message);
         }
     }
 
@@ -75,7 +76,7 @@ class MainPageController{
             const response = await makeRequest('DELETE', this.POSTS_API_ROUTE+'/deletePost', {
                 post_id: postId
             });
-            return response;
+            return response.message;
         }
         catch(error){
             throw new Error('Failed to delete post: ' + error.message);

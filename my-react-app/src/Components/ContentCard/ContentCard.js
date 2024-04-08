@@ -9,9 +9,10 @@ import LikesController from "../../Controllers/LikesController";
 import {useSession} from "../SessionContext";
 import ReportController from "../../Controllers/ReportController";
 import MessageToast from "../MessageToast";
+import {Link} from "react-router-dom";
 
 
-const ContentCard = ({post}) => {
+const ContentCard = ({post, deletePost}) => {
     const {userType, username, userId } = useSession();
     const [readMore, setReadMore] = useState(false);
     const [likedByUser, setLikedByUser] = useState(post.liked_by_user);
@@ -93,6 +94,10 @@ const ContentCard = ({post}) => {
         }
     };
 
+    const handleDeletePost = () => {
+        deletePost(post.post_id);
+    };
+
     const compressNum = (num) => {
 
         if((num/1000000000) >= 1){
@@ -114,7 +119,7 @@ const ContentCard = ({post}) => {
             return (num/1000).toFixed(1).toString() + "K";
         }
         return num;
-    }
+    };
 
     const handleError = (message) => {
         console.log(message);
@@ -125,7 +130,7 @@ const ContentCard = ({post}) => {
     const isOwner = () => {
         if(post === null) return false;
         return post.user_id == userId;
-    }
+    };
 
     return(
         <Card className="content-card">
@@ -133,21 +138,37 @@ const ContentCard = ({post}) => {
                 <span className="user-name">@{post.username}</span>
                 <div className="options">
                     <Dropdown autoClose="outside" drop="down">
-                        <DropdownButton className="icon-dropdown-toggle options_btn" variant="link" drop="start" title={
+                        <DropdownButton id="options-btn" className="icon-dropdown-toggle" variant="button" drop="start" title={
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                  className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
                                 <path
                                     d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
                             </svg>
                         }>
-                            <Dropdown.Item className="option" eventKey="1" href={`viewPost/${post.post_id}`}>View
-                                post</Dropdown.Item>
-                            {(!isOwner() && userType !== 'guest') &&
-                                <Dropdown.Item className="option" eventKey="2" onClick={() => handleReport(true)}>Report
-                                    post</Dropdown.Item>
+                            <Dropdown.Item as="button" className="option" eventKey="1">
+                                <Link className="option" to={`/viewPost/${post.post_id}`}>
+                                    View post
+                                </Link>
+                            </Dropdown.Item>
+                            {(isOwner() && userType !== 'guest') &&
+                                <Dropdown.Item as="button" className="option" eventKey="2">
+                                    <Link className="option" to={`/editPost/${post.post_id}`}>
+                                        Edit post
+                                    </Link>
+                                </Dropdown.Item>
+                            }
+                            {(isOwner() && userType !== 'guest') &&
+                                <Dropdown.Item as="button" className="option" eventKey="3" onClick={() => handleDeletePost()}>
+                                    Delete post
+                                </Dropdown.Item>
                             }
                             {(!isOwner() && userType !== 'guest') &&
-                                <Dropdown.Item className="option" eventKey="3" onClick={() => handleReport(false)}>Report user</Dropdown.Item>
+                                <Dropdown.Item as="button" className="option" eventKey="4" onClick={() => handleReport(true)}>Report
+                                    post
+                                </Dropdown.Item>
+                            }
+                            {(!isOwner() && userType !== 'guest') &&
+                                <Dropdown.Item as="button" className="option" eventKey="5" onClick={() => handleReport(false)}>Report user</Dropdown.Item>
                             }
 
                         </DropdownButton>
@@ -160,7 +181,7 @@ const ContentCard = ({post}) => {
                     <Card.Text ref={containerRef} className="content-text">{post.content}</Card.Text>
 
                     {readMore && <div style={{display: "flex", justifyContent: "space-between"}}>
-                        <span>...</span><Button className="read-more" href={`viewPost/${post.post_id}`}>Read more</Button>
+                        <span>...</span><Button className="read-more" href={`/viewPost/${post.post_id}`}>Read more</Button>
                     </div>
                     }
                 </Card.Body>

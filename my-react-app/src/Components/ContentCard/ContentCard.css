@@ -76,6 +76,7 @@
 }
 
 .option{
+    text-decoration: none;
     text-align: center;
 }
 
@@ -97,7 +98,11 @@
     justify-content: space-between;
 }
 
-.options_btn{
+#options-btn{
+    background: none;
+    appearance: none;
+    outline: none;
+    border: none;
     color: black;
 }
 
