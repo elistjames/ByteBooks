@@ -11,12 +11,17 @@ class SignInController{
 async signIn(userData) {
     try {
         const response = await makeRequest('POST', `${this.AUTH_API_ROUTE}/login`, userData);
+        
+        if (response.error) {
+            throw new Error(response.error);
+        }
+        
         const { token, permission, id } = response;
         return { token, permission, id };
     } catch (error) {
         throw new Error('Failed to sign in: ' + error.message);
     }
-}
+    }
 }
 
 export default new SignInController();
