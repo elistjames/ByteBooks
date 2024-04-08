@@ -57,8 +57,7 @@ CREATE TABLE reports (
     reported_user_id INT,
     post_id INT, -- the post that was reported
     reporter_username VARCHAR(50),
-    reason VARCHAR(500),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE,
-    FOREIGN KEY (reporter_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (reported_user_id) REFERENCES users(id) ON DELETE CASCADE
 );

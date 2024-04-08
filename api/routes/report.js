@@ -60,13 +60,12 @@ reportRouter.get('/getUserReport', (req, res) => {
 });
 
 reportRouter.post('/createReport', (req, res) => {
-    const { user_id, reported_id, post_id, username, reason } = req.body;
+    const { user_id, reported_id, post_id, username } = req.body;
     const newReport = {
         reporter_id: user_id,
         reported_user_id: reported_id,
         post_id: post_id,
         reporter_username: username,
-        reason: reason
     };
     const sql = 'INSERT INTO reports SET ?;';
 

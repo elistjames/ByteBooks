@@ -19,7 +19,7 @@ class ReportsController {
 
     }
 
-    async reportPost(post_id, user_id, username, reason){
+    async reportPost(post_id, user_id, username){
         const report = await makeRequest('GET', `${this.REPORTS_API_ROUTE}/getPostReport/?userId=${user_id}&postId=${post_id}`);
         if(report.length > 0){
             throw new Error("You have already reported this post");
@@ -30,7 +30,6 @@ class ReportsController {
                 reported_id: null,
                 post_id: post_id,
                 username: username,
-                reason: reason
             });
             return response.message;
         }
@@ -39,7 +38,7 @@ class ReportsController {
         }
     }
 
-    async reportUser(reported_user_id, user_id, username, reason){
+    async reportUser(reported_user_id, user_id, username){
         const report = await makeRequest('GET', `${this.REPORTS_API_ROUTE}/getUserReport/?userId=${user_id}&reportedUserId=${reported_user_id}`);
         if(report.length > 0){
             throw new Error("You have already reported this user");
@@ -50,7 +49,6 @@ class ReportsController {
                 reported_id: reported_user_id,
                 post_id: null,
                 username: username,
-                reason: reason
             });
             return response.message;
         }

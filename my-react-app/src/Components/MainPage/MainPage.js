@@ -11,15 +11,16 @@ import { useSession } from "../SessionContext";
 
 const MainPage = () =>
 {
-    const { userType, userId } = useSession();
+    const { userType, username, userId } = useSession();
     const [posts, setPosts] = useState([]);
 
     // useEffect means run this when component renders
     useEffect(() => {
+        console.log(`${userType}, ${username}, ${userId}`);
         MainPageController.getAllPosts(userId).then((data) => {
             setPosts(data);
         });
-    }, [userId]);
+    }, [userId, username, userType]);
 
     const handleOnSubmitSearch = (search) => {
         MainPageController.getSearchedPosts(search).then((data) => {
