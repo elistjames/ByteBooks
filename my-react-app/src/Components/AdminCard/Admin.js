@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap';
 import { IoPersonRemove, IoTrashOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom'; 
 import './Admin.css';
 import ConfirmationModal from '../ConfirmationCard/ConfirmationModal';
 import ConfirmationToast from '../ConfirmationCard/ConfirmationToast';
@@ -22,11 +23,29 @@ const Admin = () => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState('');
 
+    const navigate = useNavigate(); 
+
     useEffect(() => {
         ReportController.getAllReports().then((data) => {
-            setReportedPosts(data.filter(report => report.reported_user_id === null));
-            setReportedUsers(data.filter(report => report.post_id === null));
-        })
+            const combineReports = (data, key) => {
+                const map = new Map();
+                data.forEach(report => {
+                    if (!report[key]) return;
+                    const currentReport = map.get(report[key]);
+                    if (currentReport) {
+                        map.set(report[key], { ...report, report_count: currentReport.report_count + 1 });
+                    } else {
+                        map.set(report[key], { ...report, report_count: 1 });
+                    }
+                });
+                return Array.from(map.values()); 
+            };
+            const combinedPosts = combineReports(data.filter(report => report.reported_user_id === null), 'post_id');
+            const combinedUsers = combineReports(data.filter(report => report.post_id === null), 'reported_user_id');
+    
+            setReportedPosts(combinedPosts);
+            setReportedUsers(combinedUsers);
+        });
     }, []);
 
     const deletePost = (post) => {
@@ -34,7 +53,6 @@ const Admin = () => {
         setDialogMessage(`Are you sure you want to delete the post "${post.title}"?`);
         setModalDialog(true);
     };
-
 
     const deleteUser = (user) => {
         setCurrentUserId(user.reported_user_id);
@@ -58,7 +76,7 @@ const Admin = () => {
                         cloneUsers.splice(index, 1);
                         return cloneUsers;}
                     );
-                    setToastMessage(`User has been banned.`);
+                    setToastMessage(`User "${user.username}" has been banned.`);
                     setShowToast(true);
                 }).catch((error) => {
                     console.log(error);
@@ -84,6 +102,10 @@ const Admin = () => {
                 });
             }
         }
+    };
+
+    const viewPost = (postId) => {
+        navigate(`/viewpost/${postId}`); 
     };
 
     return (
@@ -130,8 +152,8 @@ const Admin = () => {
                                             <span className="post-title">{post.title}</span>
                                         </div>
                                         <div className="post-actions">
-                                            <Button variant="primary" size="sm" className="view-btn" title="View post">View</Button>
-                                            <IoTrashOutline className="remove-post-icon" onClick={() => deletePost(post)} title="Delete post"/>
+                                        <Button variant="primary" size="sm" className="view-btn" title="View post" onClick={() => viewPost(post.post_id)}>View</Button> 
+                                        <IoTrashOutline className="remove-post-icon" onClick={() => deletePost(post)} title="Delete post"/>
                                         </div>
                                     </ListGroup.Item>
                                 ))}
