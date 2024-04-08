@@ -32,15 +32,15 @@ const ContentCard = ({post}) => {
 
     const handleReport = (reportPostMode) => {
         if(reportPostMode){
-            ReportController.reportPost(post.post_id, userId, username, "It's offensive").then((response) =>{
-                handleError("This post has been reported");
+            ReportController.reportPost(post.post_id, userId).then((response) =>{
+                handleError(`Post ${post.title} has been reported`);
             }).catch((err) => {
                 handleError(err.message);
             });
         }
         else{
-            ReportController.reportUser(post.user_id, userId, username, "It's offensive").then((response) =>{
-                handleError(`User @${post.username} has been reported`);
+            ReportController.reportUser(post.user_id, userId, username).then((response) =>{
+                handleError(`User ${post.username} has been reported`);
             }).catch((err) => {
                 handleError(err.message);
             });
