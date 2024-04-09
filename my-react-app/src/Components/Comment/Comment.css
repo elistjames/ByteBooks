@@ -25,9 +25,30 @@
     height: auto;
 }
 
+.comment-details-header{
+    display: inline-flex;
+    align-items: center;
+}
+
 .username-container{
     font-size: 0.9rem;
     font-weight: bold;
+}
+
+.comment-options-container{
+    display: inline-flex;
+    justify-content: center;
+    align-items: start;
+    margin-left: 1rem;
+}
+
+.comment-options-btn{
+    display: inline-flex;
+    color: var(--brown);
+    padding: 0;
+    margin: 0 0 0 0.5rem;
+    text-decoration: none;
+    justify-content: center;
 }
 
 .content-container{
@@ -60,7 +81,7 @@
     border: none;
     appearance: none;
     outline: none;
-    word-break: break-all;
+    word-break: break-word;
     flex: 1;
 }
 

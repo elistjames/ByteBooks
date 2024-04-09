@@ -24,7 +24,6 @@ reportRouter.get('/reports', (req, res) => {
 
     executeQuery(sql, (err, result) => {
         if(err){
-            res.status(500).json({ message: "Failed to get reports" });
             return;
         }
         res.json(result);
@@ -37,7 +36,6 @@ reportRouter.get('/getPostReport', (req, res) => {
 
     executeQuery(sql, [userId, postId], (err, result) => {
         if(err){
-            res.status(500).json({ message: "Failed to get post report" });
             return;
         }
         res.json(result);
@@ -51,7 +49,6 @@ reportRouter.get('/getUserReport', (req, res) => {
 
     executeQuery(sql, [userId, reportedUserId], (err, result) => {
         if(err){
-            res.status(500).json({ message: "Failed to get user report" });
             return;
         }
         res.json(result);
@@ -71,7 +68,6 @@ reportRouter.post('/createReport', (req, res) => {
 
     executeQuery(sql, newReport, (err, result) => {
         if(err){
-            res.status(500).json({ message: "Failed to create report" });
             return;
         }
         res.status(200).json({ message: "report created", "id": result.id });

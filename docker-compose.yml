@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile-web
     container_name: web
+    restart: always
     ports:
       - "8888:3000"
     volumes:
@@ -19,6 +20,7 @@ services:
       context: .
       dockerfile: Dockerfile-api
     container_name: api
+    restart: always
     ports:
       - "8080:8080"
     volumes:
@@ -32,6 +34,7 @@ services:
       context: .
       dockerfile: Dockerfile-db
     container_name: db
+    restart: always
     env_file:
       - .env
     ports:

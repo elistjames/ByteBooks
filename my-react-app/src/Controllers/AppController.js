@@ -15,10 +15,13 @@ export async function makeRequest(method, endpoint, body) {
     }
     try{
         const response = await fetch(`${BASE_URL}${endpoint}`, requestOptions);
+        if(!response.ok){
+            throw new Error(`Request failed with status ${response.status}`);
+        }
         return await response.json();
     }
     catch (error){
-        return error;
+        throw new Error(error);
     }
 
 }

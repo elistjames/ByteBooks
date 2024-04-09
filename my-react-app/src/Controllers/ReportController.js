@@ -14,15 +14,20 @@ class ReportsController {
             return reports;
         }
         catch (error) {
-            throw new Error('Failed to get reports: ' + error.message);
+            await Promise.reject('Failed to get reports: ' + error.message);
         }
 
     }
 
     async reportPost(post_id, user_id, username){
+
+        if(!post_id) await Promise.reject('Failed to report post: id not found');
+        if(!user_id) await Promise.reject('Failed to report post: user id not found');
+        if(!username) await Promise.reject('Failed to report post: username not found');
+
         const report = await makeRequest('GET', `${this.REPORTS_API_ROUTE}/getPostReport/?userId=${user_id}&postId=${post_id}`);
         if(report.length > 0){
-            throw new Error("You have already reported this post");
+            await Promise.reject("You have already reported this post");
         }
         try{
             const response = await makeRequest('POST', this.REPORTS_API_ROUTE+'/createReport', {
@@ -34,14 +39,18 @@ class ReportsController {
             return response.message;
         }
         catch(error){
-            throw new Error('Failed to report post: ' + error.message);
+            await Promise.reject('Failed to report post: ' + error.message);
         }
     }
 
     async reportUser(reported_user_id, user_id, username){
+        if(!reported_user_id) await Promise.reject('Failed to report user: id not found');
+        if(!user_id) await Promise.reject('Failed to report user: user id not found');
+        if(!username) await Promise.reject('Failed to report user: username not found');
+
         const report = await makeRequest('GET', `${this.REPORTS_API_ROUTE}/getUserReport/?userId=${user_id}&reportedUserId=${reported_user_id}`);
         if(report.length > 0){
-            throw new Error("You have already reported this user");
+            await Promise.reject("You have already reported this user");
         }
         try{
             const response = await makeRequest('POST', this.REPORTS_API_ROUTE+'/createReport', {
@@ -53,7 +62,7 @@ class ReportsController {
             return response.message;
         }
         catch(error){
-            throw new Error('Failed to report user: ' + error.message);
+            await Promise.reject('Failed to report user: ' + error.message);
         }
     }
 }

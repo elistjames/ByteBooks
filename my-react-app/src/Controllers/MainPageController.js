@@ -8,13 +8,13 @@ class MainPageController{
         this.POSTS_API_ROUTE = POSTS_API_ROUTE;
     }
 
-    async getAllPosts(user_id) {
+    async getAllPosts(userType, user_id) {
+        if(userType !== 'guest' && !user_id) await Promise.reject('Failed to get posts: session data not found');
         try{
-            const response = await makeRequest('GET', `${this.POSTS_API_ROUTE}/posts/?userId=${user_id}`);
-            return response;
+            return await makeRequest('GET', `${this.POSTS_API_ROUTE}/posts/?userId=${user_id}`);
         }
         catch(error){
-            throw new Error('Failed to get posts:' + error.message);
+            await Promise.reject('Failed to get posts: ' + error.message);
         }
     }
 
@@ -27,6 +27,7 @@ class MainPageController{
                 (post.content.toLowerCase().includes(search.toLowerCase())) ||
                 post.username.toLowerCase().includes(search.toLowerCase())
             );
+
         }
         return posts;
     }
@@ -37,11 +38,14 @@ class MainPageController{
             return response;
         }
         catch (error){
-            throw new Error('Failed to get post: ' + error.message);
+            await Promise.reject('Failed to get post: ' + error.message);
         }
     }
 
     async addPost(userId, username, title, content) {
+        if(!username) await Promise.reject('Failed to create post: username not found');
+        if(!title) await Promise.reject('must have a title');
+        if(!content) await Promise.reject('must have content');
         try{
             const response = await makeRequest('POST', this.POSTS_API_ROUTE+'/createPost', {
                 user_id: userId,
@@ -52,33 +56,40 @@ class MainPageController{
             return response;
         }
         catch(error){
-            throw new Error('Failed to create post: ' + error.message);
+            await Promise.reject('Failed to create post: ' + error.message);
         }
     }
 
     async updatePost(postId, title, content){
+        if(!postId) await Promise.reject('Failed to update post: id not found');
+        if(!title) await Promise.reject('must have a title');
+        if(!content) await Promise.reject('must have content');
         try{
             const response = await makeRequest('PUT', this.POSTS_API_ROUTE+'/updatePost', {
                 post_id: postId,
                 title: title,
                 content: content
             });
+
             return response;
         }
         catch(error){
-            throw new Error('Failed to create post: ' + error.message);
+            await Promise.reject('Failed to update post: ' + error.message);
         }
     }
 
     async deletePost(postId){
+        if(!postId){
+            await Promise.reject('Failed to delete post: id not found');
+        }
         try{
             const response = await makeRequest('DELETE', this.POSTS_API_ROUTE+'/deletePost', {
                 post_id: postId
             });
-            return response;
+            return response.message;
         }
         catch(error){
-            throw new Error('Failed to delete post: ' + error.message);
+            await Promise.reject('Failed to delete post: ' + error.message);
         }
     }
 }

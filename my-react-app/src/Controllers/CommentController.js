@@ -9,16 +9,18 @@ class CommentController {
     }
 
     async getCommentsForPost(post_id){
+
         try{
             const response = await makeRequest('GET', `${this.COMMENTS_API_ROUTE}/getComments/?post_id=${post_id}`);
             return response;
         }
         catch (error){
-            throw new Error('Failed to get comments: ' + error.message);
+            await Promise.reject('Failed to get comments: ' + error.message);
         }
     }
 
     async createComment(post_id, user_id,  username, content){
+
         try{
             const response = await makeRequest('POST', this.COMMENTS_API_ROUTE+'/createComment', {
                 post_id: post_id,
@@ -26,10 +28,45 @@ class CommentController {
                 username: username,
                 content: content
             });
+            console.log(response.id);
             return response.id;
         }
         catch(error){
-            throw new Error('Failed to create comment: ' + error.message);
+            await Promise.reject('Failed to create comment: ' + error.message);
+        }
+    }
+
+    async updateComment(comment_id, content){
+
+        if(!comment_id || comment_id === "") await Promise.reject('No id provided');
+        if(!content || content === "") await Promise.reject('comment cannot be empty');
+
+        try{
+            const response = await makeRequest('PUT', this.COMMENTS_API_ROUTE+'/updateComment', {
+                comment_id: comment_id,
+                content: content
+            });
+            return response.message;
+        }
+        catch(error){
+            await Promise.reject('Failed to update comment: ' + error.message);
+        }
+    }
+
+    async deleteComment(comment_id){
+
+        if(!comment_id){
+            await Promise.reject("no id provided");
+        }
+
+        try{
+            const response = await makeRequest('DELETE', this.COMMENTS_API_ROUTE+'/deleteComment', {
+                comment_id: comment_id
+            });
+            return response.message;
+        }
+        catch(error){
+            throw new Error('Failed to delete comment: ' + error.message);
         }
     }
 }

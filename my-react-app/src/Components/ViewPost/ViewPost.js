@@ -8,7 +8,7 @@ import {getPost} from '../../demoApi';
 import Comment from '../Comment/Comment';
 import { v4 as uuidv4 } from 'uuid';
 import { useSession } from "./../SessionContext";
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import ExpandableText from "./ExpandableText";
 import { format } from 'date-fns';
 import "./ViewPost.css"
@@ -19,6 +19,8 @@ import ReportController from "../../Controllers/ReportController";
 import LikesController from "../../Controllers/LikesController";
 import MessageToast from "../MessageToast";
 import {BsHandThumbsDown, BsHandThumbsDownFill, BsHandThumbsUp, BsHandThumbsUpFill} from "react-icons/bs";
+import ConfirmationModal from "../ConfirmationCard/ConfirmationModal";
+import ConfirmationToast from "../ConfirmationCard/ConfirmationToast";
 
 const displayTest = (limit) => {
     let text = "";
@@ -33,7 +35,7 @@ const ViewPost = () => {
     const { id } = useParams();
     const { userType, username, userId } = useSession();
     const [postHeight, setPostHeight] = useState(0);
-
+    const navigate = useNavigate();
     const [comments, setComments] = useState([]);
     const [post, setPost] = useState(null);
     const [notOverLimit, setNotOverLimit] = useState(true);
@@ -43,6 +45,12 @@ const ViewPost = () => {
     const [numDislikes, setNumDislikes] = useState(0);
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [modalDialog, setModalDialog] = useState(false);
+    const [dialogMessage, setDialogMessage] = useState('');
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
+    const [selectedCommentId, setSelectedCommentId] = useState();
+    const [deletePostMode, setDeletePostMode] = useState(true);
 
     useEffect(() => {
 
@@ -66,24 +74,53 @@ const ViewPost = () => {
 
     }, [id, userId]);
 
-    const handleOnSubmit =(com)=>{
+    const handleOnSubmit =(com, comment)=>{
         if(post === null) return;
-        if(com != null){
-            CommentController.createComment(post.post_id, userId, username, com).then((commentId) => {
-                const newComment = {
-                    post_id: commentId,
-                    user_id: userId,
-                    username: username,
-                    content: com
-                };
-                setComments((prev) => {
-                    const cloneComments = [...prev];
-                    cloneComments.unshift(newComment);
-                    return cloneComments;
-                });
-            }).catch((error) => {
-                handleError(error);
-            })
+        if(com != null && com !== ""){
+            if(com.length > 225){
+                handleError(`comment length is ${com.length}/225 characters`);
+                return;
+            }
+            if(comment.comment_id === -1){
+                CommentController.createComment(post.post_id, userId, username, com).then((commentId) => {
+                    if(!commentId){
+                        handleError("comment did not render. please refresh");
+                        return;
+                    }
+                    const newComment = {
+                        comment_id: commentId,
+                        post_id: post.post_id,
+                        user_id: userId,
+                        username: username,
+                        content: com
+                    };
+                    setComments((prev) => {
+                        const cloneComments = [...prev];
+                        cloneComments.unshift(newComment);
+                        return cloneComments;
+                    });
+                }).catch((error) => {
+                    handleError(error);
+                })
+            }
+            else{
+                //update comment
+                CommentController.updateComment(comment.comment_id, com).then(() => {
+                    const index = comments.indexOf(comment);
+                    if(index < 0) {
+                        return;
+                    }
+                    let updatedComment = comment;
+                    updatedComment.content = com;
+                    setComments((prev) => {
+                        const cloneComments = [...prev];
+                        cloneComments[index] = updatedComment;
+                        return cloneComments;
+                    });
+                }).catch(err => {
+                    handleError(err);
+                })
+            }
         }
     };
 
@@ -111,14 +148,14 @@ const ViewPost = () => {
             ReportController.reportPost(post.post_id, userId, username, "It's offensive").then((response) =>{
                 handleError("This post has been reported");
             }).catch((err) => {
-                handleError(err.message);
+                handleError(err);
             });
         }
         else{
             ReportController.reportUser(post.user_id, userId, username, "It's offensive").then((response) =>{
                 handleError(`User @${post.username} has been reported`);
             }).catch((err) => {
-                handleError(err.message);
+                handleError(err);
             });
         }
     };
@@ -169,6 +206,43 @@ const ViewPost = () => {
         }
     };
 
+    const handleDeleteComment =(commentId) => {
+        setSelectedCommentId(commentId);
+        setDialogMessage("Are you sure you want to delete this comment?");
+        setDeletePostMode(false);
+        setModalDialog(true);
+
+    }
+
+    const deleteComment = () => {
+        setModalDialog(false);
+        if(!selectedCommentId) {
+            handleError("comment not found: refresh and try again");
+            return;
+        }
+        CommentController.deleteComment(selectedCommentId).then((response) => {
+            const comment = comments.find(c => c.comment_id === selectedCommentId);
+            if(!comment){
+                handleError("comment not found: refresh and try again");
+                return;
+            }
+            const index = comments.indexOf(comment);
+            if(index < 0) {
+                return;
+            }
+            setComments((prev) => {
+                const cloneComments = [...prev];
+                cloneComments.splice(index, 1);
+                return cloneComments;}
+            );
+
+            setToastMessage(response);
+            setShowToast(true);
+        }).catch((err) => {
+            handleError(err);
+        });
+    }
+
     const compressNum = (num) => {
 
         if ((num / 1000000000) >= 1) {
@@ -193,7 +267,6 @@ const ViewPost = () => {
     };
 
     const handleError = (message) => {
-        console.log(message);
         setErrorMessage(message);
         setShowError(true);
     };
@@ -201,6 +274,24 @@ const ViewPost = () => {
     const isOwner = () => {
         if(post === null) return false;
         return post.user_id == userId;
+    }
+
+    const handleDeletePost = () => {
+        setDialogMessage("Are you sure you want to delete this post?");
+        setDeletePostMode(true);
+        setModalDialog(true);
+    }
+
+    const deletePost = () => {
+        if(!id){
+            handleError("Error occurred");
+        }
+        setModalDialog(false);
+        MainPageController.deletePost(id).then(() => {
+            navigate('/');
+        }).catch(err => {
+            handleError(err);
+        });
     }
 
     return (
@@ -221,7 +312,7 @@ const ViewPost = () => {
                             <Card className="view-post-card">
                                 <div className="view-post-options">
                                     <Dropdown autoClose="outside" drop="down">
-                                        <DropdownButton className="icon-dropdown-toggle options_btn" variant="link"
+                                        <DropdownButton id="options-btn" className="icon-dropdown-toggle" variant="button"
                                                         drop="start"
                                                         title={
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
@@ -232,13 +323,29 @@ const ViewPost = () => {
                                                                 <path
                                                                     d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
                                                             </svg>
-                                                        } disabled={isOwner() || userType === 'guest'}>
-                                            <Dropdown.Item className="option" eventKey="1"
-                                                           onClick={() => handleReport(true)}>Report
-                                                post</Dropdown.Item>
-                                            <Dropdown.Item className="option" eventKey="2"
-                                                           onClick={() => handleReport(false)}>Report
-                                                user</Dropdown.Item>
+                                                        }>
+                                            {(isOwner() && userType !== 'guest') &&
+                                                <Dropdown.Item as="button" className="option" eventKey="1">
+                                                    <Link className="option" to={`/editPost/${post.post_id}`}>
+                                                        Edit post
+                                                    </Link>
+                                                </Dropdown.Item>
+                                            }
+                                            {(isOwner() && userType !== 'guest') &&
+                                                <Dropdown.Item as="button" className="option" eventKey="2" onClick={() => handleDeletePost()}>
+                                                    Delete post
+                                                </Dropdown.Item>
+                                            }
+                                            {(!isOwner() && userType !== 'guest') &&
+                                                <Dropdown.Item className="option" eventKey="3"
+                                                               onClick={() => handleReport(true)}>Report
+                                                    post</Dropdown.Item>
+                                            }
+                                            {(!isOwner() && userType !== 'guest') &&
+                                                <Dropdown.Item className="option" eventKey="4"
+                                                               onClick={() => handleReport(false)}>Report
+                                                    user</Dropdown.Item>
+                                            }
                                         </DropdownButton>
                                     </Dropdown>
                                 </div>
@@ -284,17 +391,28 @@ const ViewPost = () => {
                                 "user_id": userId,
                                 "username": username,
                                 "content": ""
-                            }} onSubmit={handleOnSubmit}/>
+                            }} is_form={'true'} onSubmit={handleOnSubmit}/>
 
                         )}
                         <div className={userType === "admin" || userType === "member" ? "" : "comments-blurred"}>
                             {comments.map((comment) => (
-                                <Comment key={uuidv4()} comment={comment}/>
+                                <Comment key={uuidv4()} comment={comment} is_form={'false'} onSubmit={handleOnSubmit} deleteComment={handleDeleteComment}/>
                             ))}
                         </div>
                     </div>
                 </div>
             </div>
+            <ConfirmationModal
+                show={modalDialog}
+                onHide={() => setModalDialog(false)}
+                onConfirm={deletePostMode ? deletePost : deleteComment}
+                message={dialogMessage}
+            />
+            <ConfirmationToast
+                show={showToast}
+                message={toastMessage}
+                onClose={() => setShowToast(false)}
+            />
             <MessageToast
                 show={showError}
                 message={errorMessage}

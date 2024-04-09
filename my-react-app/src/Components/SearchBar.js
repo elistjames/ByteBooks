@@ -8,12 +8,12 @@ function SearchBar ({onSubmit}) {
             setSearch("");
         }
         setSearch(event.target.value);
-    }
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         onSubmit(search);
-    }
+    };
 
     return (
         <form className="search-form" onSubmit={handleSubmit}>

@@ -94,7 +94,6 @@ postRouter.post('/createPost', (req, res) => {
     const sql = 'INSERT INTO posts SET ?';
     executeQuery(sql, newPost, (err, result) => {
         if (err) {
-            res.status(500).json({ message: "Failed to create post" });
             return;
         }
         res.status(200).json({ message: 'Post successfully created', id: result.insertId });
@@ -102,7 +101,7 @@ postRouter.post('/createPost', (req, res) => {
 });
 
 
-postRouter.post('/updatePost', (req, res) => {
+postRouter.put('/updatePost', (req, res) => {
     const { post_id, title, content } = req.body;
 
     const sql = 'UPDATE posts\n' +
@@ -112,7 +111,6 @@ postRouter.post('/updatePost', (req, res) => {
 
     executeQuery(sql, [title, content, post_id], (err, result) => {
         if (err) {
-            res.status(500).json({ message: "Failed to update post" });
             return;
         }
         res.status(200).json({ message: 'Post successfully updated', id: result.id });
@@ -126,7 +124,6 @@ postRouter.delete('/deletePost', (req, res) => {
 
     executeQuery(sql, post_id, (err, result) => {
         if (err) {
-            res.status(500).json({ message: "Failed to delete post" });
             return;
         }
         res.status(200).json({ message: 'Post successfully deleted', id: result.id });
