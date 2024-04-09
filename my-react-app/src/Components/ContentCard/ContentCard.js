@@ -187,7 +187,7 @@ const ContentCard = ({post, deletePost}) => {
             </div>
             <div className="body-section">
                 <Card.Body className="bg-secondary body">
-                    <Card.Text ref={containerRef} className="content-text">{post.content}</Card.Text>
+                    <Card.Text ref={containerRef} className="content-text" dangerouslySetInnerHTML={{ __html: post.content }}></Card.Text>
 
                     {readMore && <div style={{display: "flex", justifyContent: "space-between"}}>
                         <span>...</span><Button className="read-more" href={`/viewPost/${post.post_id}`}>Read more</Button>

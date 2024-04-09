@@ -76,6 +76,7 @@
     appearance: none;
     outline: none;
     word-break: break-word;
+    white-space: pre;
     flex: 1;
 }
 
