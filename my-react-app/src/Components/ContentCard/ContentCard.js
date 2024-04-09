@@ -33,17 +33,17 @@ const ContentCard = ({post, deletePost}) => {
 
     const handleReport = (reportPostMode) => {
         if(reportPostMode){
-            ReportController.reportPost(post.post_id, userId).then((response) =>{
+            ReportController.reportPost(post.post_id, userId, username).then((response) =>{
                 handleError(`Post ${post.title} has been reported`);
             }).catch((err) => {
-                handleError(err.message);
+                handleError(err);
             });
         }
         else{
             ReportController.reportUser(post.user_id, userId, username).then((response) =>{
                 handleError(`User ${post.username} has been reported`);
             }).catch((err) => {
-                handleError(err.message);
+                handleError(err);
             });
         }
     };
@@ -57,7 +57,10 @@ const ContentCard = ({post, deletePost}) => {
                     setNumLikes(numLikes - 1);
                     setLikedByUser(false);
                 })
-                .catch();
+                .catch((err)=>{
+                    console.log("error");
+                    handleError(err);
+                });
         }
         else{
             LikesController.addLike(post.post_id, likedByUser, dislikedByUser, userId).then(() => {
@@ -67,6 +70,8 @@ const ContentCard = ({post, deletePost}) => {
                     setNumDislikes(numDislikes-1);
                     setDislikedByUser(false);
                 }
+            }).catch((err)=>{
+                handleError(err);
             });
         }
     };
@@ -80,7 +85,9 @@ const ContentCard = ({post, deletePost}) => {
                     setNumDislikes(numDislikes - 1);
                     setDislikedByUser(false);
                 })
-                .catch();
+                .catch((err)=>{
+                    handleError(err);
+                });
         }
         else{
             LikesController.addDislike(post.post_id, likedByUser, dislikedByUser, userId).then(() => {
@@ -90,6 +97,8 @@ const ContentCard = ({post, deletePost}) => {
                     setNumLikes(numLikes-1);
                     setLikedByUser(false);
                 }
+            }).catch((err)=>{
+                handleError(err);
             });
         }
     };

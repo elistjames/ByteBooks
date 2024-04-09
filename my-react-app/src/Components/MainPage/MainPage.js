@@ -26,15 +26,18 @@ const MainPage = () =>
 
     // useEffect means run this when component renders
     useEffect(() => {
-        console.log(`${userType}, ${username}, ${userId}`);
-        MainPageController.getAllPosts(userId).then((data) => {
+        MainPageController.getAllPosts(userType, userId).then((data) => {
             setPosts(data);
+        }).catch(err => {
+            handleError(err);
         });
     }, [userId, username, userType]);
 
     const handleOnSubmitSearch = (search) => {
         MainPageController.getSearchedPosts(search).then((data) => {
             setPosts(data);
+        }).catch((err) =>{
+            handleError(err);
         });
     };
 

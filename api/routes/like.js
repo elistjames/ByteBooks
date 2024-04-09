@@ -17,7 +17,6 @@ likeRouter.post('/createLike', (req, res) => {
 
     executeQuery(sql, newLike, (err, result) => {
         if (err) {
-            res.status(500).json({ message: "Failed to like post" });
             return;
         }
         res.status(200).json({ message: "Post has been liked" });
@@ -31,7 +30,6 @@ likeRouter.delete('/deleteLike', (req, res) => {
 
     executeQuery(sql, [post_id, user_id], (err, result) => {
         if (err) {
-            res.status(500).json({ message: "Failed to remove like" });
             return;
         }
         res.status(200).json({ message: "Like has been removed" });

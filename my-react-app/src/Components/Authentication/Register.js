@@ -47,7 +47,6 @@ const Register = () => {
                 setRegisterError('Username is already taken.');
                 return;
             }
-
             const { token, id } = await RegisterController.Register({ username, password });
             setUserRoleType('member');
             setUser(username);

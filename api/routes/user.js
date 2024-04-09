@@ -9,7 +9,6 @@ userRouter.delete('/deleteUser', (req, res) => {
     const sql = 'DELETE FROM users WHERE id = ?;';
     executeQuery(sql, [user_id], (err, result) => {
         if (err) {
-            res.status(500).json({ message: "Failed to delete account." });
             return;
         }
         res.status(200).json({ message: "Account successfully deleted." });
@@ -41,12 +40,11 @@ userRouter.get('/posts/:username', (req, res) => {
             p.username = ?
         GROUP BY 
             p.post_id, p.title, p.content
-        ORDER BY created_at DESC`;
+        ORDER BY created_at DESC;`;
 
     executeQuery(sql, [username], (err, results) => {
         if (err) {
-            res.status(err.statusCode).json({ error: 'Failed to get posts' });
-            throw err;
+            return;
         }
         res.json(results);
     });
@@ -68,7 +66,7 @@ userRouter.put('/changePassword', (req, res) => {
         const updateUserSql = 'UPDATE users SET password = ? WHERE id = ?';
         executeQuery(updateUserSql, [hashedNewPassword, userId], (err, result) => {
             if (err) {
-                return res.status(500).json({ success: false, message: 'Failed to update password.' });
+                return;
             }
             res.status(200).json({ success: true, message: 'Password updated successfully.' });
         });

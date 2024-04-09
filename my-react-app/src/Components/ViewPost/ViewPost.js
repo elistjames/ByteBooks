@@ -148,14 +148,14 @@ const ViewPost = () => {
             ReportController.reportPost(post.post_id, userId, username, "It's offensive").then((response) =>{
                 handleError("This post has been reported");
             }).catch((err) => {
-                handleError(err.message);
+                handleError(err);
             });
         }
         else{
             ReportController.reportUser(post.user_id, userId, username, "It's offensive").then((response) =>{
                 handleError(`User @${post.username} has been reported`);
             }).catch((err) => {
-                handleError(err.message);
+                handleError(err);
             });
         }
     };

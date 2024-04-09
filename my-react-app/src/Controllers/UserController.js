@@ -8,24 +8,29 @@ class UserController {
     }
 
     async deleteAccount(userId) {
+        if(!userId) await Promise.reject('Failed to delete account: id not found');
         try {
             const response = await makeRequest('DELETE', this.USER_API_ROUTE + '/deleteUser', {
                 user_id: userId
             });
             return response.message;
         } catch (error) {
-            throw new Error('Failed to delete account: ' + error.message);
+            await Promise.reject('Failed to delete account: ' + error.message);
         }
     }
     async getUserPosts(username) {
+        if(!username) await Promise.reject('Failed to fetch user posts: username not found');
         try {
             const response = await makeRequest('GET', `${this.USER_API_ROUTE}/posts/${username}`);
             return response;
         } catch (error) {
-            throw new Error('Failed to fetch user posts: ' + error.message);
+            await Promise.reject('Failed to fetch user posts: ' + error.message);
         }
     }
     async changePassword(userId, oldPassword, newPassword) {
+        if(!userId) return { message: "Error: id not found", success: false };
+        if(!oldPassword) return { message: "Error: old password not found", success: false };
+        if(!newPassword) return { message: "Error: new password not found", success: false };
         try {
             const response = await makeRequest('PUT', `${this.USER_API_ROUTE}/changePassword`, {
                 userId,
@@ -35,7 +40,7 @@ class UserController {
 
             return { message: response.message, success: response.success };
         } catch (error) {
-            throw new Error('Failed to change password: ' + error.message);
+            return { message: `Failed to change password: ${error.message}`, success: false };
         }
     }
 

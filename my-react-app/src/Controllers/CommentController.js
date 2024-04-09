@@ -9,6 +9,7 @@ class CommentController {
     }
 
     async getCommentsForPost(post_id){
+
         try{
             const response = await makeRequest('GET', `${this.COMMENTS_API_ROUTE}/getComments/?post_id=${post_id}`);
             return response;
@@ -19,6 +20,7 @@ class CommentController {
     }
 
     async createComment(post_id, user_id,  username, content){
+
         try{
             const response = await makeRequest('POST', this.COMMENTS_API_ROUTE+'/createComment', {
                 post_id: post_id,
@@ -35,6 +37,10 @@ class CommentController {
     }
 
     async updateComment(comment_id, content){
+
+        if(!comment_id || comment_id === "") await Promise.reject('No id provided');
+        if(!content || content === "") await Promise.reject('comment cannot be empty');
+
         try{
             const response = await makeRequest('PUT', this.COMMENTS_API_ROUTE+'/updateComment', {
                 comment_id: comment_id,

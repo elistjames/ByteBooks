@@ -21,7 +21,7 @@ export async function makeRequest(method, endpoint, body) {
         return await response.json();
     }
     catch (error){
-        return error;
+        throw new Error(error);
     }
 
 }
