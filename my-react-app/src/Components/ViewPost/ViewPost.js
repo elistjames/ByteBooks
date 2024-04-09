@@ -49,7 +49,7 @@ const ViewPost = () => {
     const [dialogMessage, setDialogMessage] = useState('');
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState('');
-    const [selectedComment, setSelectedComment] = useState();
+    const [selectedCommentId, setSelectedCommentId] = useState();
     const [deletePostMode, setDeletePostMode] = useState(true);
 
     useEffect(() => {
@@ -83,8 +83,13 @@ const ViewPost = () => {
             }
             if(comment.comment_id === -1){
                 CommentController.createComment(post.post_id, userId, username, com).then((commentId) => {
+                    if(!commentId){
+                        handleError("comment did not render. please refresh");
+                        return;
+                    }
                     const newComment = {
-                        post_id: commentId,
+                        comment_id: commentId,
+                        post_id: post.post_id,
                         user_id: userId,
                         username: username,
                         content: com
@@ -201,9 +206,8 @@ const ViewPost = () => {
         }
     };
 
-    const handleDeleteComment = (comment) => {
-        setSelectedComment(comment);
-        console.log(comment.comment_id);
+    const handleDeleteComment =(commentId) => {
+        setSelectedCommentId(commentId);
         setDialogMessage("Are you sure you want to delete this comment?");
         setDeletePostMode(false);
         setModalDialog(true);
@@ -211,10 +215,18 @@ const ViewPost = () => {
     }
 
     const deleteComment = () => {
-        if(!selectedComment) return;
         setModalDialog(false);
-        CommentController.deleteComment(selectedComment.comment_id).then((response) => {
-            const index = comments.indexOf(selectedComment);
+        if(!selectedCommentId) {
+            handleError("comment not found: refresh and try again");
+            return;
+        }
+        CommentController.deleteComment(selectedCommentId).then((response) => {
+            const comment = comments.find(c => c.comment_id === selectedCommentId);
+            if(!comment){
+                handleError("comment not found: refresh and try again");
+                return;
+            }
+            const index = comments.indexOf(comment);
             if(index < 0) {
                 return;
             }
@@ -255,7 +267,6 @@ const ViewPost = () => {
     };
 
     const handleError = (message) => {
-        console.log(message);
         setErrorMessage(message);
         setShowError(true);
     };

@@ -7,7 +7,10 @@ const commentRouter = express.Router();
 commentRouter.get('/getComments', (req, res) => {
     const { post_id } = req.query;
 
-    const sql = 'SELECT * FROM comments c WHERE c.post_id = ?';
+    const sql =
+        'SELECT * FROM comments c ' +
+        'WHERE c.post_id = ?' +
+        'ORDER BY created_at desc;';
 
     executeQuery(sql, post_id, (err, result) => {
         if (err) {
@@ -52,6 +55,11 @@ commentRouter.put('/updateComment', (req, res) => {
 
 commentRouter.delete('/deleteComment', (req, res) => {
     const { comment_id } = req.body;
+
+    if(!comment_id || comment_id == -1){
+        res.status(500).json({ message: "comment id not provided" });
+        return;
+    }
 
     const sql = 'DELETE FROM comments c WHERE c.comment_id = ?;';
 

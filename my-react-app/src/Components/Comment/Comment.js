@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,15 +10,23 @@ import {Button} from "react-bootstrap";
 import {useSession} from "../SessionContext";
 import { PiTrash } from "react-icons/pi";
 import { TbEdit } from "react-icons/tb";
+import MainPageController from "../../Controllers/MainPageController";
+import CommentController from "../../Controllers/CommentController";
 const Comment = ({comment, is_form, onSubmit, deleteComment}) => {
     const isForm = is_form === "true";
     const {userId} = useSession();
+    const [commentData, setCommentData] = useState(comment);
     const [userComment, setUserComment] = useState("");
     const [editedComment, setEditedComment] = useState("");
     const [loading, setLoading] = useState(false);
     const [editComment, setEditComment] = useState(false);
     const btnRef = useRef(null);
     const updateBtnRef = useRef(null);
+
+
+    useEffect(() => {
+        setCommentData(comment);
+    }, [comment]);
 
     const handleKeyUp = (event) => {
         if (event.key === 'Enter') {
@@ -41,7 +49,7 @@ const Comment = ({comment, is_form, onSubmit, deleteComment}) => {
     }
 
     const handleDeleteComment = () => {
-        deleteComment(comment);
+        deleteComment(commentData.comment_id);
     }
 
     const handleSubmit = (event)=>{

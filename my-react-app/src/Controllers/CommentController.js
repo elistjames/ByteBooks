@@ -14,7 +14,7 @@ class CommentController {
             return response;
         }
         catch (error){
-            throw new Error('Failed to get comments: ' + error.message);
+            await Promise.reject('Failed to get comments: ' + error.message);
         }
     }
 
@@ -26,10 +26,11 @@ class CommentController {
                 username: username,
                 content: content
             });
+            console.log(response.id);
             return response.id;
         }
         catch(error){
-            throw new Error('Failed to create comment: ' + error.message);
+            await Promise.reject('Failed to create comment: ' + error.message);
         }
     }
 
@@ -42,11 +43,16 @@ class CommentController {
             return response.message;
         }
         catch(error){
-            throw new Error('Failed to update comment: ' + error.message);
+            await Promise.reject('Failed to update comment: ' + error.message);
         }
     }
 
     async deleteComment(comment_id){
+
+        if(!comment_id){
+            await Promise.reject("no id provided");
+        }
+
         try{
             const response = await makeRequest('DELETE', this.COMMENTS_API_ROUTE+'/deleteComment', {
                 comment_id: comment_id
