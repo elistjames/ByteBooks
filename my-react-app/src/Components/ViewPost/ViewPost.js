@@ -301,7 +301,7 @@ const ViewPost = () => {
                     <div className="post-container">
                         <div className="view-post-header">
                             <div className="view-post-title">
-                                <h1 id="post-title">{post === null ? "" : post.title}</h1>
+                                {post === null ? "" : post.title}
                             </div>
                             <div className="user-post-date">
                                 <span id="view-post-author">{post === null ? "" : `@${post.username}`}</span>
