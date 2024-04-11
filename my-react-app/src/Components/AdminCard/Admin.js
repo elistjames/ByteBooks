@@ -147,14 +147,23 @@ const Admin = () => {
                                 {reportedPosts.map((post) => (
                                     <ListGroup.Item key={uuidv4()} className="post-bar">
                                         <div className="post-info">
-                                            <span className="report-count">{post.report_count}</span>
-                                            <span className="post-username">{post.username}</span>
-                                            <span className="post-title">{post.title}</span>
+                                            <div className="report-count-container">
+                                                <div className="report-count">{post.report_count}</div>
+                                            </div>
+                                            <div className="post-details">
+                                                <div className="post-title">{post.title}</div>
+                                                <div className="view-reported-post-container">
+                                                    <Button size="sm" className="btn-primary view-btn"
+                                                            title="View post"
+                                                            onClick={() => viewPost(post.post_id)}>View</Button>
+                                                </div>
+                                            </div>
+                                            <div className="post-actions">
+                                                <IoTrashOutline className="remove-post-icon"
+                                                                onClick={() => deletePost(post)} title="Delete post"/>
+                                            </div>
                                         </div>
-                                        <div className="post-actions">
-                                        <Button variant="primary" size="sm" className="view-btn" title="View post" onClick={() => viewPost(post.post_id)}>View</Button> 
-                                        <IoTrashOutline className="remove-post-icon" onClick={() => deletePost(post)} title="Delete post"/>
-                                        </div>
+
                                     </ListGroup.Item>
                                 ))}
                             </ListGroup>
