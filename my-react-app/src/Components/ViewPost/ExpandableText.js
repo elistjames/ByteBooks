@@ -16,11 +16,15 @@ const ExpandableText = ({ children, descriptionLength, disabled}) => {
     };
   
     if (disabled) {
-        return <p>{ fullText }</p>
+        return <div dangerouslySetInnerHTML={{__html: fullText}}></div>
     }
     return (
-      <div>
-        {isExpanded ? fullText : `${fullText.slice(0, descriptionLength)}...`}
+        <div>
+            {isExpanded ?
+                <div dangerouslySetInnerHTML={{__html: fullText}}></div>
+            :
+            <div dangerouslySetInnerHTML={{__html: `${fullText.slice(0, descriptionLength)}...`}}></div>
+        }
         <br></br><br></br>
         <div className="expand-button-container">
             <Button className="expand-button" onClick={toggleText}>

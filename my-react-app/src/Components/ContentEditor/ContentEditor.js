@@ -62,8 +62,8 @@ const ContentEditor = () => {
             return;
         }
 
-        if(content.length > 1000){
-            handleError(`Character count ${content.length}/1000`)
+        if(content.length > 1500){
+            handleError(`Character count ${content.length}/1500`)
             return;
         }
 
