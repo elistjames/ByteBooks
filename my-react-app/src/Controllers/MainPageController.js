@@ -9,6 +9,7 @@ class MainPageController{
     }
 
     async getAllPosts(userType, user_id) {
+
         if(userType !== 'guest' && !user_id) await Promise.reject('Failed to get posts: session data not found');
         try{
             return await makeRequest('GET', `${this.POSTS_API_ROUTE}/posts/?userId=${user_id}`);
@@ -18,8 +19,8 @@ class MainPageController{
         }
     }
 
-    async getSearchedPosts(search) {
-        let posts = await this.getAllPosts();
+    async getSearchedPosts(search, userType, user_id) {
+        let posts = await this.getAllPosts(userType, user_id);
 
         if(search !== ""){
             posts = posts.filter(post =>

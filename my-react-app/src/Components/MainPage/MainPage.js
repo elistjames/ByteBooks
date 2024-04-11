@@ -34,7 +34,7 @@ const MainPage = () =>
     }, [userId, username, userType]);
 
     const handleOnSubmitSearch = (search) => {
-        MainPageController.getSearchedPosts(search).then((data) => {
+        MainPageController.getSearchedPosts(search, userType, userId).then((data) => {
             setPosts(data);
         }).catch((err) =>{
             handleError(err);
