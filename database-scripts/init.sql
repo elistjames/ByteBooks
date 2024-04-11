@@ -13,7 +13,7 @@ CREATE TABLE posts (
     user_id INT NOT NULL, -- Refers to author
     username VARCHAR(50) NOT NULL,
     title VARCHAR(50) NOT NULL,
-    content VARCHAR(1000) NOT NULL,
+    content VARCHAR(1500) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

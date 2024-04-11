@@ -301,7 +301,7 @@ const ViewPost = () => {
                     <div className="post-container">
                         <div className="view-post-header">
                             <div className="view-post-title">
-                                <h1 id="post-title">{post === null ? "" : post.title}</h1>
+                                {post === null ? "" : post.title}
                             </div>
                             <div className="user-post-date">
                                 <span id="view-post-author">{post === null ? "" : `@${post.username}`}</span>
@@ -350,10 +350,10 @@ const ViewPost = () => {
                                     </Dropdown>
                                 </div>
                                 <div className="view-post-text-container">
-                                    {<ExpandableText className="comment-text"
+                                    <ExpandableText className="comment-text"
                                                      children={post === null ? "" : post.content}
                                                      descriptionLength={SECONDARY_CHARACTER_LIMIT}
-                                                     disabled={notOverLimit}/>}
+                                                     disabled={notOverLimit}/>
                                 </div>
                                 <div className="media-btn-container">
                                     <Button className="view-post-media-btn" variant="link" onClick={likeClicked}>
