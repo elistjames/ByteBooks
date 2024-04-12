@@ -1,7 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import { BsPersonCircle } from "react-icons/bs";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 import './Comment.css';
@@ -10,8 +8,7 @@ import {Button} from "react-bootstrap";
 import {useSession} from "../SessionContext";
 import { PiTrash } from "react-icons/pi";
 import { TbEdit } from "react-icons/tb";
-import MainPageController from "../../Controllers/MainPageController";
-import CommentController from "../../Controllers/CommentController";
+
 const Comment = ({comment, is_form, onSubmit, deleteComment}) => {
     const isForm = is_form === "true";
     const {userId} = useSession();

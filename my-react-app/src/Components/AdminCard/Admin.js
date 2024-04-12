@@ -61,7 +61,6 @@ const Admin = () => {
     };
 
     const handleDelete = () => {
-        let itemName = '';
         setModalDialog(false);
         if (activeTab === 'users') {
             const user = reportedUsers.find(user => user.reported_user_id === currentUserId);

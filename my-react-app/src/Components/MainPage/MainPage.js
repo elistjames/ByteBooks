@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import { PiPlusBold } from "react-icons/pi";
 import './MainPage.css';
 import ContentCard from "../ContentCard/ContentCard";
-import postData from "../../demoData/posts.json";
 import { v4 as uuidv4 } from 'uuid';
 import MainPageController from "../../Controllers/MainPageController";
 import { useSession } from "../SessionContext";
