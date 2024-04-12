@@ -27,7 +27,7 @@ class ReportsController {
 
         const report = await makeRequest('GET', `${this.REPORTS_API_ROUTE}/getPostReport/?userId=${user_id}&postId=${post_id}`);
         if(report.length > 0){
-            await Promise.reject("You have already reported this post");
+            await Promise.reject("You have already reported this post.");
         }
         try{
             const response = await makeRequest('POST', this.REPORTS_API_ROUTE+'/createReport', {
@@ -50,7 +50,7 @@ class ReportsController {
 
         const report = await makeRequest('GET', `${this.REPORTS_API_ROUTE}/getUserReport/?userId=${user_id}&reportedUserId=${reported_user_id}`);
         if(report.length > 0){
-            await Promise.reject("You have already reported this user");
+            await Promise.reject("You have already reported this user.");
         }
         try{
             const response = await makeRequest('POST', this.REPORTS_API_ROUTE+'/createReport', {

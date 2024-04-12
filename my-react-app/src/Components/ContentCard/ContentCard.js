@@ -18,7 +18,7 @@ const ContentCard = ({post, deletePost}) => {
     const [dislikedByUser, setDislikedByUser] = useState(post.disliked_by_user);
     const [numLikes, setNumLikes] = useState(post.num_likes);
     const [numDislikes, setNumDislikes] = useState(post.num_dislikes);
-    const [numComments, setNumComments] = useState(post.num_comments);
+    const [numComments] = useState(post.num_comments);
     const containerRef = useRef();
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -33,14 +33,14 @@ const ContentCard = ({post, deletePost}) => {
     const handleReport = (reportPostMode) => {
         if(reportPostMode){
             ReportController.reportPost(post.post_id, userId, username).then((response) =>{
-                handleError(`Post ${post.title} has been reported`);
+                handleError(`Post "${post.title}" has been reported.`);
             }).catch((err) => {
                 handleError(err);
             });
         }
         else{
             ReportController.reportUser(post.user_id, userId, username).then((response) =>{
-                handleError(`User ${post.username} has been reported`);
+                handleError(`User "${post.username}" has been reported.`);
             }).catch((err) => {
                 handleError(err);
             });
@@ -137,7 +137,7 @@ const ContentCard = ({post, deletePost}) => {
 
     const isOwner = () => {
         if(post === null) return false;
-        return post.user_id == userId;
+        return post.user_id === userId;
     };
 
     return(
