@@ -1,4 +1,4 @@
-# Running ByteBooks Setup Instructions
+# ByteBooks Setup Instructions
 
 Follow these simple steps to get started with ByteBooks.
 
@@ -36,3 +36,17 @@ MYSQL_PASSWORD=secret
 docker-compose up --build
 ```
 When the containers are done building, the app will be available on [http://localhost:8888](http://localhost:8888) on your browser. 
+
+## Demo Accounts
+
+The app is initialized with some data. Below are some accounts you can use to access the app. You can also create a member account through the sign up page.
+
+*Note: Admin accounts cannot be created.*
+
+| Username  | Password  | Role    |
+|-----------|-----------|---------|
+| alex_admin     | adminpassword1 | Admin |
+| sara_admin     | adminpassword2 | Admin |
+| emily_writer     | password1 | Member |
+| jon_jones     | password2 | Member |
+| adam.help     | password3 | Member |
