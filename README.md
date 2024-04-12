@@ -30,7 +30,7 @@ MYSQL_DATABASE=app_db
 MYSQL_USER=user
 MYSQL_PASSWORD=secret
 ```
-### 3. Run the docker to view the app
+### 3. Run the docker containers to view the app
 
 ```bash
 docker-compose up --build
@@ -50,3 +50,5 @@ The app is initialized with some data. Below are some accounts you can use to ac
 | emily_writer     | password1 | Member |
 | jon_jones     | password2 | Member |
 | adam.help     | password3 | Member |
+| estjames     | estpassword1 | Member |
+| sammy_rolly     | sammypass1 | Member |

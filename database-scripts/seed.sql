@@ -4,10 +4,10 @@ VALUES
     ('alex_admin', '4179a76f97865271164fa5cccdaa0e3f173dc2e27b72becaf83fddc4eb799b9d', NOW(), 'ADMIN'), -- password: adminpassword1
     ('sara_admin', 'f2414955bb915be77a03ba13b08e7196a1a6d8f6a23b8fa5cdfacdab1aba4c0c', NOW(), 'ADMIN'), -- password: adminpassword2
     ('emily_writer', '0b14d501a594442a01c6859541bcb3e8164d183d32937b851835442f69d5c94e', NOW(), 'MEMBER'), -- password: password1
-    ('jon_jones', '6cf615d5bcaac778352a8f1f3360d23f02f34ec182e259897fd6ce485d7870d4', NOW(), 'MEMBER'), --password: password2
-    ('adam.help', '5906ac361a137e2d286465cd6588ebb5ac3f5ae955001100bc41577c3d751764', NOW(), 'MEMBER'), --password: password3
-    ('estjames', 'a246634d4d14bcca59ef9caba0b5d1a6c589d69836ae702f2c7ace875ebd5bc3', NOW(), 'MEMBER'),
-    ('sammy_rolly', 'c25623d8fd025cc806e173e4646f9fcab88f28eced842f387f4b81ff1726f31e', NOW(), 'MEMBER');
+    ('jon_jones', '6cf615d5bcaac778352a8f1f3360d23f02f34ec182e259897fd6ce485d7870d4', NOW(), 'MEMBER'), -- password: password2
+    ('adam.help', '5906ac361a137e2d286465cd6588ebb5ac3f5ae955001100bc41577c3d751764', NOW(), 'MEMBER'), -- password: password3
+    ('estjames', 'a246634d4d14bcca59ef9caba0b5d1a6c589d69836ae702f2c7ace875ebd5bc3', NOW(), 'MEMBER'), -- password: estpassword1
+    ('sammy_rolly', 'c25623d8fd025cc806e173e4646f9fcab88f28eced842f387f4b81ff1726f31e', NOW(), 'MEMBER'); -- password: sammypass1
 
 
 INSERT INTO posts (user_id, username, title, content, created_at)
