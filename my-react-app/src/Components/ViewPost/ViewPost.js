@@ -1,16 +1,13 @@
 import React, {useState, useEffect} from "react";
 import Card from 'react-bootstrap/Card';
-import CardContent from '@mui/material/CardContent';
 import Button from 'react-bootstrap/Button';
 import {Dropdown, DropdownButton} from "react-bootstrap";
 import { useMediaQuery } from 'react-responsive';
-import {getPost} from '../../demoApi';
 import Comment from '../Comment/Comment';
 import { v4 as uuidv4 } from 'uuid';
 import { useSession } from "./../SessionContext";
 import {Link, useNavigate} from 'react-router-dom';
 import ExpandableText from "./ExpandableText";
-import { format } from 'date-fns';
 import "./ViewPost.css"
 import {useParams} from "react-router-dom";
 import CommentController from "../../Controllers/CommentController";
@@ -21,15 +18,6 @@ import MessageToast from "../MessageToast";
 import {BsHandThumbsDown, BsHandThumbsDownFill, BsHandThumbsUp, BsHandThumbsUpFill} from "react-icons/bs";
 import ConfirmationModal from "../ConfirmationCard/ConfirmationModal";
 import ConfirmationToast from "../ConfirmationCard/ConfirmationToast";
-
-const displayTest = (limit) => {
-    let text = "";
-    let i = 0;
-    for (; i < limit; i++ ) {
-        text += "a";
-    }
-    return text;
-}
 
 const ViewPost = () => {
     const { id } = useParams();

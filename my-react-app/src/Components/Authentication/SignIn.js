@@ -1,4 +1,3 @@
-//import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import "./../../index.css";
@@ -27,8 +26,7 @@ const SignIn = () => {
             setLoginError('Please fill out all fields.');
             return;
             }
-            const { token, permission, id } = await SignInController.signIn({ username, password });
-            // localStorage.setItem('token', token);
+            const { permission, id } = await SignInController.signIn({ username, password });
             if (permission === 'ADMIN') {
                 setUserRoleType('admin');
             } 

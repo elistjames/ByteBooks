@@ -1,4 +1,4 @@
-// Code initially copied from: https://www.kindacode.com/article/how-to-create-a-read-more-less-button-in-react/
+//Adapted from Goodman, A. (2023). How to Create a Read More/Less Button in React. Retrieved from https://www.kindacode.com/article/how-to-create-a-read-more-less-button-in-react/
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 

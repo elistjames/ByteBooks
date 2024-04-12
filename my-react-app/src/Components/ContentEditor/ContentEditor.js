@@ -3,9 +3,7 @@ import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import "./ContentEditor.css"
 import {useNavigate, useParams} from "react-router-dom";
-import {getPost} from "../../demoApi";
 import ContentEditable from "react-contenteditable";
-import Form from "react-bootstrap/Form";
 import MainPageController from "../../Controllers/MainPageController";
 import {useSession} from "../SessionContext";
 import MessageToast from "../MessageToast";
@@ -15,7 +13,7 @@ const ContentEditor = () => {
     const { userId } = useSession();
     const { username } = useSession();
     const navigate = useNavigate();
-    const [newPost, setNewPost] = useState(!id);
+    const [newPost] = useState(!id);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [showError, setShowError] = useState(false);
