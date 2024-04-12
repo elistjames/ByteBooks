@@ -1,6 +1,5 @@
 import {makeRequest} from "./AppController";
 
-
 const POSTS_API_ROUTE = '/post';
 
 class MainPageController{

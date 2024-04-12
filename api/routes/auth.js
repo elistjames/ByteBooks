@@ -2,8 +2,6 @@ const express = require('express');
 const { executeQuery } = require('../db');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-
-
 const authRouter = express.Router();
 
 //key for verifying auth tokens
@@ -52,20 +50,6 @@ authRouter.post('/login', (req, res) => {
         } else {
             res.status(401).json({ error: 'Invalid username or password' });
         }
-    });
-});
-
-
-
-authRouter.get('/users', (req, res) => {
-
-    const sql = 'SELECT * FROM users';
-    executeQuery(sql, (err, results) => {
-        if (err) {
-            res.status(500).json({ message: "Failed to get users" });
-            return;
-        }
-        res.json(results);
     });
 });
 

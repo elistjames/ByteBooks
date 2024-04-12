@@ -29,6 +29,7 @@ const ContentCard = ({post, deletePost}) => {
         }
 
     }, [post.content]);
+    console.log(userType);
 
     const handleReport = (reportPostMode) => {
         if(reportPostMode){
@@ -137,7 +138,7 @@ const ContentCard = ({post, deletePost}) => {
 
     const isOwner = () => {
         if(post === null) return false;
-        return post.user_id === userId;
+        return parseInt(post.user_id) === parseInt(userId);
     };
 
     return(

@@ -1,9 +1,6 @@
 const express = require('express');
 const {executeQuery} = require("../db");
-
 const postRouter = express.Router();
-
-
 
 /* Requests */
 

@@ -1,6 +1,5 @@
 const express = require('express');
 const {executeQuery} = require("../db");
-
 const likeRouter = express.Router();
 
 /* Requests */
@@ -22,7 +21,6 @@ likeRouter.post('/createLike', (req, res) => {
         res.status(200).json({ message: "Post has been liked" });
     });
 });
-
 
 likeRouter.delete('/deleteLike', (req, res) => {
     const { post_id, user_id } = req.body;

@@ -1,6 +1,5 @@
 import {makeRequest} from "./AppController";
 
-
 const AUTH_API_ROUTE = '/auth';
 
 class RegisterController{

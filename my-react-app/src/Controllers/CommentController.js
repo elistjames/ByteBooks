@@ -1,6 +1,5 @@
 import {makeRequest} from "./AppController";
 
-
 const COMMENTS_API_ROUTE = '/comment';
 
 class CommentController {

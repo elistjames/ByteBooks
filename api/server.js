@@ -11,9 +11,8 @@ const app = express();
 
 app.use(express.json());
 
-
 const corsOptions = {
-    origin: 'http://localhost:3000'  // when running on docker, set to 8888, when testing locally, change port to 3000
+    origin: 'http://localhost:8888'  // when running on docker, set to 8888, when testing locally, change port to 3000
 };
 app.use(cors(corsOptions));
 
