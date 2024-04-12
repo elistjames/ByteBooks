@@ -1,6 +1,6 @@
 # seng513-202401-group-15
 
-# Running the Database Scheme and Seeding Script
+# Running ByteBooks
 
 Run 
 ```
