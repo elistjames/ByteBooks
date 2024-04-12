@@ -1,10 +1,9 @@
-import React, {useState, useRef, useEffect, forwardRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import "./ContentCard.css";
 import {Dropdown, DropdownButton} from "react-bootstrap";
 import { BsHandThumbsUp, BsHandThumbsUpFill, BsHandThumbsDown, BsHandThumbsDownFill, BsChat } from "react-icons/bs";
-import {brown} from "@mui/material/colors";
 import LikesController from "../../Controllers/LikesController";
 import {useSession} from "../SessionContext";
 import ReportController from "../../Controllers/ReportController";
