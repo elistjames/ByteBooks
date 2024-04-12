@@ -28,7 +28,6 @@ VALUES
 
 INSERT INTO likes (post_id, user_id, created_at)
 VALUES
-    ('1', '3', NOW()),
     ('2', '3', NOW()),
     ('3', '3', NOW()),
     ('4', '3', NOW()),
@@ -43,7 +42,6 @@ VALUES
     ('4', '7', NOW()),
     ('11', '7', NOW()),
     ('12', '7', NOW()),
-    ('12', '1', NOW()),
     ('11', '1', NOW()),
     ('10', '1', NOW()),
     ('8', '1', NOW()),
