@@ -29,7 +29,6 @@ const ContentCard = ({post, deletePost}) => {
         }
 
     }, [post.content]);
-    console.log(userType);
 
     const handleReport = (reportPostMode) => {
         if(reportPostMode){
