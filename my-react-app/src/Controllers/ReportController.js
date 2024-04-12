@@ -67,4 +67,5 @@ class ReportsController {
     }
 }
 
-export default new ReportsController();
+const reportsControllerInstance = new ReportsController();
+export default reportsControllerInstance;

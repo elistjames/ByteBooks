@@ -71,4 +71,5 @@ class CommentController {
     }
 }
 
-export default new CommentController();
+const commentControllerInstance = new CommentController();
+export default commentControllerInstance;

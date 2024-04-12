@@ -29,4 +29,5 @@ class RegisterController{
     }
 }
 
-export default new RegisterController();
+const registerControllerInstance = new RegisterController();
+export default registerControllerInstance;

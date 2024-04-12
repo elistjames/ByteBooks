@@ -94,5 +94,5 @@ class MainPageController{
         }
     }
 }
-
-export default new MainPageController();
+const mainPageControllerInstance = new MainPageController();
+export default mainPageControllerInstance;

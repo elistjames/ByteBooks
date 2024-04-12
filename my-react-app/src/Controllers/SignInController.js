@@ -24,4 +24,5 @@ async signIn(userData) {
     }
 }
 
-export default new SignInController();
+const signInControllerInstance = new SignInController();
+export default signInControllerInstance;
