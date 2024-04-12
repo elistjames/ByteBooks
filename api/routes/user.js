@@ -54,6 +54,10 @@ userRouter.put('/changePassword', (req, res) => {
     const { userId, oldPassword, newPassword } = req.body;
     
     const hashedNewPassword = crypto.createHash('sha256').update(newPassword).digest('hex');
+
+    if (crypto.createHash('sha256').update(oldPassword).digest('hex') === hashedNewPassword) {
+        return res.status(200).json({ success: false, message: 'New password cannot be the same as the old password.' });
+    }
     
     const sql = 'SELECT * FROM users WHERE id = ? AND password = ?';
     executeQuery(sql, [userId, crypto.createHash('sha256').update(oldPassword).digest('hex')], (err, results) => {
