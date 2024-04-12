@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import {Dropdown, DropdownButton} from "react-bootstrap";
 import { useMediaQuery } from 'react-responsive';
-import {getPost} from '../../demoApi';
 import Comment from '../Comment/Comment';
 import { v4 as uuidv4 } from 'uuid';
 import { useSession } from "./../SessionContext";
