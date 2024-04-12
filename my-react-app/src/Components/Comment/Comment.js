@@ -150,7 +150,7 @@ const Comment = ({comment, is_form, onSubmit, deleteComment}) => {
                                     </button>
                                 </form>
                                 :
-                                comment.content
+                                <div dangerouslySetInnerHTML={{__html: comment.content}}></div>
                             }
                         </div>
                     }
