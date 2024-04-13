@@ -67,7 +67,7 @@ class LikesController {
         if(!userId) await Promise.reject('Failed to like post: user id not found');
         if(likedByUser){
             try{
-                const [response1, response2] = await Promise.all([
+                await Promise.all([
                     await makeRequest('POST', `${this.DISLIKE_API_ROUTE}/createDislike`, {
                         post_id: post_id,
                         user_id: userId
@@ -109,4 +109,6 @@ class LikesController {
         }
     }
 }
-export default new LikesController();
+
+const likesControllerInstance = new LikesController();
+export default likesControllerInstance;

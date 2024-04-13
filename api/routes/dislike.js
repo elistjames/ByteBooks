@@ -1,6 +1,5 @@
 const express = require('express');
 const {executeQuery} = require("../db");
-
 const dislikeRouter = express.Router();
 
 /* Requests */
@@ -23,6 +22,7 @@ dislikeRouter.post('/createDislike', (req, res) => {
         res.status(200).json({ message: "Post has been disliked" });
     });
 });
+
 dislikeRouter.delete('/deleteDislike', (req, res) => {
     const { post_id, user_id } = req.body;
     const sql = 'DELETE FROM dislikes d WHERE d.post_id = ? AND d.user_id = ?;';

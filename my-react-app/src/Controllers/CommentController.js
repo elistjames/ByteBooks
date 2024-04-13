@@ -1,6 +1,5 @@
 import {makeRequest} from "./AppController";
 
-
 const COMMENTS_API_ROUTE = '/comment';
 
 class CommentController {
@@ -71,4 +70,5 @@ class CommentController {
     }
 }
 
-export default new CommentController();
+const commentControllerInstance = new CommentController();
+export default commentControllerInstance;

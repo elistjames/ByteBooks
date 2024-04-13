@@ -1,10 +1,10 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { PiSignIn, PiSignOut } from "react-icons/pi"; // Assuming you have a sign-out icon
+import { PiSignIn, PiSignOut } from "react-icons/pi";
 import "./../App.css";
 import bytebooksLogo from "./../media/navbarLogo.png";
-import { useSession } from "./SessionContext"; // Import useSession hook
+import { useSession } from "./SessionContext";
 
 const HeaderBar = () => {
     const { userType } = useSession(); // Access userType from SessionContext
@@ -38,13 +38,23 @@ const HeaderBar = () => {
                     <Nav>
                         <Nav.Item className="sign-in-icon">
                             {userType === "admin" || userType === "member" ? (
-                                <Link to="/signOut">
-                                    <PiSignOut style={{ color: "white", paddingRight: "10px", paddingTop: "2px", transform: "scale(1.8)" }} />
-                                </Link>
+                                <OverlayTrigger
+                                    placement="bottom"
+                                    overlay={<Tooltip id="sign-out-tooltip">Sign Out</Tooltip>}
+                                >
+                                    <Link to="/signOut">
+                                        <PiSignOut style={{ color: "white", paddingRight: "10px", paddingTop: "2px", transform: "scale(1.8)" }} />
+                                    </Link>
+                                </OverlayTrigger>
                             ) : (
-                                <Link to="/signIn">
-                                    <PiSignIn style={{ color: "white", paddingRight: "10px", paddingTop: "2px", transform: "scale(1.8)" }} />
-                                </Link>
+                                <OverlayTrigger
+                                    placement="bottom"
+                                    overlay={<Tooltip id="sign-in-tooltip">Sign In</Tooltip>}
+                                >
+                                    <Link to="/signIn">
+                                        <PiSignIn style={{ color: "white", paddingRight: "10px", paddingTop: "2px", transform: "scale(1.8)" }} />
+                                    </Link>
+                                </OverlayTrigger>
                             )}
                         </Nav.Item>
                     </Nav>

@@ -1,6 +1,5 @@
 import {makeRequest} from "./AppController";
 
-
 const AUTH_API_ROUTE = '/auth';
 
 class SignInController{
@@ -24,4 +23,5 @@ async signIn(userData) {
     }
 }
 
-export default new SignInController();
+const signInControllerInstance = new SignInController();
+export default signInControllerInstance;

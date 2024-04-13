@@ -1,6 +1,6 @@
 import React from "react";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoHomeOutline, IoPersonOutline, IoBarChartOutline } from "react-icons/io5";
 import { useSession } from "./SessionContext";
 
@@ -14,6 +14,7 @@ const SideNavBar = () => {
   const location = useLocation();
   const { pathname } = location;
   const { userType } = useSession();
+  const navigate = useNavigate();
 
   const getDefaultSelected = () => {
     switch (pathname) {
@@ -38,40 +39,40 @@ const SideNavBar = () => {
       position: 'fixed',
     }}>
       <SideNav.Toggle />
-      <SideNav.Nav defaultSelected={getDefaultSelected()}>
-        <NavItem eventKey="home" selected={pathname === "/"}>
-          <NavIcon>
-            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <IoHomeOutline style={{marginBottom: "5px"}} />
-            </Link>
-          </NavIcon>
-          <NavText>
-            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</Link>
-          </NavText>
-        </NavItem>
-        <NavItem eventKey="profile" selected={pathname === "/profile"}>
-          <NavIcon>
-            <Link to="/profile" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <IoPersonOutline style={{marginBottom: "5px"}} />
-            </Link>
-          </NavIcon>
-          <NavText>
-            <Link to="/profile" style={{ textDecoration: 'none', color: 'inherit' }}>Profile</Link>
-          </NavText>
-        </NavItem>
-        {userType === "admin" && (
-          <NavItem eventKey="admin" selected={pathname === "/admin"}>
+        <SideNav.Nav defaultSelected={getDefaultSelected()}>
+          <NavItem eventKey="home" selected={pathname === "/"} onClick={() => navigate("/")}>
             <NavIcon>
-              <Link to="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <IoBarChartOutline  style={{marginBottom: "5px"}}/>
+              <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <IoHomeOutline style={{marginBottom: "5px"}} />
               </Link>
             </NavIcon>
             <NavText>
-              <Link to="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>Admin</Link>
+              <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</Link>
             </NavText>
           </NavItem>
-        )}
-      </SideNav.Nav>
+          <NavItem eventKey="profile" selected={pathname === "/profile"} onClick={() => navigate("/profile")}>
+            <NavIcon>
+              <Link to="/profile" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <IoPersonOutline style={{marginBottom: "5px"}} />
+              </Link>
+            </NavIcon>
+            <NavText>
+              <Link to="/profile" style={{ textDecoration: 'none', color: 'inherit' }}>Profile</Link>
+            </NavText>
+          </NavItem>
+          {userType === "admin" && (
+            <NavItem eventKey="admin" selected={pathname === "/admin"} onClick={() => navigate("/admin")}>
+              <NavIcon>
+                <Link to="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <IoBarChartOutline  style={{marginBottom: "5px"}}/>
+                </Link>
+              </NavIcon>
+              <NavText>
+                <Link to="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>Admin</Link>
+              </NavText>
+            </NavItem>
+          )}
+        </SideNav.Nav>
     </SideNav>
   );
 };
